@@ -12,7 +12,7 @@ import Vue from 'vue'
 export default Vue.extend({
   computed: {
     layout() { 
-      return (this.$route.meta!.layout ?? 'empty') + '-layout'
+      return (this.$route.meta?.layout ?? 'empty') + '-layout'
     }
   }
 })
