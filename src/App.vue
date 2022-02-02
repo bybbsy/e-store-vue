@@ -1,13 +1,22 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
-    <router-view/>
+    <component :is="layout">
+      <router-view/>
+    </component>
   </div>
 </template>
 
+<script lang="ts">
+import Vue from 'vue'
+
+export default Vue.extend({
+  computed: {
+    layout() { 
+      return (this.$route.meta!.layout ?? 'empty') + '-layout'
+    }
+  }
+})
+</script>
 <style>
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
