@@ -8,7 +8,7 @@ const routes: Array<RouteConfig> = [
   {
     path: '/',
     name: 'Home',
-    meta: {layout: 'default'},
+    meta: { layout: 'default' },
     component: Home
   },
   {
