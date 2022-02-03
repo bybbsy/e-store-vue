@@ -21,6 +21,24 @@ const routes: Array<RouteConfig> = [
     component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
   },
   {
+    path: '/auth',
+    name: 'Auth',
+    meta: { layout: 'default'},
+    component: () => import('../views/AuthPage.vue')
+  },
+  {
+    path: '/coupons',
+    name: 'Coupons',
+    meta: { layout: 'default'},
+    component: () => import('../views/CouponsPage.vue')
+  },
+  {
+    path: '/products',
+    name: 'Products',
+    meta: { layout: 'default'},
+    component: () => import('../views/ProductsPage.vue')
+  },
+  {
     path: '*',
     name: 'Error',
     meta: { layout: 'empty'},
