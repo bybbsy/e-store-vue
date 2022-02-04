@@ -5,7 +5,7 @@
             <div class="navbar__user-block">
                 <div class="user-block__body">
                     <div class="user-block__icon">
-                        <img src="" alt="Avatar">
+                        <img src="~@/assets/mock/Avatar.jpg" alt="Avatar">
                     </div>
                     <div class="user-block__username">
                         <p>¡Hola, Jeff!</p>
@@ -15,8 +15,8 @@
             <BlockFilter/>
             <div class="navbar__auth-block">
                 <div class="auth-block__buttons">
-                    <a href="" class="auth-block__button auth-block__button_sign-up">Sign up</a>
-                    <a href="" class="auth-block__button auth-block__button_sign-in">Sign in</a>
+                    <router-link :to="{ name: 'Auth'}" class="auth-block__button auth-block__button_sign-up">Sign up</router-link>
+                    <router-link :to="{ name: 'Auth'}" class="auth-block__button auth-block__button_sign-in">Sign in</router-link>
                     <!-- <a href="" class="auth-block__button auth-block__button_sign-out">Sign out</a> -->
                 </div>
             </div>
