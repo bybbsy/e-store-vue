@@ -38,12 +38,16 @@ export default Vue.extend({
 
 <style>
 .navbar {
-    /* display: flex;
-    flex-direction: column;
-    align-items: center; */
     width: 300px;
     background-color: #28272B;
     padding: 50px 0;
+    overflow: hidden scroll;
+    height: 100vh;
+    scrollbar-width: none;
+}
+
+.navbar::-webkit-scrollbar {
+    display: none;
 }
 
 .navbar__container {
