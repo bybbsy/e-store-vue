@@ -37,12 +37,6 @@ const routes: Array<RouteConfig> = [
     name: 'Products',
     meta: { layout: 'default' },
     component: () => import('../views/ProductsPage.vue'),
-    children: [
-      {
-        path: '/*',
-        component: () => import('../views/ProductsPage.vue')
-      }
-    ]
   },
   {
     path: '*',
