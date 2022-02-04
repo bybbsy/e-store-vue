@@ -30,6 +30,17 @@ export default Vue.extend({
     font-size: 1.125em;
     font-weight: 500;
     color: #fff;
+    transition: all 0.2s ease-in-out;
+}
+
+.search__input:hover,
+.search__input:focus {
+    background-color: #323036;
+}
+
+.search__input:focus {
+    border: 2px solid #FFA049;
+    font-size: 1.3em;
 }
 
 .input__icon {
