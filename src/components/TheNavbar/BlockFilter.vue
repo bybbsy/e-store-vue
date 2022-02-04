@@ -90,20 +90,9 @@
 </template>
 
 <script lang="ts">
-import Vue from 'vue'; 
+import Vue from 'vue';
+import { filterBlock } from '@/types/filter/index';
 
-interface filter {
-    mainCategory: string,
-    baseUrl: string,
-    authRequired: boolean,
-    filterItems: Array<filterItem>
-}
-
-interface filterItem {
-    name: string,
-    icon: string,
-    link: string
-}
 
 export default Vue.extend({
     name: 'block-filter',
@@ -149,7 +138,7 @@ export default Vue.extend({
                         }
                     ]
                 }
-            ] as Array<filter>
+            ] as Array<filterBlock>
         }
     },
     computed: {
