@@ -1,7 +1,33 @@
 <template>
-    <!-- TODO Если пунктов больше чем 3, то при помощи v-show скрывать остальные -->
+    <!-- TODO Если пунктов больше чем 3, то при помощи v-show скрывать остальные.
+        Добавить возможность скрыть и раскрыть список -->
     <div class="navbar__filters-block">
-        <div class="filter-block">
+
+        <div class="filter-block" v-for="(filter, index) in filterItems" :key="index">
+            <div class="filter-block__body" v-if="!filter.authRequired || userIsAuthorized">
+                <div class="filter-block__main-filter">
+                    <router-link :to="filter.baseUrl" class="main-filter__name">#{{ filter.mainCategory }}</router-link>
+                </div>
+                <ul class="filters-list">
+                <router-link class="filter-element"
+                    v-for="(category, categoryIndex) in filter.filterItems"
+                    :key="categoryIndex"
+                    :to="`${filter.baseUrl}/${category.link}`"
+                    >
+
+                    <div class="filter-element__icon">
+                        <img :src="require('@/assets/base/' + category.icon)" :alt="category.name">
+                    </div>
+                    
+                    <div class="filter-element__name">
+                        <span>{{ category.name }}</span>
+                    </div>
+                </router-link>
+            </ul>
+            </div>
+        </div>
+
+        <!-- <div class="filter-block">
             <div class="filter-block__body">
                 <div class="filter-block__main-filter">
                     <span class="main-filter__name">#Tienda</span>
@@ -33,9 +59,9 @@
                     </div>
                 </ul>
             </div>
-        </div>
+        </div> -->
 
-        <div class="filter-block">
+        <!-- <div class="filter-block">
             <div class="filter-block__body">
                 <div class="filter-block__main-filter">
                     <span class="main-filter__name">#Personal</span>
@@ -59,15 +85,78 @@
                     </div>
                 </ul>
             </div>
-        </div>
+        </div> -->
     </div>
 </template>
 
 <script lang="ts">
-import Vue from 'vue';
+import Vue from 'vue'; 
+
+interface filter {
+    mainCategory: string,
+    baseUrl: string,
+    authRequired: boolean,
+    filterItems: Array<filterItem>
+}
+
+interface filterItem {
+    name: string,
+    icon: string,
+    link: string
+}
 
 export default Vue.extend({
-    name: 'block-filter'
+    name: 'block-filter',
+    data() {
+        return {
+            filterItems: [
+                {
+                    mainCategory: 'store',
+                    baseUrl: 'products',
+                    authRequired: false,
+                    filterItems: [
+                        {
+                            name: 'Toys',
+                            icon: 'Light-bulb.png',
+                            link: 'toys' 
+                        },
+                        {
+                            name: 'Health',
+                            icon: 'Heart.png',
+                            link: 'health'
+                        },
+                        {
+                            name: 'Food',
+                            icon: 'Apple.png',
+                            link: 'Food'
+                        }
+                    ]
+                },
+                {
+                    mainCategory: 'personal',
+                    baseUrl: '',
+                    authRequired: true,
+                    filterItems: [
+                        {
+                            name: 'My cart',
+                            icon: 'Cart.png',
+                            link: 'cart'
+                        },
+                        {
+                            name: 'Coupons',
+                            icon: 'Coupon.png',
+                            link: 'coupons'
+                        }
+                    ]
+                }
+            ] as Array<filter>
+        }
+    },
+    computed: {
+        userIsAuthorized(): (string | boolean) {
+            return localStorage.getItem('username') ?? false;
+        }
+    }
 })
 </script>
 
