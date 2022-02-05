@@ -59,7 +59,7 @@ export default Vue.extend({
 }
 
 .navbar__user-block {
-    margin: 0 0 25px;
+    margin: 0 0 45px;
 }
 
 .user-block__username {
