@@ -113,4 +113,12 @@ h6 {
   width: 100%;
   min-height: 100%;
 }
+
+.title {
+  font-size: 1.5em;
+  color: #fff;
+  font-weight: 600;
+  line-height: 150%;
+}
+
 </style>
