@@ -13,7 +13,7 @@
 
 <script lang="ts">
 import Vue from 'vue';
-import Input from './Input.vue';
+import Input from '../SearchInput.vue';
 
 export default Vue.extend({
     name: 'products-header',
