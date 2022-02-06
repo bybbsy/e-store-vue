@@ -1,10 +1,10 @@
 <template>
-    <div class="header__input">
-        <input type="text" name="search-input" placeholder="Search" class="search__input">
-        <div class="input__icon">
-            <img src="~@/assets/base/Search.png" alt="Search...">
-        </div>
-    </div>
+  <div class="header__input">
+      <input type="text" name="search-input" placeholder="Search" class="search__input">
+      <div class="input__icon">
+          <img src="~@/assets/base/Search.png" alt="Search...">
+      </div>
+  </div>
 </template>
 
 <script lang="ts">

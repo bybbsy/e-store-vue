@@ -14,7 +14,7 @@ import EmptyLayout from './layouts/EmptyLayout.vue'
 export default Vue.extend({
   name: 'App',
   computed: {
-    layout() { 
+    layout() {
       return (this.$route.meta?.layout ?? 'empty') + '-layout'
     }
   },
@@ -29,7 +29,7 @@ export default Vue.extend({
   padding: 0;
   margin: 0;
   border: 0;
-   
+
 }
 *,
 *:before,
@@ -60,13 +60,13 @@ body {
   width: 100%;
   font-size: 100%;
   line-height: 1;
-  font-size: 14px;
+  font-size: 16px;
   font-family: 'Poppins', serif;
   -ms-text-size-adjust: 100%;
   -moz-text-size-adjust: 100%;
-  -webkit-text-size-adjust: 100%;  
-   
-   
+  -webkit-text-size-adjust: 100%;
+
+
 }
 nav,
 input,
@@ -121,4 +121,14 @@ h6 {
   line-height: 150%;
 }
 
+.price {
+  color: #fff;
+  font-weight: 500;
+  font-size: 1.875em;
+  line-height: 150%;
+}
+
+.card__bottom {
+  display: flex;
+}
 </style>

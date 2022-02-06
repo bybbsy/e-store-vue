@@ -1,13 +1,13 @@
 <template>
   <header class="products-block__header">
-      <Input />
-      <div class="header__navbar">
-          <router-link class="navbar__item" :to="{name: 'home'}">
-              <div class="navbar__icon">
-                  <img src="~@/assets/base/Bell.png" alt="Notifications">
-              </div>
-          </router-link>
-      </div>
+    <Input />
+    <div class="header__navbar">
+      <router-link class="navbar__item" :to="{name: 'home'}">
+        <div class="navbar__icon">
+            <img src="~@/assets/base/Bell.png" alt="Notifications">
+        </div>
+      </router-link>
+    </div>
   </header>
 </template>
 
@@ -16,10 +16,10 @@ import Vue from 'vue';
 import Input from '../SearchInput.vue';
 
 export default Vue.extend({
-    name: 'products-header',
-    components: {
-        Input
-    }
+  name: 'products-header',
+  components: {
+      Input
+  }
 })
 </script>
 <style>

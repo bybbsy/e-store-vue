@@ -1,27 +1,27 @@
 <template>
     <!--#TODO navbar navbar_collapsed if navbar is collapsed-->
-    <aside class="navbar">
-        <div class="navbar__container">
-            <div class="navbar__user-block">
-                <div class="user-block__body">
-                    <div class="user-block__icon">
-                        <img src="~@/assets/mock/Avatar.jpg" alt="Avatar">
-                    </div>
-                    <div class="user-block__username">
-                        <p>¡Hola, Jeff!</p>
-                    </div>
-                </div>
-            </div>
-            <BlockFilter/>
-            <div class="navbar__auth-block">
-                <div class="auth-block__buttons">
-                    <router-link :to="{ name: 'Auth'}" class="auth-block__button auth-block__button_sign-up">Sign up</router-link>
-                    <router-link :to="{ name: 'Auth'}" class="auth-block__button auth-block__button_sign-in">Sign in</router-link>
-                    <!-- <a href="" class="auth-block__button auth-block__button_sign-out">Sign out</a> -->
-                </div>
-            </div>
-        </div>
-    </aside>
+  <aside class="navbar">
+      <div class="navbar__container">
+          <div class="navbar__user-block">
+              <div class="user-block__body">
+                  <div class="user-block__icon">
+                      <img src="~@/assets/mock/Avatar.jpg" alt="Avatar">
+                  </div>
+                  <div class="user-block__username">
+                      <p>¡Hola, Jeff!</p>
+                  </div>
+              </div>
+          </div>
+          <BlockFilter/>
+          <div class="navbar__auth-block">
+              <div class="auth-block__buttons">
+                  <router-link :to="{ name: 'Auth'}" class="auth-block__button auth-block__button_sign-up">Sign up</router-link>
+                  <router-link :to="{ name: 'Auth'}" class="auth-block__button auth-block__button_sign-in">Sign in</router-link>
+                  <!-- <a href="" class="auth-block__button auth-block__button_sign-out">Sign out</a> -->
+              </div>
+          </div>
+      </div>
+  </aside>
 </template>
 
 <script lang="ts">
@@ -38,82 +38,82 @@ export default Vue.extend({
 
 <style>
 .navbar {
-    width: 300px;
-    background-color: #28272B;
-    padding: 50px 0;
-    overflow: hidden scroll;
-    height: 100vh;
-    scrollbar-width: none;
+  min-width: 300px;
+  background-color: #28272B;
+  padding: 50px 0;
+  overflow: hidden scroll;
+  height: 100vh;
+  scrollbar-width: none;
 }
 
 .navbar::-webkit-scrollbar {
-    display: none;
+  display: none;
 }
 
 .navbar__container {
-    width: 215px;
-    display: flex;
-    flex-direction: column;
-    margin: 0 auto;
-    min-height: 100%;
+  width: 215px;
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
+  min-height: 100%;
 }
 
 .navbar__user-block {
-    margin: 0 0 45px;
+  margin: 0 0 45px;
 }
 
 .user-block__username {
-    line-height: 150%;
-    text-align: center;
-    font-weight: 600;
-    color: #fff;
-    font-size: 1.5em;
+  line-height: 150%;
+  text-align: center;
+  font-weight: 600;
+  color: #fff;
+  font-size: 1.5em;
 }
 
 .user-block__icon {
-    position: relative;
-    margin: 0 auto 25px;
-    width: 96px;
-    height: 96px;
-    border-radius: 50%;
-    cursor: pointer;
+  position: relative;
+  margin: 0 auto 25px;
+  width: 96px;
+  height: 96px;
+  border-radius: 50%;
+  cursor: pointer;
 }
 
 .user-block__icon img {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    border-radius: inherit; 
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: inherit;
 }
 
 .navbar__auth-block {
-    display: flex;
-    flex: 1 1;
+  display: flex;
+  flex: 1 1;
 }
 .auth-block__buttons {
-    display: flex;
-    flex-direction: column;
-    margin: auto 0 0;
-    width: 100%;
-    height: 100%;
+  display: flex;
+  flex-direction: column;
+  margin: auto 0 0;
+  width: 100%;
+  height: 100%;
 }
 
 .auth-block__button:not(:last-child) {
-    margin: 0 0 5px;
+  margin: 0 0 5px;
 }
 
 .auth-block__button {
-    width: 100%;
-    border-radius: 25px;
-    min-height: 50px;
-    color: #fff;
-    line-height: 27px;
-    padding: 10px 18px;
-    font-size: 1.125em;
-    text-align: center;
-    transition: 0.2s all ease;
+  width: 100%;
+  border-radius: 25px;
+  min-height: 50px;
+  color: #fff;
+  line-height: 27px;
+  padding: 10px 18px;
+  font-size: 1.125em;
+  text-align: center;
+  transition: 0.2s all ease;
 }
 
 .auth-block__button:hover {
@@ -121,42 +121,42 @@ export default Vue.extend({
 }
 
 .auth-block__button_sign-up {
-    background-color: #FFA049;
+  background-color: #FFA049;
 }
 
 .auth-block__button_sign-in {
-    background-color: #5DBF79;
+  background-color: #5DBF79;
 }
 
 .auth-block__button_sign-out {
-    background-color: #D7263D;
+  background-color: #D7263D;
 }
 
 @media screen and (max-width: 920px) {
-    .navbar {
-        width: 150px;
-    }
+  .navbar {
+    width: 150px;
+  }
 
-    .navbar__container {
-        width: 135px;
-    }
+  .navbar__container {
+    width: 135px;
+  }
 
-    .user-block__icon {
-        width: 60px;
-        height: 60px;
-    }
+  .user-block__icon {
+    width: 60px;
+    height: 60px;
+  }
 
-    .filter-block__main-filter,
-    .filter-element__name {
-        display: none;
-    }
+  .filter-block__main-filter,
+  .filter-element__name {
+    display: none;
+  }
 
-    .filter-element {
-        justify-content: center;
-    }
-    
-    .filter-element__icon {
-        margin: 0 auto;
-    }
+  .filter-element {
+    justify-content: center;
+  }
+
+  .filter-element__icon {
+    margin: 0 auto;
+  }
 }
 </style>
