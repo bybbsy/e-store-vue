@@ -150,6 +150,7 @@ export default Vue.extend({
 }
 
 .hint__link {
+  margin-left: 5px;
   color: #F0AB20;
 }
 
