@@ -9,12 +9,12 @@
       <div class="auth__container _container_right">
         <form class="auth__form">
           <div class="auth__header">
-            <h5>Sign in</h5>
+            <h5>{{ $t('sign_in_title') }}</h5>
           </div>
           <div class="auth__content">
             <div class="auth__row">
               <div class="field-block">
-                <label for="sign-in-email" class="input__label">E-mail</label>
+                <label for="sign-in-email" class="input__label">{{ $t('email') }}</label>
                 <div class="input-block">
                   <input type="email" name="e-mail" class="form__input form__input-email" id="sign-in-email" placeholder="John">
                   <img src="~@/assets/form/form-email.png" alt="" class="input-img">
@@ -23,7 +23,7 @@
             </div>
             <div class="auth__row">
               <div class="field-block">
-                <label for="sign-in-password" class="input__label">Password</label>
+                <label for="sign-in-password" class="input__label">{{ $t('password') }}</label>
                 <div class="input-block">
                   <input type="password" name="password" class="form__input form__input-password" id="sign-in-password" placeholder="********">
                   <img src="~@/assets/form/form-password.png" alt="" class="input-img">
@@ -32,10 +32,10 @@
             </div>
           </div>
           <div class="auth__control">
-            <input type="submit" value="Sign in" class="form__input form__input_sign-in">
+            <input type="submit" :value="$t('sign_in_button')" class="form__input form__input_sign-in">
           </div>
           <div class="auth__hint">
-            <p class="hint__message">Don't have an account? <router-link class="hint__link" :to="{name: 'sign-up'}">Sign up</router-link></p>
+            <p class="hint__message">{{ $t('dont_have_an_accound') }}<router-link class="hint__link" :to="{name: 'sign-up'}">{{ $t('sign_up_title') }}</router-link></p>
           </div>
         </form>
       </div>

@@ -9,19 +9,19 @@
       <div class="auth__container _container_right">
         <form class="auth__form">
           <div class="auth__header">
-            <h5>Sign up</h5>
+            <h5>{{ $t('sign_up_title') }}</h5>
           </div>
           <div class="auth__content">
             <div class="auth__row">
               <div class="field-block">
-                <label for="sign-up-email" class="input__label">First name</label>
+                <label for="sign-up-email" class="input__label">{{ $t('first_name') }}</label>
                 <div class="input-block">
                   <input type="text" name="first-name" class="form__input form__input-name" id="first-name" placeholder="John">
                   <img src="~@/assets/form/form-name.png" alt="" class="input-img">
                 </div>
               </div>
               <div class="field-block">
-                <label for="sign-up-email" class="input__label">Last name</label>
+                <label for="sign-up-email" class="input__label">{{ $t('last_name') }}</label>
                 <div class="input-block">
                   <input type="text" name="last-name" class="form__input form__input-name" id="last-name" placeholder="Doe">
                   <img src="~@/assets/form/form-name.png" alt="" class="input-img">
@@ -30,7 +30,7 @@
             </div>
             <div class="auth__row">
               <div class="field-block">
-                <label for="sign-up-email" class="input__label">E-mail</label>
+                <label for="sign-up-email" class="input__label">{{ $t('email') }}</label>
                 <div class="input-block">
                   <input type="email" name="e-mail" class="form__input form__input-email" id="sign-up-email" placeholder="johndoe@mail.ru">
                   <img src="~@/assets/form/form-email.png" alt="" class="input-img">
@@ -39,14 +39,14 @@
             </div>
             <div class="auth__row">
               <div class="field-block">
-                <label for="sign-up-password" class="input__label">Password</label>
+                <label for="sign-up-password" class="input__label">{{ $t('password') }}</label>
                 <div class="input-block">
                   <input type="password" name="password" class="form__input form__input-password" id="sign-up-password" placeholder="********">
                   <img src="~@/assets/form/form-password.png" alt="" class="input-img">
                 </div>
               </div>
               <div class="field-block">
-                <label for="sign-up-password" class="input__label">Password</label>
+                <label for="sign-up-password" class="input__label">{{ $t('password') }}</label>
                 <div class="input-block">
                   <input type="password" name="password" class="form__input form__input-password" id="sign-up-password" placeholder="********">
                   <img src="~@/assets/form/form-password.png" alt="" class="input-img">
@@ -55,10 +55,10 @@
             </div>
           </div>
           <div class="auth__control">
-            <input type="submit" value="Sign up" class="form__input form__input_sign-up">
+            <input type="submit" :value="$t('sign_up_button')" class="form__input form__input_sign-up">
           </div>
           <div class="auth__hint">
-            <p class="hint__message">Already have an account? <router-link class="hint__link" :to="{name: 'sign-in'}">Sign in</router-link></p>
+            <p class="hint__message">{{ $t('already_have_an_account') }} <router-link class="hint__link" :to="{name: 'sign-in'}">{{ $t('sign_in_button') }}</router-link></p>
           </div>
         </form>
       </div>
