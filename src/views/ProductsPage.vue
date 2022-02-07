@@ -19,26 +19,22 @@
             </div>
           </div>
           <div class="products__list" >
-            <Card :detailsExpanded="detailsExpanded" @toggle-details="handleClick"/>
-            <Card :detailsExpanded="detailsExpanded" @toggle-details="handleClick"/>
-            <Card :detailsExpanded="detailsExpanded" @toggle-details="handleClick"/>
-            <Card :detailsExpanded="detailsExpanded" @toggle-details="handleClick"/>
-            <Card :detailsExpanded="detailsExpanded" @toggle-details="handleClick"/>
-            <Card :detailsExpanded="detailsExpanded" @toggle-details="handleClick"/>
-            <Card :detailsExpanded="detailsExpanded" @toggle-details="handleClick"/>
-            <Card :detailsExpanded="detailsExpanded" @toggle-details="handleClick"/>
-            <Card :detailsExpanded="detailsExpanded" @toggle-details="handleClick"/>
-            <Card :detailsExpanded="detailsExpanded" @toggle-details="handleClick"/>
-            <Card :detailsExpanded="detailsExpanded" @toggle-details="handleClick"/>
-            <Card :detailsExpanded="detailsExpanded" @toggle-details="handleClick"/>
+            <Card v-for="card of 10"
+                  :key="card"
+                  :class="{ 'product__card_expanded': detailsExpanded}"
+                  :detailsExpanded="detailsExpanded"
+                  @toggle-details="handleClick"
+                  />
           </div>
         </div>
       </section>
         <transition name="products-expand">
           <aside class="product-detail" v-if="detailsExpanded">
+            <div class="product-detail__header">
+              <h2>Información del Juguete</h2>
+            </div>
+            <CardDetail />
           </aside>
-          <!-- <aside class="product-detail" :class="{'product-detail__expanded': detailsExpanded }" >
-          </aside> -->
         </transition>
     </div>
   </div>
@@ -49,6 +45,7 @@ import Vue from 'vue';
 import Header from '@/components/Products/Header.vue';
 import Category from '@/components/Products/Category.vue';
 import Card from '@/components/Products/Card.vue';
+import CardDetail from '@/components/Products/CardDetail.vue';
 
 export default Vue.extend({
   name: 'products-page',
@@ -58,7 +55,7 @@ export default Vue.extend({
     }
   },
   components: {
-    Header, Category, Card
+    Header, Category, Card, CardDetail
   },
   methods: {
     handleClick(data: boolean) {
@@ -152,13 +149,13 @@ export default Vue.extend({
 }
 
 .product-detail {
-  top: 37px;
+  top: 10px;
   position: sticky;
   min-width: 550px;
   height: calc(100% - 37px - 20px);
-  background-color: #fff;
   transition: 0.5s all ease;
   margin-right: 0;
+  margin-left: 25px;
   /* margin-right: -550px; */
 
 }
@@ -196,5 +193,13 @@ export default Vue.extend({
   100% {
     margin-right: 0;
   }
+}
+
+.product-detail__header h2 {
+  text-align: left;
+  font-size: 1.5em;
+  line-height: 150%;
+  font-weight: 600;
+  color: #fff;
 }
 </style>
