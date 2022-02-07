@@ -1,0 +1,12 @@
+{
+  "sign_up_title": "Inscribirse",
+  "sign_in_title": "Inicio",
+  "first_name": "Nombre de pila",
+  "last_name": "Apellido",
+  "email": "E-mail",
+  "password": "Contraseña",
+  "sign_up_button": "Inscribirse",
+  "sign_in_button": "Inicio",
+  "already_have_an_account": "¿Ya tienes una cuenta?",
+  "dont_have_an_accound": "¿No tienes una cuenta?"
+}
