@@ -63,6 +63,7 @@ export default Vue.extend({
   cursor: pointer;
   z-index: 10;
   overflow: hidden;
+  transition: all 0.3s;
 }
 
 .product__card::before {
@@ -84,6 +85,13 @@ export default Vue.extend({
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
+}
+
+.product__card_expanded {
+  transition: all 0.3s;
+  flex: 1 1 auto;
+  width: unset;
+  min-height: 100%;
 }
 
 .product__card_toys .card__image{
@@ -112,6 +120,7 @@ export default Vue.extend({
 
 .card__image {
   position: relative;
+  display: flex;
   height: 200px;
   z-index: 1;
 }
@@ -143,10 +152,10 @@ export default Vue.extend({
 
 .card__bottom {
   flex-wrap: wrap;
+  align-items: center;
 }
 
 .card__bottom_default-card {
-  align-items: center;
   justify-content: space-between;
   margin: auto 25px 0;
 }
