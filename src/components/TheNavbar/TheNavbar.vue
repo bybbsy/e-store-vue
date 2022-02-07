@@ -15,8 +15,8 @@
           <BlockFilter/>
           <div class="navbar__auth-block">
               <div class="auth-block__buttons">
-                  <router-link :to="{ name: 'Auth'}" class="auth-block__button auth-block__button_sign-up">Sign up</router-link>
-                  <router-link :to="{ name: 'Auth'}" class="auth-block__button auth-block__button_sign-in">Sign in</router-link>
+                  <router-link :to="{ name: 'sign-up'}" class="auth-block__button auth-block__button_sign-up">Sign up</router-link>
+                  <router-link :to="{ name: 'sign-in'}" class="auth-block__button auth-block__button_sign-in">Sign in</router-link>
                   <!-- <a href="" class="auth-block__button auth-block__button_sign-out">Sign out</a> -->
               </div>
           </div>

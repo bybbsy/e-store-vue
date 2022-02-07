@@ -12,13 +12,13 @@
                 <router-link class="filter-element"
                     v-for="(category, categoryIndex) in filter.filterItems"
                     :key="categoryIndex"
-                    :to="`${filter.baseUrl}/${category.link}`"
+                    :to=" { path: filter.baseUrl, query: { category: category.link}}"
                     >
 
                     <div class="filter-element__icon">
                         <img :src="require('@/assets/base/' + category.icon)" :alt="category.name">
                     </div>
-                    
+
                     <div class="filter-element__name">
                         <span>{{ category.name }}</span>
                     </div>
@@ -107,7 +107,7 @@ export default Vue.extend({
                         {
                             name: 'Toys',
                             icon: 'Light-bulb.png',
-                            link: 'toys' 
+                            link: 'toys'
                         },
                         {
                             name: 'Health',

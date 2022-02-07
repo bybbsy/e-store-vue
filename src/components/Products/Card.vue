@@ -52,6 +52,7 @@ export default Vue.extend({
 </script>
 
 <style>
+
 .product__card {
   position: relative;
   display: flex;
@@ -87,7 +88,7 @@ export default Vue.extend({
   overflow: hidden;
 }
 
-.product__card_expanded {
+.product__card_expanded:not(:first-child):not(:last-child):not(:nth-child(odd)) {
   transition: all 0.3s;
   flex: 1 1 auto;
   width: unset;
