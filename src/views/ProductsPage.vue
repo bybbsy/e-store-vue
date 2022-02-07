@@ -19,7 +19,7 @@
             </div>
           </div>
           <div class="products__list" >
-            <Card v-for="card of 10"
+            <Card v-for="card of 9"
                   :key="card"
                   :class="{ 'product__card_expanded': detailsExpanded}"
                   :detailsExpanded="detailsExpanded"
