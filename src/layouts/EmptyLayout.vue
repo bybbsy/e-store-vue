@@ -23,21 +23,52 @@ export default Vue.extend({
 
 .auth__container {
   display: flex;
-  width: 720px;
   height: 100%;
 }
+
 ._container_left {
-  margin: 0 120px 0 auto;
-  border: 1px solid tomato;
+  margin: 0 300px 0 25px;
+  /* border: 1px solid tomato; */
 }
 
 ._container_right {
-  margin: 0 auto 0 120px;
+  margin: 0 25px 0 120px;
 }
 
 .auth__left {
   width: 50%;
   background-color: #28272B;
+}
+
+
+.left__content {
+  display: flex;
+  flex-direction: column;
+  margin: 0 0 0 auto;
+  justify-content: center;
+  align-items: center;
+}
+
+.left__image {
+  margin-right: -65px;
+}
+
+.left__welcome-text {
+  margin-top: 50px;
+  text-align: center;
+}
+
+.welcome-text__description {
+  line-height: 150%;
+  color: #fff;
+}
+
+.welcome-text__description {
+  margin: 10px 0;
+}
+
+.welcome-text__description_orange {
+  color: #F0AB20;
 }
 
 .auth__right {
@@ -149,12 +180,23 @@ export default Vue.extend({
   color: #312E81CC;
 }
 
+.hint__message_white {
+  color: #fff;
+}
+
+
 .hint__link {
   margin-left: 5px;
   color: #F0AB20;
 }
 
-@media screen and (max-width: 1020px) {
+@media screen and (max-width: 1400px) {
+  ._container_left {
+    margin-right: 200px;
+  }
+}
+
+@media screen and (max-width: 1250px) {
   .auth__left {
     display: none;
   }
