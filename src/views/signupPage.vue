@@ -2,7 +2,17 @@
   <div class="auth__body">
     <div class="auth__left">
       <div class="auth__container _container_left">
-
+        <div class="left__content">
+          <div class="left__image">
+            <img src="~@/assets/base/Welcome.png" alt="Welcome image">
+          </div>
+          <div class="left__welcome-text">
+            <h2 class="title ">Welcome Abroad</h2>
+            <p class="welcome-text__description">Just a couple of clicks and we get started</p>
+            <p class="welcome-text__description welcome-text__description_orange">or</p>
+            <p class="hint__message hint__message_white">Go to the <router-link :to="{ name: 'Products'}" class="hint__link">main page</router-link> </p>
+          </div>
+        </div>
       </div>
     </div>
     <div class="auth__right">
