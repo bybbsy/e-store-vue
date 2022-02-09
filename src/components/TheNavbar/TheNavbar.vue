@@ -134,7 +134,7 @@ export default Vue.extend({
 
 @media screen and (max-width: 920px) {
   .navbar {
-    width: 150px;
+    min-width: 150px;
   }
 
   .navbar__container {
