@@ -54,6 +54,8 @@
 </template>
 
 <script lang="ts">
+import { User } from '@/types/store/auth/state-types';
+
 import Vue from 'vue'
 export default Vue.extend({
   data() {
@@ -62,35 +64,20 @@ export default Vue.extend({
       userPassword: ''
     }
   },
-  async mounted() {
-    let response = await fetch('https://61fc82df3f1e34001792c8cf.mockapi.io/users/1')
-    //   method: 'POST',
-    //   headers: {
-    //     'Content-Type': 'Application/json'
-    //   },
-    //   credentials: 'include',
-    //   body: JSON.stringify({
-    //     email: this.userEmail,
-    //     password: this.userPassword
-    //   })
-    // });
-    let data = await response.json();
-    console.log(data);
-  },
   methods: {
     async submitHandler() {
-      let response = await fetch('https://61fc82df3f1e34001792c8cf.mockapi.io/users/' )
-      // method: 'POST',
-      // headers: {
-      //   'Content-Type': 'Application/json'
-      // },
-      // body: JSON.stringify({
-      //   email: this.userEmail,
-      //   password: this.userPassword
-      // })
-    // });
-    let data = await response.json();
-    console.log(data)
+
+      let formData: User = {
+        email: this.userEmail,
+        password: this.userPassword
+      }
+
+      try {
+        await this.$store.dispatch('LOGIN', formData);
+        this.$router.push('/products')
+      } catch(e) {
+        console.error(e)
+      }
     }
   }
 })
