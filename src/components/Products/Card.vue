@@ -88,12 +88,24 @@ export default Vue.extend({
   overflow: hidden;
 }
 
-.product__card_expanded:not(:first-child):not(:last-child):not(:nth-child(odd)) {
+/* .product__card_expanded:not(:first-child):not(:last-child):not(:nth-child(odd)) {
   transition: all 0.3s;
   flex: 1 1 auto;
   width: unset;
   min-height: 100%;
-}
+} */
+
+
+/* .products__list .product__card:not(:first-child):not(:last-child):not(:nth-child(odd)) {
+  transition: all 0.3s;
+  flex: 1 1 auto;
+  width: unset;
+  min-height: 100%;
+} */
+
+/* .products__list .product__card {
+  flex-shrink: 1;
+} */
 
 .product__card_toys .card__image{
   background-color: #5DBF79;

@@ -1,5 +1,5 @@
 <template>
-  <div class="product__card product__card_health product__card_expanded">
+  <div class="product__card product__card_health product__card_expanded _hide-scroll">
       <div class="card__image card__image_detail">
         <img src="~@/assets/img/mock/Item1.png" alt="">
       </div>
@@ -65,15 +65,13 @@ export default Vue.extend({
 })
 </script>
 
-<style scoped>
-
-.product__card {
-  cursor: initial;
-}
+<style>
 
 .product__card_expanded {
+  width: 100%;
   height: 100%;
   overflow-y: scroll;
+  cursor: initial;
 }
 
 .card__image_detail {

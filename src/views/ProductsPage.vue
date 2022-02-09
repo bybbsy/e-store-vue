@@ -18,10 +18,9 @@
               </div>
             </div>
           </div>
-          <div class="products__list" >
+          <div class="products__list" :class="{ 'products__list_stretch' : detailsExpanded}">
             <Card v-for="card of 9"
                   :key="card"
-                  :class="{ 'product__card_expanded': detailsExpanded}"
                   :detailsExpanded="detailsExpanded"
                   @toggle-details="handleClick"
                   />
@@ -81,6 +80,15 @@ export default Vue.extend({
   height: 100%;
   overflow: hidden scroll;
   scrollbar-width: none;
+}
+
+
+._hide-scroll {
+  scrollbar-width: none;
+}
+
+._hide-scroll::-webkit-scrollbar {
+  display: none;
 }
 
 .products__container::-webkit-scrollbar {
@@ -146,7 +154,34 @@ export default Vue.extend({
   flex-flow: row wrap;
   margin-top: 30px;
   gap: 25px;
+  justify-content: space-between;
 }
+
+@media screen and (max-width: 1680px) {
+  .products__list_stretch {
+    justify-content: center;
+  }
+
+  .products__list_stretch .product__card {
+    flex: 0.6 1 370px;
+  }
+}
+
+@media screen and (max-width: 1510px) {
+  .products__list {
+    justify-content: space-around;
+  }
+
+  .products__list .product__card {
+    flex: 0.2 1 370px;
+  }
+}
+
+
+.products__list_stretch {
+  justify-content: space-around;
+}
+
 
 .product-detail {
   top: 10px;
