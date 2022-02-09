@@ -1,7 +1,7 @@
 <template>
     <div class="product__card product__card_health" @click="cardClick">
       <div class="card__image">
-        <img src="~@/assets/mock/Item1.png" alt="">
+        <img src="~@/assets/img/mock/Item1.png" alt="">
       </div>
       <div class="card__content">
         <div class="title title__card_short">El Batipato de Batman</div>
@@ -174,7 +174,7 @@ export default Vue.extend({
 
 .card__button_add {
   background-color: #FFA049;
-  background-image: url('~@/assets/base/PlusCircle.png');
+  background-image: url('~@/assets/img/base/PlusCircle.png');
   background-size: 30px 30px;
   background-repeat: no-repeat;
   background-position: 18px 10px;

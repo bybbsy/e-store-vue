@@ -14,7 +14,7 @@
             <div class="categories-block__button">
               <button class="button categories-scroll-button">VER MÁS</button>
               <div class="button__icon">
-                <img src="~@/assets/base/ArrowRight.png" alt="">
+                <img src="~@/assets/img/base/ArrowRight.png" alt="">
               </div>
             </div>
           </div>

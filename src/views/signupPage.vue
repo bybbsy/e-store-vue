@@ -4,7 +4,7 @@
       <div class="auth__container _container_left">
         <div class="left__content">
           <div class="left__image">
-            <img src="~@/assets/base/Welcome.png" alt="Welcome image">
+            <img src="~@/assets/img/base/Welcome.png" alt="Welcome image">
           </div>
           <div class="left__welcome-text">
             <h2 class="title ">Welcome Abroad</h2>
@@ -27,14 +27,14 @@
                 <label for="sign-up-email" class="input__label">{{ $t('first_name') }}</label>
                 <div class="input-block">
                   <input type="text" name="first-name" class="form__input form__input-name" id="first-name" placeholder="John">
-                  <img src="~@/assets/form/form-name.png" alt="" class="input-img">
+                  <img src="~@/assets/img/form/form-name.png" alt="" class="input-img">
                 </div>
               </div>
               <div class="field-block">
                 <label for="sign-up-email" class="input__label">{{ $t('last_name') }}</label>
                 <div class="input-block">
                   <input type="text" name="last-name" class="form__input form__input-name" id="last-name" placeholder="Doe">
-                  <img src="~@/assets/form/form-name.png" alt="" class="input-img">
+                  <img src="~@/assets/img/form/form-name.png" alt="" class="input-img">
                 </div>
               </div>
             </div>
@@ -43,7 +43,7 @@
                 <label for="sign-up-email" class="input__label">{{ $t('email') }}</label>
                 <div class="input-block">
                   <input type="email" name="e-mail" class="form__input form__input-email" id="sign-up-email" placeholder="johndoe@mail.ru">
-                  <img src="~@/assets/form/form-email.png" alt="" class="input-img">
+                  <img src="~@/assets/img/form/form-email.png" alt="" class="input-img">
                 </div>
               </div>
             </div>
@@ -52,14 +52,14 @@
                 <label for="sign-up-password" class="input__label">{{ $t('password') }}</label>
                 <div class="input-block">
                   <input type="password" name="password" class="form__input form__input-password" id="sign-up-password" placeholder="********">
-                  <img src="~@/assets/form/form-password.png" alt="" class="input-img">
+                  <img src="~@/assets/img/form/form-password.png" alt="" class="input-img">
                 </div>
               </div>
               <div class="field-block">
                 <label for="sign-up-password" class="input__label">{{ $t('password') }}</label>
                 <div class="input-block">
                   <input type="password" name="password" class="form__input form__input-password" id="sign-up-password" placeholder="********">
-                  <img src="~@/assets/form/form-password.png" alt="" class="input-img">
+                  <img src="~@/assets/img/form/form-password.png" alt="" class="input-img">
                 </div>
               </div>
             </div>

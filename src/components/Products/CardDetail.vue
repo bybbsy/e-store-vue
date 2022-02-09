@@ -1,7 +1,7 @@
 <template>
   <div class="product__card product__card_health product__card_expanded">
       <div class="card__image card__image_detail">
-        <img src="~@/assets/mock/Item1.png" alt="">
+        <img src="~@/assets/img/mock/Item1.png" alt="">
       </div>
       <div class="card__content">
         <div class="title title__card_short">El Batipato de Batman</div>
@@ -24,7 +24,7 @@ sus seciones de baño.</div>
         <ul class="comments__list">
           <li class="comments__comment">
             <div class="comment__icon">
-              <img src="~@/assets/mock/Avatar.jpg" alt="">
+              <img src="~@/assets/img/mock/Avatar.jpg" alt="">
             </div>
             <div class="comment__content">
               <div class="comment__author">Author John Doe</div>
@@ -33,7 +33,7 @@ sus seciones de baño.</div>
           </li>
           <li class="comments__comment">
             <div class="comment__icon">
-              <img src="~@/assets/mock/Avatar.jpg" alt="">
+              <img src="~@/assets/img/mock/Avatar.jpg" alt="">
             </div>
             <div class="comment__content">
               <div class="comment__author">Author John Doe</div>
@@ -42,7 +42,7 @@ sus seciones de baño.</div>
           </li>
           <li class="comments__comment">
             <div class="comment__icon">
-              <img src="~@/assets/mock/Avatar.jpg" alt="">
+              <img src="~@/assets/img/mock/Avatar.jpg" alt="">
             </div>
             <div class="comment__content">
               <div class="comment__author">Author John Doe</div>

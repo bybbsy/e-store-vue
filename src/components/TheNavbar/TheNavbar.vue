@@ -5,7 +5,7 @@
           <div class="navbar__user-block">
               <div class="user-block__body">
                   <div class="user-block__icon">
-                      <img src="~@/assets/mock/Avatar.jpg" alt="Avatar">
+                      <img src="~@/assets/img/mock/Avatar.jpg" alt="Avatar">
                   </div>
                   <div class="user-block__username">
                       <p>¡Hola, Jeff!</p>

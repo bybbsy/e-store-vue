@@ -45,7 +45,7 @@ export default Vue.extend({
 .block-rating span {
   display: block;
   position: relative;
-  mask-image: url('~@/assets/base/Star.svg');
+  mask-image: url('~@/assets/img/base/Star.svg');
   mask-repeat: no-repeat;
   mask-position: center center;
   width: 20px;

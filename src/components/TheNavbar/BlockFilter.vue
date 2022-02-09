@@ -16,7 +16,7 @@
                     >
 
                     <div class="filter-element__icon">
-                        <img :src="require('@/assets/base/' + category.icon)" :alt="category.name">
+                        <img :src="require('@/assets/img/base/' + category.icon)" :alt="category.name">
                     </div>
 
                     <div class="filter-element__name">

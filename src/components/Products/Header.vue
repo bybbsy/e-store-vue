@@ -4,7 +4,7 @@
     <div class="header__navbar">
       <router-link class="navbar__item" :to="{name: 'home'}">
         <div class="navbar__icon">
-            <img src="~@/assets/base/Bell.png" alt="Notifications">
+            <img src="~@/assets/img/base/Bell.png" alt="Notifications">
         </div>
       </router-link>
     </div>
