@@ -1,3 +1,4 @@
-type errorHandler = (error?: any) => void;
+type ErrorHandler = (error?: any) => void;
+type Action = () => void;
 
-export { errorHandler }
+export { Action, ErrorHandler }
