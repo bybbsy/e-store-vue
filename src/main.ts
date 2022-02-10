@@ -21,7 +21,6 @@ firebase.initializeApp(firebaseConfig);
 
 Vue.use(errorHandlerPlugin);
 
-
 let app: Vue;
 
 firebase.auth().onAuthStateChanged(() => {
