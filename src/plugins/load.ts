@@ -1,15 +1,21 @@
 import _Vue from 'vue';
-import { errorHandler } from '@/types/plugins';
+import { Action, ErrorHandler } from '@/types/plugins/index';
+
+declare module 'vue/types/vue' {
+  interface Vue {
+    $load: (asyncaction: Action, errorHandler?: ErrorHandler) => void
+  }
+}
 
 export async function errorHandlerPlugin(Vue: typeof _Vue) {
-  Vue.prototype.$load = async (action: any, errorHandler: errorHandler) => {
+  Vue.prototype.$load = async (action: Action, errorHandler?: ErrorHandler) => {
     try {
       await action();
     } catch (e) {
       if(errorHandler) {
-        errorHandler(e);
+        errorHandler()
       } else {
-        console.error("Some error has occured", e);
+        throw e;
       }
     }
   }
