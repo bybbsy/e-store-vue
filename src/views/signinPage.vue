@@ -72,12 +72,8 @@ export default Vue.extend({
         password: this.userPassword
       }
 
-      try {
-        await this.$store.dispatch('LOGIN', formData);
-        this.$router.push('/products')
-      } catch(e) {
-        console.error(e)
-      }
+      await this.$store.dispatch('LOGIN', formData);
+      this.$router.push('/products')
     }
   }
 })
