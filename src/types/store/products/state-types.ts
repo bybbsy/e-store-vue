@@ -1,5 +1,6 @@
 interface Product {
   name: string,
+  imageLink: string,
   category: string,
   subcategory: string,
   price: string
