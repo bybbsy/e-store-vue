@@ -3,17 +3,24 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 
-import i18n from './plugins/lang/i18n';
-
+// Firebase imports
 import firebase from 'firebase/compat/app';
 import 'firebase/compat/auth';
 import 'firebase/compat/database';
 
+// Firebase config
 import { firebaseConfig } from '../firebase.config';
+
+// Plguin imports
+import i18n from './plugins/lang/i18n';
+import { errorHandlerPlugin } from '@/plugins/load';
 
 Vue.config.productionTip = false
 
 firebase.initializeApp(firebaseConfig);
+
+Vue.use(errorHandlerPlugin);
+
 
 let app: Vue;
 
