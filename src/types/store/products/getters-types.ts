@@ -1,0 +1,2 @@
+import { GetterTree } from "vuex";
+

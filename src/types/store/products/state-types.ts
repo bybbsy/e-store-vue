@@ -18,8 +18,8 @@ interface CardComment {
   content: string
 }
 
-interface Products {
+interface State {
   products: Array<CardProduct>
 }
 
-export { Product, Products, CardProduct, CardComment };
+export { State, Product, CardProduct, CardComment };
