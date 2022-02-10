@@ -98,12 +98,11 @@ export default Vue.extend({
         password: this.userPasswordFirst,
       }
 
-      try {
+      this.$load(async () => {
         await this.$store.dispatch('REGISTER', formData);
         this.$router.push('/products')
-      } catch(e) {
-        console.error(e)
-      }
+      })
+
     }
   }
 })

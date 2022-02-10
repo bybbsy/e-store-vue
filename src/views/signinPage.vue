@@ -56,7 +56,8 @@
 <script lang="ts">
 import { User } from '@/types/store/auth/state-types';
 
-import Vue from 'vue'
+import Vue from 'vue';
+
 export default Vue.extend({
   data() {
     return {
@@ -66,14 +67,16 @@ export default Vue.extend({
   },
   methods: {
     async submitHandler() {
-
       let formData: User = {
         email: this.userEmail,
         password: this.userPassword
       }
 
-      await this.$store.dispatch('LOGIN', formData);
-      this.$router.push('/products')
+      this.$load(async () => {
+        await this.$store.dispatch('LOGIN', formData);
+        this.$router.push('/products')
+      })
+
     }
   }
 })
