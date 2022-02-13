@@ -1,6 +1,6 @@
 <template>
     <!--#TODO navbar navbar_collapsed if navbar is collapsed-->
-  <aside class="navbar">
+  <aside class="navbar" :class="{ 'navbar__expanded': isMenuExpanded }">
       <div class="navbar__container">
           <div class="navbar__user-block">
               <div class="user-block__body">
@@ -8,7 +8,7 @@
                       <img src="~@/assets/img/mock/Avatar.jpg" alt="Avatar">
                   </div>
                   <div class="user-block__username">
-                      <p>¡Hola, Jeff!</p>
+                      <p>¡Hola, Jeff! {{ isMenuExpanded }}</p>
                   </div>
               </div>
           </div>
@@ -29,10 +29,27 @@ import Vue from 'vue';
 import BlockFilter from './BlockFilter.vue';
 
 export default Vue.extend({
-    name: 'the-navbar',
-    components: {
-        BlockFilter
+  name: 'the-navbar',
+  data() {
+    return {
+      menuState: this.$menuExpanded
     }
+  },
+  components: {
+    BlockFilter
+  },
+  computed: {
+    isMenuExpanded(): boolean {
+      console.log("MENU STATE:", this.$menuExpanded)
+      return this.$menuExpanded;
+    }
+  },
+  watch: {
+    [Vue.prototype.$menuExpanded]() {
+      console.log("MENU STATE:", this.$menuExpanded)
+      return this.$menuExpanded;
+    }
+  }
 })
 </script>
 
@@ -132,7 +149,7 @@ export default Vue.extend({
   background-color: #D7263D;
 }
 
-@media screen and (max-width: 920px) {
+@media screen and (max-width: 1080px) {
   .navbar {
     min-width: 150px;
   }
@@ -158,5 +175,16 @@ export default Vue.extend({
   .filter-element__icon {
     margin: 0 auto;
   }
+}
+.navbar__expanded {
+  margin-left: 0;
+}
+@media screen and (max-width: 980px) {
+  .navbar {
+    min-width: 300px;
+    margin-left: -300px;
+  }
+
+
 }
 </style>
