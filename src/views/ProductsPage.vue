@@ -2,11 +2,12 @@
   <div class="products__wrapper">
     <div class="products__container">
       <section class="products-block">
-        <Header />
+        <HeaderMobile v-if="mobileDevice"/>
+        <Header v-else/>
         <div class="products__inner">
           <div class="title category-name">Toys</div>
           <div class="categories-block">
-            <ul class="categrories-block__list">
+            <ul class="categories-block__list">
               <Category />
               <Category />
               <Category />
@@ -42,6 +43,7 @@
 <script lang="ts">
 import Vue from 'vue';
 import Header from '@/components/Products/Header.vue';
+import HeaderMobile from '@/components/Products/HeaderMobile.vue';
 import Category from '@/components/Products/Category.vue';
 import Card from '@/components/Products/Card.vue';
 import CardDetail from '@/components/Products/CardDetail.vue';
@@ -50,11 +52,16 @@ export default Vue.extend({
   name: 'products-page',
   data() {
     return {
-      detailsExpanded: false
+      detailsExpanded: false,
+    }
+  },
+  computed: {
+    mobileDevice() {
+      return Vue.prototype.$isMobile;
     }
   },
   components: {
-    Header, Category, Card, CardDetail
+    Header, HeaderMobile, Category, Card, CardDetail
   },
   methods: {
     handleClick(data: boolean) {
@@ -114,7 +121,7 @@ export default Vue.extend({
   margin: 31px 1px 1px;
 }
 
-.categrories-block__list {
+.categories-block__list {
   display: flex;
   height: 100%;
   padding: 1px;
@@ -145,38 +152,14 @@ export default Vue.extend({
   text-transform: uppercase;
   font-size: 1em;
   color: #fff;
-  /* font-weight: 4; */
 }
 
 .products__list {
-  display: flex;
-  flex: 1 1 auto;
-  flex-flow: row wrap;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
   margin-top: 30px;
   gap: 25px;
-  justify-content: space-between;
 }
-
-@media screen and (max-width: 1680px) {
-  .products__list_stretch {
-    justify-content: center;
-  }
-
-  .products__list_stretch .product__card {
-    flex: 0.6 1 370px;
-  }
-}
-
-@media screen and (max-width: 1510px) {
-  .products__list {
-    justify-content: space-around;
-  }
-
-  .products__list .product__card {
-    flex: 0.2 1 370px;
-  }
-}
-
 
 .products__list_stretch {
   justify-content: space-around;
@@ -236,5 +219,13 @@ export default Vue.extend({
   line-height: 150%;
   font-weight: 600;
   color: #fff;
+}
+
+/* Medias */
+
+@media screen and (max-width: 980px) {
+  .products__list {
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  }
 }
 </style>

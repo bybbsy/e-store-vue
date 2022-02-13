@@ -100,7 +100,7 @@ export default Vue.extend({
 
       this.$load(async () => {
         await this.$store.dispatch('REGISTER', formData);
-        this.$router.push('/products')
+        await this.$router.push('/products')
       })
 
     }

@@ -67,14 +67,14 @@ export default Vue.extend({
   },
   methods: {
     async submitHandler() {
-      let formData: User = {
+      let formData: User =  {
         email: this.userEmail,
         password: this.userPassword
       }
 
       this.$load(async () => {
         await this.$store.dispatch('LOGIN', formData);
-        this.$router.push('/products')
+        await this.$router.push('/products')
       })
 
     }
