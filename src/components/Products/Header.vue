@@ -1,5 +1,5 @@
 <template>
-  <header class="products-block__header">
+  <header class="products-header">
     <Input />
     <div class="header__navbar">
       <router-link class="navbar__item" :to="{name: 'home'}">
@@ -23,7 +23,7 @@ export default Vue.extend({
 })
 </script>
 <style>
-.products-block__header {
+.products-header {
     display: flex;
     align-items: center;
 }

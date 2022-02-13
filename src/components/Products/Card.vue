@@ -4,7 +4,7 @@
         <img src="~@/assets/img/mock/Item1.png" alt="">
       </div>
       <div class="card__content">
-        <div class="title title__card_short">El Batipato de Batman</div>
+        <div class="title title__card_short">El Batipato de Batman {{ cardMobile }}</div>
         <div class="rate-block">
           <Rating/>
           <div class="rate-block__value">3.5</div>
@@ -23,6 +23,7 @@
 import Vue from 'vue';
 import Rating from './Rating.vue';
 
+
 export default Vue.extend({
   name: 'default-card',
   props: {
@@ -33,8 +34,16 @@ export default Vue.extend({
   },
   data() {
     return {
-      toggledDetails: this.detailsExpanded
+      toggledDetails: this.detailsExpanded,
+      cardMobile: ''
     }
+  },
+  mounted() {
+    let check = false;
+    // this.cardMobile = (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent));
+    // console.log((/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)))
+    // console.log(check);
+    return check;
   },
   methods: {
       cardClick() {
@@ -57,7 +66,7 @@ export default Vue.extend({
   position: relative;
   display: flex;
   flex-direction: column;
-  width: 370px;
+  max-width: 450px;
   padding-bottom: 30px;
   border-radius: 15px;
   background-color: #28272B;
@@ -87,25 +96,6 @@ export default Vue.extend({
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
-
-/* .product__card_expanded:not(:first-child):not(:last-child):not(:nth-child(odd)) {
-  transition: all 0.3s;
-  flex: 1 1 auto;
-  width: unset;
-  min-height: 100%;
-} */
-
-
-/* .products__list .product__card:not(:first-child):not(:last-child):not(:nth-child(odd)) {
-  transition: all 0.3s;
-  flex: 1 1 auto;
-  width: unset;
-  min-height: 100%;
-} */
-
-/* .products__list .product__card {
-  flex-shrink: 1;
-} */
 
 .product__card_toys .card__image{
   background-color: #5DBF79;
@@ -206,4 +196,29 @@ export default Vue.extend({
   line-height: 150%;
 }
 
+@media screen and (max-width: 980px) {
+  .card__image {
+    height: 150px;
+  }
+
+  .title {
+    font-size: 1.2em;
+  }
+
+  .card__bottom .price {
+    font-size: 1.5em;
+  }
+
+  .card__button {
+    min-width: 150px;
+    min-height: 40px;
+    padding: 7px 15px 7px 45px;
+  }
+
+  .card__button_add {
+    background-position: 15px 7px;
+    background-size: 25px 25px;
+  }
+
+}
 </style>
