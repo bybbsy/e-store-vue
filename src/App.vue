@@ -11,12 +11,16 @@ import Vue from 'vue'
 import DefaultLayout from './layouts/DefaultLayout.vue'
 import EmptyLayout from './layouts/EmptyLayout.vue'
 
+import {isMobile} from "@/helpers/useDetectDevice";
 export default Vue.extend({
   name: 'App',
   computed: {
     layout() {
       return (this.$route.meta?.layout ?? 'empty') + '-layout'
     }
+  },
+  mounted() {
+    Vue.prototype.$isMobile = isMobile();
   },
   components: {
     DefaultLayout, EmptyLayout
@@ -108,6 +112,14 @@ h6 {
   font-size: inherit;
   font-weight: 400;
 }
+
+:root {
+  --main-dark: #1B1A1D;
+  --secondary-dark: #28272B;
+  --secondary-gray: rgba(255, 255, 255, 0.15);
+  --main-orange: #FFA049;
+}
+
 #app {
   display: flex;
   width: 100%;

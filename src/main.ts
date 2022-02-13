@@ -11,7 +11,8 @@ import 'firebase/compat/database';
 // Firebase config
 import { firebaseConfig } from '../firebase.config';
 
-// Plguin imports
+// Plugin imports
+import '@/plugins/fontAwesomeIcons';
 import i18n from './plugins/lang/i18n';
 import { errorHandlerPlugin } from '@/plugins/load';
 
