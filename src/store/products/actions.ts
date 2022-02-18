@@ -1,5 +1,5 @@
 import { Actions, ActionTypes } from "@/types/store/products/actions-types";
-import { State, Product as ProductItem } from "@/types/store/products/state-types";
+import { State } from "@/types/store/products/state-types";
 import { ActionTree } from "vuex";
 import { RootState } from "..";
 import firebase from "firebase/compat";
