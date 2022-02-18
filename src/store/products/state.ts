@@ -1,5 +1,7 @@
 import { State } from '@/types/store/products/state-types';
 
 export const state: State = {
-  products: []
+  products: [],
+  currentProduct: null,
+  productDetails: false
 }
