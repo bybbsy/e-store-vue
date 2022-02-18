@@ -48,7 +48,6 @@ import HeaderMobile from '@/components/Products/HeaderMobile.vue';
 import Category from '@/components/Products/Category.vue';
 import Card from '@/components/Products/Card.vue';
 import CardDetail from '@/components/Products/CardDetail.vue';
-import firebase from 'firebase/compat';
 
 import { Product as ProductItem } from '@/types/store/products/state-types';
 
@@ -60,12 +59,10 @@ export default Vue.extend({
       detailsExpanded: false,
     }
   },
-  created() {
+  mounted() {
     this.$load(async () => {
-      let snapshot = await firebase.firestore().collection('products').get();
-      snapshot.docs.forEach(doc => {
-        this.products.push(doc.data() as ProductItem)
-      });
+      await this.$store.dispatch('FETCH_PRODUCTS');
+      this.products = this.$store.getters.getProducts;
     })
   },
   computed: {
@@ -73,13 +70,13 @@ export default Vue.extend({
       return Vue.prototype.$isMobile;
     }
   },
-  components: {
-    Header, HeaderMobile, Category, Card, CardDetail
-  },
   methods: {
     handleClick(data: boolean) {
       this.detailsExpanded = data;
     }
+  },
+  components: {
+    Header, HeaderMobile, Category, Card, CardDetail
   }
 })
 </script>
