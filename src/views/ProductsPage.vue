@@ -68,9 +68,9 @@ export default Vue.extend({
   mounted() {
     this.$load(async () => {
       this.loadingData = true
-      // await this.$store.dispatch('fetchProducts');
-      // this.products = this.$store.getters.getProducts;
-      // this.loadingData = false
+      await this.$store.dispatch('fetchProducts');
+      this.products = this.$store.getters.getProducts;
+      this.loadingData = false
     })
   },
   computed: {
