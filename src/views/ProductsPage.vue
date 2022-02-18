@@ -20,10 +20,11 @@
             </div>
           </div>
           <div class="products__list" :class="{ 'products__list_stretch' : detailsExpanded}">
-            <Card v-for="card of 9"
-                  :key="card"
+            <Card v-for="(productItem, index) in products"
+                  :key="index"
                   :detailsExpanded="detailsExpanded"
                   @toggle-details="handleClick"
+                  :productItem="productItem"
                   />
           </div>
         </div>
@@ -47,13 +48,25 @@ import HeaderMobile from '@/components/Products/HeaderMobile.vue';
 import Category from '@/components/Products/Category.vue';
 import Card from '@/components/Products/Card.vue';
 import CardDetail from '@/components/Products/CardDetail.vue';
+import firebase from 'firebase/compat';
+
+import { Product as ProductItem } from '@/types/store/products/state-types';
 
 export default Vue.extend({
   name: 'products-page',
   data() {
     return {
+      products: [] as Array<ProductItem>,
       detailsExpanded: false,
     }
+  },
+  created() {
+    this.$load(async () => {
+      let snapshot = await firebase.firestore().collection('products').get();
+      snapshot.docs.forEach(doc => {
+        this.products.push(doc.data() as ProductItem)
+      });
+    })
   },
   computed: {
     mobileDevice() {
@@ -88,7 +101,6 @@ export default Vue.extend({
   overflow: hidden scroll;
   scrollbar-width: none;
 }
-
 
 ._hide-scroll {
   scrollbar-width: none;
@@ -165,7 +177,6 @@ export default Vue.extend({
   justify-content: space-around;
 }
 
-
 .product-detail {
   top: 10px;
   position: sticky;
@@ -174,7 +185,6 @@ export default Vue.extend({
   transition: 0.5s all ease;
   margin-right: 0;
   margin-left: 25px;
-  /* margin-right: -550px; */
 
 }
 
@@ -193,7 +203,6 @@ export default Vue.extend({
   /* transition: 0.5s all ease; */
   animation: bounce .3s reverse;
 }
-
 
 .products-expand-enter,
 .products-expand-leave-to {
