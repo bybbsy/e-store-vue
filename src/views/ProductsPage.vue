@@ -19,13 +19,17 @@
               </div>
             </div>
           </div>
-          <div class="products__list" :class="{ 'products__list_stretch' : detailsExpanded}">
+          <div class="products__list" v-if="products.length && !loadingData" :class="{ 'products__list_stretch' : detailsExpanded}">
             <Card v-for="(productItem, index) in products"
                   :key="index"
                   :detailsExpanded="detailsExpanded"
                   @toggle-details="handleClick"
                   :productItem="productItem"
                   />
+          </div>
+          <LoadingSpinner v-else-if="loadingData"/>
+          <div v-else class="products__list products__list_notification">
+            <p class="notification notification_message">Empty list</p>
           </div>
         </div>
       </section>
@@ -54,21 +58,25 @@ import { Product as ProductItem } from '@/types/store/products/state-types';
 export default Vue.extend({
   name: 'products-page',
   data() {
+
     return {
+      loadingData: false,
       products: [] as Array<ProductItem>,
       detailsExpanded: false,
     }
   },
   mounted() {
     this.$load(async () => {
-      await this.$store.dispatch('FETCH_PRODUCTS');
-      this.products = this.$store.getters.getProducts;
+      this.loadingData = true
+      // await this.$store.dispatch('fetchProducts');
+      // this.products = this.$store.getters.getProducts;
+      // this.loadingData = false
     })
   },
   computed: {
     mobileDevice() {
       return Vue.prototype.$isMobile;
-    }
+    },
   },
   methods: {
     handleClick(data: boolean) {
@@ -76,7 +84,8 @@ export default Vue.extend({
     }
   },
   components: {
-    Header, HeaderMobile, Category, Card, CardDetail
+    Header, HeaderMobile, Category, Card, CardDetail,
+    LoadingSpinner: () => import('@/components/LoadingSpinner.vue')
   }
 })
 </script>
@@ -118,6 +127,7 @@ export default Vue.extend({
 }
 
 .products__inner {
+  position: relative;
   margin-top: 70px;
   height: 100%;
 }
