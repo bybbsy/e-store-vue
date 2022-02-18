@@ -117,7 +117,9 @@ h6 {
   --main-dark: #1B1A1D;
   --secondary-dark: #28272B;
   --secondary-gray: rgba(255, 255, 255, 0.15);
+  --text-gray: rgba(255, 255, 255, 0.4);
   --main-orange: #FFA049;
+  --main-white: #fff;
 }
 
 #app {
