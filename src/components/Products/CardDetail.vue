@@ -21,41 +21,17 @@ sus seciones de baño.</div>
 
       <div class="card__comments">
         <div class="title card__comments_title">Algunas opiniones sobre este juguete</div>
-        <ul class="comments__list">
-          <li class="comments__comment">
+        <ul class="comments__list" v-if="comments.length">
+          <li class="comments__comment" v-for="(comment, index) in comments" :key='index'>
             <div class="comment__icon">
               <img src="~@/assets/img/mock/Avatar.jpg" alt="">
             </div>
             <div class="comment__content">
               <div class="comment__top">
-                <div class="comment__author">Author John Doe</div>
-                <div class="comment__date">10.10.2020</div>
+                <div class="comment__author">{{ comment.author }}</div>
+                <div class="comment__date">{{ dateWithFns(comment.date) }}</div>
               </div>
-              <div class="comment__text">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Accusamus ullam in nam, illum sapiente tempore quasi. Accusantium placeat labore, recusandae saepe tenetur incidunt, corporis, dicta inventore quaerat tempora optio voluptate!</div>
-            </div>
-          </li>
-          <li class="comments__comment">
-            <div class="comment__icon">
-              <img src="~@/assets/img/mock/Avatar.jpg" alt="">
-            </div>
-            <div class="comment__content">
-              <div class="comment__top">
-                <div class="comment__author">Author John Doe</div>
-                <div class="comment__date">10.10.2020</div>
-              </div>
-              <div class="comment__text">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Accusamus ullam in nam, illum sapiente tempore quasi. Accusantium placeat labore, recusandae saepe tenetur incidunt, corporis, dicta inventore quaerat tempora optio voluptate!</div>
-            </div>
-          </li>
-          <li class="comments__comment">
-            <div class="comment__icon">
-              <img src="~@/assets/img/mock/Avatar.jpg" alt="">
-            </div>
-            <div class="comment__content">
-              <div class="comment__top">
-                <div class="comment__author">Author John Doe</div>
-                <div class="comment__date">10.10.2020</div>
-              </div>
-              <div class="comment__text">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Accusamus ullam in nam, illum sapiente tempore quasi. Accusantium placeat labore, recusandae saepe tenetur incidunt, corporis, dicta inventore quaerat tempora optio voluptate!</div>
+              <div class="comment__text">{{ comment.content }}</div>
             </div>
           </li>
         </ul>
@@ -66,8 +42,28 @@ sus seciones de baño.</div>
 <script lang="ts">
 import Vue from 'vue'
 import Rating from './Rating.vue';
+import moment from 'moment';
+import { formatDistance, subDays, addQuarters } from 'date-fns';
 
 export default Vue.extend({
+  data() {
+    return {
+      comments: [
+        { author: 'John Doe', content: 'Yup fine', date: (() => new Date(2019, 2, 2, 3, 4, 5))()},
+        { author: 'John Doe', content: 'I like that product', date: (() => new Date(2020, 5, 2, 7, 30, 15))() },
+        { author: 'John Doe', content: 'Reaally cool stuff', date: (() => new Date(2021, 8, 5, 16, 12, 35))() },
+        { author: 'John Doe', content: 'Bad one', date: (() => new Date(2018, 1, 1, 12, 7, 1))() }
+      ]
+    }
+  },
+  methods: {
+    dateWithMoment(date: Date) {
+      date = new Date(2022)
+    },
+    dateWithFns(date: Date) {
+      return formatDistance(subDays(date, 3), new Date(), { addSuffix: true })
+    }
+  },
   components: {
     Rating
   }
@@ -87,7 +83,6 @@ export default Vue.extend({
 .card__image_detail {
   height: 390px;
 }
-
 
 .card__image_detail img {
   display: flex;
