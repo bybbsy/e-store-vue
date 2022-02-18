@@ -1,9 +1,10 @@
 interface Product {
   name: string,
   imageLink: string,
-  category: string,
-  subcategory: string,
-  price: string
+  category?: string,
+  subcategory?: string,
+  price: string,
+  rate: string
 }
 
 interface CardProduct extends Product {
