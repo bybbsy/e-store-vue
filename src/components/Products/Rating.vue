@@ -10,10 +10,11 @@
 <script lang="ts">
 import Vue from 'vue'
 export default Vue.extend({
+  props: ['rate'],
   data() {
     return {
       maxRating: 5,
-      userRating: 2.5
+      userRating: this.rate
     }
   },
   methods: {
@@ -25,7 +26,7 @@ export default Vue.extend({
         // Returns gradient
         return `linear-gradient(to right, #FFA049 ${value}%, lightgrey ${value}%)`;
 
-      } else if (this.userRating - (rate - 1) > 1) {
+      } else if (this.userRating - (rate - 1) >= 1) {
         return '#FFA049';
       }
       else {

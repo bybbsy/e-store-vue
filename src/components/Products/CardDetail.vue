@@ -27,7 +27,10 @@ sus seciones de baño.</div>
               <img src="~@/assets/img/mock/Avatar.jpg" alt="">
             </div>
             <div class="comment__content">
-              <div class="comment__author">Author John Doe</div>
+              <div class="comment__top">
+                <div class="comment__author">Author John Doe</div>
+                <div class="comment__date">10.10.2020</div>
+              </div>
               <div class="comment__text">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Accusamus ullam in nam, illum sapiente tempore quasi. Accusantium placeat labore, recusandae saepe tenetur incidunt, corporis, dicta inventore quaerat tempora optio voluptate!</div>
             </div>
           </li>
@@ -36,7 +39,10 @@ sus seciones de baño.</div>
               <img src="~@/assets/img/mock/Avatar.jpg" alt="">
             </div>
             <div class="comment__content">
-              <div class="comment__author">Author John Doe</div>
+              <div class="comment__top">
+                <div class="comment__author">Author John Doe</div>
+                <div class="comment__date">10.10.2020</div>
+              </div>
               <div class="comment__text">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Accusamus ullam in nam, illum sapiente tempore quasi. Accusantium placeat labore, recusandae saepe tenetur incidunt, corporis, dicta inventore quaerat tempora optio voluptate!</div>
             </div>
           </li>
@@ -45,7 +51,10 @@ sus seciones de baño.</div>
               <img src="~@/assets/img/mock/Avatar.jpg" alt="">
             </div>
             <div class="comment__content">
-              <div class="comment__author">Author John Doe</div>
+              <div class="comment__top">
+                <div class="comment__author">Author John Doe</div>
+                <div class="comment__date">10.10.2020</div>
+              </div>
               <div class="comment__text">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Accusamus ullam in nam, illum sapiente tempore quasi. Accusantium placeat labore, recusandae saepe tenetur incidunt, corporis, dicta inventore quaerat tempora optio voluptate!</div>
             </div>
           </li>
@@ -69,6 +78,7 @@ export default Vue.extend({
 
 .product__card_expanded {
   width: 100%;
+  max-width: 550px;
   height: 100%;
   overflow-y: scroll;
   cursor: initial;
@@ -90,7 +100,7 @@ export default Vue.extend({
   font-size: 16px;
   line-height: 150%;
   font-weight: 400;
-  color: #FFFFFF;
+  color: var(--main-white);
 }
 
 .card__bottom_detail-card {
@@ -143,16 +153,28 @@ export default Vue.extend({
   object-fit: contain;
 }
 
+.comment__top {
+  display: flex;
+  align-items: baseline;
+}
+
 .comment__author {
-  color: #fff;
+  color: var(--main-white);
   font-size: 1.125em;
   text-align: left;
   font-weight: 500;
 }
 
+
+.comment__date {
+  color: var(--main-white);
+  font-size: 0.8em;
+  margin-left: 15px;
+}
+
 .comment__text {
   margin-top: 5px;
-  color:#FFFFFF66;
+  color: var(--text-gray);
   font-size: 1em;
   text-align: justify;
   font-weight: 300;

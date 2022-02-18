@@ -1,6 +1,6 @@
 <template>
     <!--#TODO navbar navbar_collapsed if navbar is collapsed-->
-  <aside class="navbar" :class="{ 'navbar__expanded': isMenuExpanded }">
+  <aside class="navbar">
       <div class="navbar__container">
           <div class="navbar__user-block">
               <div class="user-block__body">
@@ -30,26 +30,9 @@ import BlockFilter from './BlockFilter.vue';
 
 export default Vue.extend({
   name: 'the-navbar',
-  data() {
-    return {
-      menuState: this.$menuExpanded
-    }
-  },
   components: {
     BlockFilter
   },
-  computed: {
-    isMenuExpanded(): boolean {
-      console.log("MENU STATE:", this.$menuExpanded)
-      return this.$menuExpanded;
-    }
-  },
-  watch: {
-    [Vue.prototype.$menuExpanded]() {
-      console.log("MENU STATE:", this.$menuExpanded)
-      return this.$menuExpanded;
-    }
-  }
 })
 </script>
 

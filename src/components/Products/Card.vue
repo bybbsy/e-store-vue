@@ -1,17 +1,17 @@
 <template>
     <div class="product__card product__card_health" @click="cardClick">
       <div class="card__image">
-        <img src="~@/assets/img/mock/Item1.png" alt="">
+        <img :src="require('@/assets/img/mock/' + productItem.imgLink)" alt="">
       </div>
       <div class="card__content">
-        <div class="title title__card_short">El Batipato de Batman {{ cardMobile }}</div>
+        <div class="title title__card_short">{{ productItem.name }}</div>
         <div class="rate-block">
-          <Rating/>
-          <div class="rate-block__value">3.5</div>
+          <Rating :rate="productItem.rate"/>
+          <div class="rate-block__value">{{ productItem.rate }}</div>
         </div>
       </div>
       <div class="card__bottom card__bottom_default-card">
-        <div class="price">$14.81</div>
+        <div class="price">${{ productItem.price }}</div>
         <div class="card__button card__button_add" @click.stop="addToCart">
           <div class="button__text">Add to cart</div>
         </div>
@@ -20,9 +20,15 @@
 </template>
 
 <script lang="ts">
-import Vue from 'vue';
+import Vue, { PropType } from 'vue';
 import Rating from './Rating.vue';
 
+interface ProductItem {
+  name: string,
+  rate: number,
+  price: number,
+  imgLink: string
+}
 
 export default Vue.extend({
   name: 'default-card',
@@ -30,7 +36,8 @@ export default Vue.extend({
     detailsExpanded: {
       type: Boolean,
       required: true
-    }
+    },
+    productItem: Object as PropType<ProductItem>
   },
   data() {
     return {
