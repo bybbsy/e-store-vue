@@ -3,7 +3,8 @@ import { ActionContext } from "vuex";
 import { State } from "./state-types";
 
 export enum ActionTypes {
-  fetchProducts = "FETCH_PRODUCTS"
+  fetchProducts = "fetchProducts",
+  toggleDetails = "toggleDetails"
 }
 
 export type Actions = {
