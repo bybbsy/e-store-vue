@@ -1,6 +1,7 @@
 import { CardProduct, State } from "./state-types";
 
 
-export type getters = {
-  getProducts(state: State): Array<CardProduct>
+export type Getters = {
+  getProducts(state: State): Array<CardProduct>,
+  getDetailsExpanded(state: State): boolean
 }
