@@ -9,6 +9,16 @@ export const actions: ActionTree<State, RootState> & Actions = {
     const snapshot = await firebase.firestore().collection('products').get();
     const receivedProducts = snapshot.docs.map(doc => doc.data());
 
+    const comments = await firebase.database().ref('/comments').get().then(snap => snap.val())
+
+    console.log(comments)
+
     commit('SET_PRODUCTS', receivedProducts);
+  },
+  [ActionTypes.toggleDetails]({commit}) {
+    commit('TOGGLE_DETAILS');
+  },
+  [ActionTypes.fecthComments]({commit}, producitId) {
+    console.log(producitId);
   }
 }
