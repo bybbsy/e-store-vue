@@ -22,8 +22,6 @@
           <div class="products__list" v-if="products.length && !loadingData" :class="{ 'products__list_stretch' : detailsExpanded}">
             <Card v-for="(productItem, index) in products"
                   :key="index"
-                  :detailsExpanded="detailsExpanded"
-                  @toggle-details="handleClick"
                   :productItem="productItem"
                   />
           </div>
@@ -54,33 +52,32 @@ import Card from '@/components/Products/Card.vue';
 import CardDetail from '@/components/Products/CardDetail.vue';
 
 import { Product as ProductItem } from '@/types/store/products/state-types';
+import { mapGetters } from 'vuex';
 
 export default Vue.extend({
   name: 'products-page',
   data() {
-
     return {
       loadingData: false,
       products: [] as Array<ProductItem>,
-      detailsExpanded: false,
     }
   },
   mounted() {
     this.$load(async () => {
       this.loadingData = true
+
       await this.$store.dispatch('fetchProducts');
       this.products = this.$store.getters.getProducts;
+
       this.loadingData = false
     })
   },
   computed: {
+    ...mapGetters({
+      detailsExpanded: 'getDetailsExpanded'
+    }),
     mobileDevice() {
       return Vue.prototype.$isMobile;
-    },
-  },
-  methods: {
-    handleClick(data: boolean) {
-      this.detailsExpanded = data;
     }
   },
   components: {
