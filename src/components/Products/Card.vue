@@ -33,29 +33,18 @@ interface ProductItem {
 export default Vue.extend({
   name: 'default-card',
   props: {
-    detailsExpanded: {
-      type: Boolean,
-      required: true
-    },
     productItem: Object as PropType<ProductItem>
   },
   data() {
     return {
-      toggledDetails: this.detailsExpanded,
       cardMobile: ''
     }
   },
-  mounted() {
-    let check = false;
-    // this.cardMobile = (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent));
-    // console.log((/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)))
-    // console.log(check);
-    return check;
-  },
   methods: {
       cardClick() {
-        this.toggledDetails = !this.toggledDetails;
-        this.$emit('toggle-details', this.toggledDetails);
+        console.log('Click');
+        this.$store.dispatch('toggleDetails');
+        this.$store.dispatch('fetchComments', 'productId successfully passed')
       },
       addToCart() {
         console.log("Added to cart")
