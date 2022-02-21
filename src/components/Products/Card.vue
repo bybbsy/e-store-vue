@@ -1,17 +1,17 @@
 <template>
     <div class="product__card product__card_health" @click="cardClick">
       <div class="card__image">
-        <img :src="require('@/assets/img/mock/' + productItem.imgLink)" alt="">
+        <img :src="require('@/assets/img/mock/' + product.imgLink)" alt="">
       </div>
       <div class="card__content">
-        <div class="title title__card_short">{{ productItem.name }}</div>
+        <div class="title title__card_short">{{ product.rate }}</div>
         <div class="rate-block">
-          <Rating :rate="productItem.rate"/>
-          <div class="rate-block__value">{{ productItem.rate }}</div>
+          <Rating :rate="product.rate"/>
+          <div class="rate-block__value">{{ product.rate }}</div>
         </div>
       </div>
       <div class="card__bottom card__bottom_default-card">
-        <div class="price">${{ productItem.price }}</div>
+        <div class="price">${{ product.price }}</div>
         <div class="card__button card__button_add" @click.stop="addToCart">
           <div class="button__text">Add to cart</div>
         </div>
@@ -22,18 +22,12 @@
 <script lang="ts">
 import Vue, { PropType } from 'vue';
 import Rating from './Rating.vue';
-
-interface ProductItem {
-  name: string,
-  rate: number,
-  price: number,
-  imgLink: string
-}
+import { Product } from '@/types/store/products/state-types';
 
 export default Vue.extend({
   name: 'default-card',
   props: {
-    productItem: Object as PropType<ProductItem>
+    product: Object as PropType<Product>
   },
   data() {
     return {
