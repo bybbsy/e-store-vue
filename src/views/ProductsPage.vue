@@ -22,7 +22,7 @@
           <div class="products__list" v-if="products.length && !loadingData" :class="{ 'products__list_stretch' : detailsExpanded}">
             <Card v-for="(productItem, index) in products"
                   :key="index"
-                  :productItem="productItem"
+                  :product="productItem"
                   />
           </div>
           <LoadingSpinner v-else-if="loadingData"/>
