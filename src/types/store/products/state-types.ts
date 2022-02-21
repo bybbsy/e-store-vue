@@ -1,11 +1,10 @@
 interface Product {
   name: string,
-  imageLink: string,
+  imgLink: string,
   category?: string,
   subcategory?: string,
-  price: string,
-  rate: string
-  reviews: number,
+  price: number,
+  rate: number
 }
 
 // Product interface for expanded card
@@ -23,7 +22,7 @@ interface CardComment {
 }
 
 interface State {
-  products: Array<CardProduct>
+  products: Array<Product>
   currentProduct: (CardProduct | null),
   productDetails: boolean
 }
