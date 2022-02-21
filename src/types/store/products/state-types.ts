@@ -5,11 +5,11 @@ interface Product {
   subcategory?: string,
   price: string,
   rate: string
+  reviews: number,
 }
 
 // Product interface for expanded card
 interface CardProduct extends Product {
-  reviews: number,
   comments: Array<CardComment>
 }
 
@@ -18,6 +18,7 @@ interface CardComment {
     firstname: string,
     lastname: string
   },
+  date?: (Date | string),
   content: string
 }
 
