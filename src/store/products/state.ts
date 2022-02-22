@@ -5,6 +5,7 @@ export const state: State = {
   currentProduct: {
     // #TODO Add product ID
     // #TODO Add default image while loading data
+    productID: '',
     name: 'no-name',
     imgLink: '',
     rate: 0,

@@ -8,7 +8,12 @@ import _ from 'lodash';
 export const actions: ActionTree<State, RootState> & Actions = {
   async [ActionTypes.fetchProducts]({commit}) {
     const snapshot = await firebase.firestore().collection('products').get();
-    const receivedProducts = snapshot.docs.map(doc => doc.data());
+    const receivedProducts = snapshot.docs.map(doc => {
+      return {
+        productID: doc.id,
+        ...doc.data()
+      }
+    });
 
     commit('SET_PRODUCTS', receivedProducts);
   },
