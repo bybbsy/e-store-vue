@@ -4,7 +4,7 @@
     <div class="navbar__filters-block">
 
         <div class="filter-block" v-for="(filter, index) in filterItems" :key="index">
-            <div class="filter-block__body" v-if="!filter.authRequired || userIsAuthorized">
+            <div class="filter-block__body" v-if="!filter.authRequired || (filter.authRequired && uid)">
                 <div class="filter-block__main-filter">
                     <router-link :to="filter.baseUrl" class="main-filter__name">#{{ filter.mainCategory }}</router-link>
                 </div>
@@ -12,7 +12,7 @@
                 <router-link class="filter-element"
                     v-for="(category, categoryIndex) in filter.filterItems"
                     :key="categoryIndex"
-                    :to=" { path: filter.baseUrl, query: { category: category.link}}"
+                    :to=" { path: `${filter.baseUrl}/${category.link}`, replace: true}"
                     >
 
                     <div class="filter-element__icon">
@@ -20,7 +20,7 @@
                     </div>
 
                     <div class="filter-element__name">
-                        <span>{{ category.name }}</span>
+                        <span>{{ category.link }}</span>
                     </div>
                 </router-link>
             </ul>
@@ -92,60 +92,61 @@
 <script lang="ts">
 import Vue from 'vue';
 import { filterBlock } from '@/types/filter/index';
+import { userIsAuthorized } from '@/helpers/auth'
 
 
 export default Vue.extend({
-    name: 'block-filter',
-    data() {
-        return {
-            filterItems: [
-                {
-                    mainCategory: 'store',
-                    baseUrl: 'products',
-                    authRequired: false,
-                    filterItems: [
-                        {
-                            name: 'Toys',
-                            icon: 'Light-bulb.png',
-                            link: 'toys'
-                        },
-                        {
-                            name: 'Health',
-                            icon: 'Heart.png',
-                            link: 'health'
-                        },
-                        {
-                            name: 'Food',
-                            icon: 'Apple.png',
-                            link: 'Food'
-                        }
-                    ]
-                },
-                {
-                    mainCategory: 'personal',
-                    baseUrl: '',
-                    authRequired: true,
-                    filterItems: [
-                        {
-                            name: 'My cart',
-                            icon: 'Cart.png',
-                            link: 'cart'
-                        },
-                        {
-                            name: 'Coupons',
-                            icon: 'Coupon.png',
-                            link: 'coupons'
-                        }
-                    ]
-                }
-            ] as Array<filterBlock>
+  name: 'block-filter',
+  data() {
+    return {
+      filterItems: [
+        {
+          mainCategory: 'store',
+          baseUrl: 'products',
+          authRequired: false,
+          filterItems: [
+            {
+                name: 'Toys',
+                icon: 'Light-bulb.png',
+                link: 'toys'
+            },
+            {
+                name: 'Health',
+                icon: 'Heart.png',
+                link: 'health'
+            },
+            {
+                name: 'Food',
+                icon: 'Apple.png',
+                link: 'Food'
+            }
+          ]
+        },
+        {
+          mainCategory: 'personal',
+          baseUrl: 'personal',
+          authRequired: true,
+          filterItems: [
+            {
+                name: 'My cart',
+                icon: 'Cart.png',
+                link: 'cart'
+            },
+            {
+                name: 'Coupons',
+                icon: 'Coupon.png',
+                link: 'coupons'
+            }
+          ]
         }
-    },
-    computed: {
-        userIsAuthorized(): (string | boolean) {
-            return localStorage.getItem('username') ?? false;
-        }
+      ] as Array<filterBlock>
     }
+  },
+  computed: {
+    uid() {
+      return userIsAuthorized();
+    }
+  }
 })
 </script>
 
