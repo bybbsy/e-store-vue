@@ -1,5 +1,5 @@
 <template>
-  <div class="product__card product__card_health product__card_expanded _hide-scroll" v-if="productDetail.imgLink.length > 0" >
+  <div class="product__card product__card_health product__card_expanded _hide-scroll" v-if="productExists" >
       <div class="card__image card__image_detail">
         <img :src="require('@/assets/img/mock/' + productDetail.imgLink)" alt="">
       </div>
@@ -51,6 +51,9 @@ export default Vue.extend({
     ...mapGetters({
       productDetail: 'getDetails'
     }),
+    productExists() {
+      return this.productDetail.productID.length > 0;
+    }
   },
   methods: {
     dateWithMoment(date: Date) {
