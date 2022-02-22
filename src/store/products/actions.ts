@@ -23,7 +23,19 @@ export const actions: ActionTree<State, RootState> & Actions = {
   },
   async [ActionTypes.setDetails]({commit}, payload) {
     const commentsRaw = await (await firebase.database().ref('/comments').get()).val();
-    const comments = _.toArray(commentsRaw).filter(el => el);
+    const comments = _.toArray(commentsRaw).filter(el => el?.productId === payload.productID);
+
+    // const users = comments.forEach( async (el) => {
+    //   if(payload.productID === el.productId) {
+    //     const usernameRaw =  await firebase.database().ref(`/users/${el.userId}/info`).get();
+    //     const usernameR =  usernameRaw.val()
+
+    //     const username = await usernameR.firstName;
+    //     el.username = username;
+    //     console.log(el)
+    //     return el;
+    //   }
+    // })
 
     _.assign(payload, {
       comments: comments
