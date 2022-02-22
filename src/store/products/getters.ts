@@ -9,5 +9,8 @@ export const getters: GetterTree<State, RootState> & Getters = {
   },
   getDetailsExpanded(state) {
     return state.productDetails;
+  },
+  getDetails(state) {
+    return state.currentProduct;
   }
 }
