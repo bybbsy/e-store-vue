@@ -35,20 +35,34 @@ const routes: Array<RouteConfig> = [
   },
   {
     path: '/coupons',
-    name: 'Coupons',
+    name: 'coupons',
     meta: { layout: 'default', authRequired: true },
     component: () => import('../views/CouponsPage.vue'),
     beforeEnter: checkForAuth
   },
   {
     path: '/products',
-    name: 'Products',
+    name: 'products',
     meta: { layout: 'default' },
     component: () => import('../views/ProductsPage.vue'),
+    children: [
+      {
+        name: 'category',
+        path: '/:category',
+        meta: { layout: 'default' },
+        component: () => import('../views/ProductsPage.vue'),
+      }
+    ]
+  },
+  {
+    path: '/personal',
+    name: 'personal',
+    meta: { layout: 'default' },
+    component: () => import('../views/ProductsPage.vue')
   },
   {
     path: '*',
-    name: 'Error',
+    name: 'error',
     meta: { layout: 'empty' },
     component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
   }
