@@ -10,5 +10,12 @@ export const state: State = {
     lastName: '',
     email: '',
     password: ''
+  },
+  userData: {
+    firstName: '',
+    lastName: '',
+    email: '',
+    coupons: [],
+    cart: []
   }
 }
