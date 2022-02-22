@@ -1,40 +1,40 @@
 <template>
-  <div class="product__card product__card_health product__card_expanded _hide-scroll">
+  <div class="product__card product__card_health product__card_expanded _hide-scroll" v-if="productDetail.imgLink.length > 0" >
       <div class="card__image card__image_detail">
-        <img src="~@/assets/img/mock/Item1.png" alt="">
+        <img :src="require('@/assets/img/mock/' + productDetail.imgLink)" alt="">
       </div>
       <div class="card__content">
-        <div class="title title__card_short">El Batipato de Batman</div>
-        <div class="description description__card">Patito de hule que usa batman para acompañar
-sus seciones de baño.</div>
+        <div class="title title__card_short">{{ productDetail.name }}</div>
+        <div class="description description__card">{{ productDetail.description }}</div>
         <div class="rate-block rate-block_detail">
-          <Rating/>
-          <div class="rate-block__value">3.5</div>
+          <Rating :rate="productDetail.rate" />
+          <div class="rate-block__value">{{ productDetail.rate }}</div>
         </div>
       </div>
       <div class="card__bottom card__bottom_detail-card">
-        <div class="price">$14.81</div>
+        <div class="price">${{ productDetail.price }}</div>
         <div class="card__button card__button_add" @click.stop="addToCart">
           <div class="button__text">Add to cart</div>
         </div>
       </div>
 
       <div class="card__comments">
-        <div class="title card__comments_title">Algunas opiniones sobre este juguete</div>
-        <ul class="comments__list" v-if="comments.length">
-          <li class="comments__comment" v-for="(comment, index) in comments" :key='index'>
+        <div class="title card__comments_title">Comments</div>
+        <ul class="comments__list" v-if="productDetail.comments">
+          <li class="comments__comment" v-for="(comment, index) in productDetail.comments" :key='index'>
             <div class="comment__icon">
               <img src="~@/assets/img/mock/Avatar.jpg" alt="">
             </div>
             <div class="comment__content">
               <div class="comment__top">
                 <div class="comment__author">{{ comment.author }}</div>
-                <div class="comment__date">{{ dateWithFns(comment.date) }}</div>
+                <div class="comment__date">{{ dateWithFns(comment.commentDate) }}</div>
               </div>
-              <div class="comment__text">{{ comment.content }}</div>
+              <div class="comment__text">{{ comment.commentContent  }}</div>
             </div>
           </li>
         </ul>
+        <div v-else>No comments</div>
       </div>
     </div>
 </template>
@@ -44,24 +44,21 @@ import Vue from 'vue'
 import Rating from './Rating.vue';
 import moment from 'moment';
 import { formatDistance, subDays, addQuarters } from 'date-fns';
+import { mapGetters } from 'vuex';
 
 export default Vue.extend({
-  data() {
-    return {
-      comments: [
-        { author: 'John Doe', content: 'Yup fine', date: (() => new Date(2019, 2, 2, 3, 4, 5))()},
-        { author: 'John Doe', content: 'I like that product', date: (() => new Date(2020, 5, 2, 7, 30, 15))() },
-        { author: 'John Doe', content: 'Reaally cool stuff', date: (() => new Date(2021, 8, 5, 16, 12, 35))() },
-        { author: 'John Doe', content: 'Bad one', date: (() => new Date(2018, 1, 1, 12, 7, 1))() }
-      ]
-    }
+  computed: {
+    ...mapGetters({
+      productDetail: 'getDetails'
+    }),
   },
   methods: {
     dateWithMoment(date: Date) {
       date = new Date(2022)
     },
-    dateWithFns(date: Date) {
-      return formatDistance(subDays(date, 3), new Date(), { addSuffix: true })
+    dateWithFns(date: string) {
+      let correctDate = Date.parse(date)
+      return formatDistance(subDays(correctDate, 3), new Date(), { addSuffix: true })
     }
   },
   components: {
