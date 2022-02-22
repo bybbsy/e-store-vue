@@ -4,7 +4,7 @@
         <img :src="require('@/assets/img/mock/' + product.imgLink)" alt="">
       </div>
       <div class="card__content">
-        <div class="title title__card_short">{{ product.rate }}</div>
+        <div class="title title__card_short">{{ product.name }}</div>
         <div class="rate-block">
           <Rating :rate="product.rate"/>
           <div class="rate-block__value">{{ product.rate }}</div>
@@ -23,24 +23,24 @@
 import Vue, { PropType } from 'vue';
 import Rating from './Rating.vue';
 import { Product } from '@/types/store/products/state-types';
+import { mapActions } from 'vuex';
 
 export default Vue.extend({
   name: 'default-card',
   props: {
     product: Object as PropType<Product>
   },
-  data() {
-    return {
-      cardMobile: ''
-    }
-  },
   methods: {
-      cardClick() {
-        console.log('Click');
-        this.$store.dispatch('toggleDetails');
-        this.$store.dispatch('fetchComments', 'productId successfully passed')
+      ...mapActions(
+        ['toggleDetails', 'setDetails']
+      ),
+      async cardClick() {
+        this.toggleDetails();
+        await this.setDetails(this.product);
       },
+
       addToCart() {
+        // TODO Implement adding to cart
         console.log("Added to cart")
       }
     },
