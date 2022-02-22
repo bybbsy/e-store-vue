@@ -8,16 +8,18 @@
                       <img src="~@/assets/img/mock/Avatar.jpg" alt="Avatar">
                   </div>
                   <div class="user-block__username">
-                      <p>¡Hola, Jeff! {{ isMenuExpanded }}</p>
+                      <p>¡Hola, {{ getUsername }}</p>
                   </div>
               </div>
           </div>
           <BlockFilter/>
           <div class="navbar__auth-block">
-              <div class="auth-block__buttons">
+              <div class="auth-block__buttons" v-if="uid">
+                  <a href="" class="auth-block__button auth-block__button_sign-out" @click="logOut">Sign out</a>
+              </div>
+              <div class="auth-block__buttons" v-else>
                   <router-link :to="{ name: 'sign-up'}" class="auth-block__button auth-block__button_sign-up">Sign up</router-link>
                   <router-link :to="{ name: 'sign-in'}" class="auth-block__button auth-block__button_sign-in">Sign in</router-link>
-                  <!-- <a href="" class="auth-block__button auth-block__button_sign-out">Sign out</a> -->
               </div>
           </div>
       </div>
@@ -26,10 +28,28 @@
 
 <script lang="ts">
 import Vue from 'vue';
+import { mapGetters, mapActions } from 'vuex';
 import BlockFilter from './BlockFilter.vue';
+import { userIsAuthorized } from '@/helpers/auth';
 
 export default Vue.extend({
   name: 'the-navbar',
+  computed: {
+    uid() {
+      return userIsAuthorized();
+    },
+    ...mapGetters({
+      userData: 'getUserData'
+    }),
+    getUsername() {
+      return `${this.userData.firstName} ${this.userData.lastName}`;
+    },
+  },
+  methods: {
+    ...mapActions({
+      logOut: 'LOGOUT'
+    })
+  },
   components: {
     BlockFilter
   },
