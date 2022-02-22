@@ -1,4 +1,7 @@
+type ProductID = string;
+
 interface Product {
+  productID: ProductID,
   name: string,
   imgLink: string,
   category?: string,
@@ -14,7 +17,7 @@ interface DetailProduct extends Product {
 }
 
 interface CardComment {
-  productId: string,
+  productID: ProductID,
   userId: string,
   // username: string,
   commentDate?: (Date | string),
