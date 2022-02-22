@@ -27,7 +27,7 @@
             </div>
             <div class="comment__content">
               <div class="comment__top">
-                <div class="comment__author">{{ comment.author }}</div>
+                <div class="comment__author">{{ comment.username }}</div>
                 <div class="comment__date">{{ dateWithFns(comment.commentDate) }}</div>
               </div>
               <div class="comment__text">{{ comment.commentContent  }}</div>
