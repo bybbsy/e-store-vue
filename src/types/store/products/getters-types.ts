@@ -1,7 +1,8 @@
-import { Product, State } from "./state-types";
+import { DetailProduct, Product, State } from "./state-types";
 
 
 export type Getters = {
   getProducts(state: State): Array<Product>,
-  getDetailsExpanded(state: State): boolean
+  getDetailsExpanded(state: State): boolean,
+  getDetails(state: State): DetailProduct
 }

@@ -8,23 +8,23 @@ interface Product {
 }
 
 // Product interface for expanded card
-interface CardProduct extends Product {
+interface DetailProduct extends Product {
+  description?: string,
   comments: Array<CardComment>
 }
 
 interface CardComment {
-  author: {
-    firstname: string,
-    lastname: string
-  },
-  date?: (Date | string),
-  content: string
+  productId: string,
+  userId: string,
+  // username: string,
+  commentDate?: (Date | string),
+  commentContent: string
 }
 
 interface State {
   products: Array<Product>
-  currentProduct: (CardProduct | null),
+  currentProduct: DetailProduct,
   productDetails: boolean
 }
 
-export { State, Product, CardProduct, CardComment };
+export { State, Product, DetailProduct, CardComment };

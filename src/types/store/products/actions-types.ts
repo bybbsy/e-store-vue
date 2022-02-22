@@ -1,15 +1,15 @@
 import { RootState } from "@/store";
 import { ActionContext } from "vuex";
-import { State } from "./state-types";
+import { CardComment, Product, State } from "./state-types";
 
 export enum ActionTypes {
   fetchProducts = "fetchProducts",
   toggleDetails = "toggleDetails",
-  fecthComments = "fetchComments"
+  setDetails = "setDetails"
 }
 
 export type Actions = {
   [ActionTypes.fetchProducts]({commit}: ActionContext<State, RootState>): void
   [ActionTypes.toggleDetails]({commit}: ActionContext<State, RootState>): void
-  [ActionTypes.fecthComments]({commit}: ActionContext<State, RootState>, producitId: string): void
+  [ActionTypes.setDetails]({commit}: ActionContext<State, RootState>, payload: Product): void
 }
