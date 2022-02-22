@@ -9,6 +9,7 @@
 import Vue from 'vue';
 import TheNavbar from '../components/TheNavbar/TheNavbar.vue';
 import firebase from "firebase/compat/app";
+import { mapActions } from 'vuex';
 
 
 export default Vue.extend({
@@ -17,9 +18,22 @@ export default Vue.extend({
         TheNavbar
     },
     async mounted() {
-      let response = await firebase.database().ref(`/users/${firebase.auth().currentUser?.uid}/info`).get();
-      let user = response.exists() ? response.val() : null;
-      console.log(user)
+      const userID = await this.getUid;
+
+      if(userID) {
+        let response = (await firebase.database().ref(`/users/${userID}/info`).get()).val();
+        this.setUserData(response);
+      }
+    },
+    methods: {
+      ...mapActions(
+        ['setUserData']
+      )
+    },
+    computed: {
+      ...mapActions([
+        'getUid'
+      ])
     }
 })
 </script>
