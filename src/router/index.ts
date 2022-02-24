@@ -41,18 +41,10 @@ const routes: Array<RouteConfig> = [
     beforeEnter: checkForAuth
   },
   {
-    path: '/products',
+    path: '/products/:category?',
     name: 'products',
     meta: { layout: 'default' },
-    component: () => import('../views/ProductsPage.vue'),
-    children: [
-      {
-        name: 'category',
-        path: '/:category',
-        meta: { layout: 'default' },
-        component: () => import('../views/ProductsPage.vue'),
-      }
-    ]
+    component: () => import('../views/ProductsPage.vue')
   },
   {
     path: '/personal',

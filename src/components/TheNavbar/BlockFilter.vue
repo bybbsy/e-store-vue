@@ -6,13 +6,13 @@
         <div class="filter-block" v-for="(filter, index) in filterItems" :key="index">
             <div class="filter-block__body" v-if="!filter.authRequired || (filter.authRequired && uid)">
                 <div class="filter-block__main-filter">
-                    <router-link :to="filter.baseUrl" class="main-filter__name">#{{ filter.mainCategory }}</router-link>
+                    <router-link :to="{ path: `/${filter.baseUrl}` }" class="main-filter__name">#{{ filter.mainCategory }}</router-link>
                 </div>
                 <ul class="filters-list">
                 <router-link class="filter-element"
                     v-for="(category, categoryIndex) in filter.filterItems"
                     :key="categoryIndex"
-                    :to=" { path: `${filter.baseUrl}/${category.link}`, replace: true}"
+                    :to=" { path: `/${filter.baseUrl}/${category.link}`}"
                     >
 
                     <div class="filter-element__icon">
