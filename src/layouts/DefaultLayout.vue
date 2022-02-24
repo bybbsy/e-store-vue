@@ -10,7 +10,7 @@ import Vue from 'vue';
 import TheNavbar from '../components/TheNavbar/TheNavbar.vue';
 import firebase from "firebase/compat/app";
 import { mapActions } from 'vuex';
-
+import { userIsAuthorized } from "@/helpers/auth";
 
 export default Vue.extend({
     name: 'default-layout',
@@ -18,7 +18,7 @@ export default Vue.extend({
         TheNavbar
     },
     async mounted() {
-      const userID = await this.getUid;
+      const userID = userIsAuthorized();
 
       if(userID) {
         let response = (await firebase.database().ref(`/users/${userID}/info`).get()).val();
@@ -29,11 +29,6 @@ export default Vue.extend({
       ...mapActions(
         ['setUserData']
       )
-    },
-    computed: {
-      ...mapActions([
-        'getUid'
-      ])
     }
 })
 </script>

@@ -3,6 +3,7 @@ import { State } from "@/types/store/auth/state-types";
 import { ActionTree } from "vuex";
 import { RootState } from "..";
 import firebase from "firebase/compat";
+import { userIsAuthorized } from "@/helpers/auth";
 
 export const actions: ActionTree<State, RootState> & Actions = {
   async [ActionTypes.login]({commit}, {email, password}) {
@@ -15,7 +16,7 @@ export const actions: ActionTree<State, RootState> & Actions = {
   async [ActionTypes.register]({commit}, {email, password, firstName, lastName}) {
     await firebase.auth().createUserWithEmailAndPassword(email, password);
 
-    const uid = firebase.auth().currentUser?.uid ?? null;
+    const uid = userIsAuthorized();
 
     await firebase.database().ref(`/users/${uid}/info`).set({
       coupons: [],
@@ -32,9 +33,6 @@ export const actions: ActionTree<State, RootState> & Actions = {
       coupons: [],
       cart: []
     })
-  },
-  [ActionTypes.getUid]() {
-    return firebase.auth().currentUser?.uid ?? null;
   },
   [ActionTypes.setUserData]({commit}, payload) {
     commit('SET_USER_DATA', payload);
