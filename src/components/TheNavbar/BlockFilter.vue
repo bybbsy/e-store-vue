@@ -6,7 +6,7 @@
         <div class="filter-block" v-for="(filter, index) in filterItems" :key="index">
             <div class="filter-block__body" v-if="!filter.authRequired || (filter.authRequired && uid)">
                 <div class="filter-block__main-filter">
-                    <router-link :to="{ path: `/${filter.baseUrl}` }" class="main-filter__name">#{{ filter.mainCategory }}</router-link>
+                    <router-link :to="{ path: `/${filter.baseUrl}` }" class="filter-element main-filter__name">#{{ filter.mainCategory }}</router-link>
                 </div>
                 <ul class="filters-list">
                 <router-link class="filter-element"
@@ -210,6 +210,13 @@ export default Vue.extend({
 .filter-element__name span {
     color: rgba(255, 255, 255, 0.4);
     transition: 0.1s all ease-in;
+}
+
+.filter-element.router-link-exact-active .filter-element__name span {
+  color: var(--main-orange);
+}
+.filter-element.router-link-exact-active .filter-element__icon {
+  background-color: var(--main-orange);
 }
 
 </style>
