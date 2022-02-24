@@ -118,8 +118,11 @@ h6 {
   --secondary-dark: #28272B;
   --secondary-gray: rgba(255, 255, 255, 0.15);
   --text-gray: rgba(255, 255, 255, 0.4);
+  --text-gray-disabled: rgba(44, 44, 44, 0.397);
   --main-orange: #FFA049;
   --main-white: #fff;
+  --main-error: rgb(243, 38, 38);
+  --main-orange-disabled: rgba(240,171,32, 0.2);
 }
 
 #app {
