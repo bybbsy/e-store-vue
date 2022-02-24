@@ -162,6 +162,13 @@ export default Vue.extend({
   transition: 0.5s all ease;
 }
 
+input[type=submit]:disabled:hover,
+input[type=submit]:disabled{
+  background-color: var(--main-orange-disabled);
+  color: var(--text-gray-disabled);
+  cursor: initial;
+}
+
 .form__input_sign-in:hover,
 .form__input_sign-up:hover {
   background-color: #5dbf79;
