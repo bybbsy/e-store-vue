@@ -120,8 +120,17 @@ h6 {
   --text-gray: rgba(255, 255, 255, 0.4);
   --text-gray-disabled: rgba(44, 44, 44, 0.397);
   --main-orange: #FFA049;
+  --secondary-orange: #FD7A32;
+  --button-orange: #ffbf49;
   --main-white: #fff;
+  --secondary-white: #F4F2F2;
+  --main-success: #5DBF79;
   --main-error: rgb(243, 38, 38);
+  --main-blue: #485fe2;
+  --secondary-blue: #485fe2;
+  --main-purple: #323036;
+  --dark-blue: #17273fde;
+  --darker-blue: #46444B;
   --main-orange-disabled: rgba(240,171,32, 0.2);
 }
 
@@ -133,13 +142,13 @@ h6 {
 
 .title {
   font-size: 1.5em;
-  color: #fff;
+  color: var(--main-white);
   font-weight: 600;
   line-height: 150%;
 }
 
 .price {
-  color: #fff;
+  color: var(--main-white);
   font-weight: 500;
   font-size: 1.875em;
   line-height: 150%;

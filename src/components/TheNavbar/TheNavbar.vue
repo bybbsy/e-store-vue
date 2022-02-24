@@ -59,7 +59,7 @@ export default Vue.extend({
 <style>
 .navbar {
   min-width: 300px;
-  background-color: #28272B;
+  background-color: var(--secondary-dark);
   padding: 50px 0;
   overflow: hidden scroll;
   height: 100vh;
@@ -86,7 +86,7 @@ export default Vue.extend({
   line-height: 150%;
   text-align: center;
   font-weight: 600;
-  color: #fff;
+  color: var(--main-white);
   font-size: 1.5em;
 }
 
@@ -128,7 +128,7 @@ export default Vue.extend({
   width: 100%;
   border-radius: 25px;
   min-height: 50px;
-  color: #fff;
+  color: var(--main-white);
   line-height: 27px;
   padding: 10px 18px;
   font-size: 1.125em;
@@ -137,19 +137,19 @@ export default Vue.extend({
 }
 
 .auth-block__button:hover {
-  box-shadow: 0px 0px 2px 1px #fff;
+  box-shadow: 0px 0px 2px 1px var(--main-white);
 }
 
 .auth-block__button_sign-up {
-  background-color: #FFA049;
+  background-color: var(--main-orange);
 }
 
 .auth-block__button_sign-in {
-  background-color: #5DBF79;
+  background-color: var(--main-success);
 }
 
 .auth-block__button_sign-out {
-  background-color: #D7263D;
+  background-color: var(--main-error);
 }
 
 @media screen and (max-width: 1080px) {

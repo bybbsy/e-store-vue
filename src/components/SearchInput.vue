@@ -25,21 +25,21 @@ export default Vue.extend({
     height: 60px;
     background-color: transparent;
     border-radius: 50px;
-    border: 2px solid #323036;
+    border: 2px solid var(--main-purple);
     padding: 16px 16px 16px 70px;
     font-size: 1.125em;
     font-weight: 500;
-    color: #fff;
+    color: var(--main-white);
     transition: all 0.2s ease-in-out;
 }
 
 .search__input:hover,
 .search__input:focus {
-    background-color: #323036;
+    background-color: var(--main-purple);
 }
 
 .search__input:focus {
-    border: 2px solid #FFA049;
+    border: 2px solid var(--main-orange);
     font-size: 1.3em;
 }
 

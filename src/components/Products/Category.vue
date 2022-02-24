@@ -9,7 +9,7 @@
 <script lang="ts">
 import Vue from 'vue'
 export default Vue.extend({
-    
+
 })
 </script>
 
@@ -25,8 +25,8 @@ export default Vue.extend({
 .category-wrapper {
   position: relative;
   background-color: transparent;
-  border: 1px solid #46444B;
-  color: #46444B;
+  border: 1px solid var(--darker-blue);
+  color: var(--darker-blue);
   padding: 10px 20px;
   line-height: 150%;
   border-radius: 50px;
@@ -38,7 +38,7 @@ export default Vue.extend({
 .category-wrapper:hover,
 .category-wrapper:active {
   margin: -2px;
-  border: 2px solid #fff;
-  color: #fff;
+  border: 2px solid var(--main-white);
+  color: var(--main-white);
 }
 </style>

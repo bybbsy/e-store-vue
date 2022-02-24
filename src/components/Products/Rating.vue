@@ -24,10 +24,10 @@ export default Vue.extend({
         let value = (this.userRating - (rate - 1)) * 100;
 
         // Returns gradient
-        return `linear-gradient(to right, #FFA049 ${value}%, lightgrey ${value}%)`;
+        return `linear-gradient(to right, var(--main-orange) ${value}%, lightgrey ${value}%)`;
 
       } else if (this.userRating - (rate - 1) >= 1) {
-        return '#FFA049';
+        return 'var(--main-orange)';
       }
       else {
         return 'lightgray';

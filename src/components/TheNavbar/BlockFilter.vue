@@ -163,13 +163,9 @@ export default Vue.extend({
 }
 
 .main-filter__name {
-    color: #FFA049;
+    color: var(--main-orange);
     text-align: left;
     cursor: pointer;
-}
-
-.filters-list {
-
 }
 
 .filter-element {
@@ -180,18 +176,18 @@ export default Vue.extend({
 }
 
 .filter-element:hover .filter-element__icon {
-    background-color: #FD7A32;
+    background-color: var(--secondary-orange);
 }
 
 .filter-element:hover .filter-element__name span {
-    color: #fff;
+    color: var(--main-white);
 }
 
 .filter-element__icon {
     position: relative;
     width: 50px;
     height: 50px;
-    background-color: rgba(255, 255, 255, 0.15);
+    background-color: var(--secondary-gray);
     border-radius: 50%;
     margin-right: 30px;
     transition: 0.1s all ease-in;
@@ -208,7 +204,7 @@ export default Vue.extend({
 }
 
 .filter-element__name span {
-    color: rgba(255, 255, 255, 0.4);
+    color: var(--text-gray);
     transition: 0.1s all ease-in;
 }
 

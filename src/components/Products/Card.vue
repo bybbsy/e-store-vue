@@ -59,7 +59,7 @@ export default Vue.extend({
   max-width: 450px;
   padding-bottom: 30px;
   border-radius: 15px;
-  background-color: #28272B;
+  background-color: var(--secondary-dark);
   cursor: pointer;
   z-index: 10;
   overflow: hidden;
@@ -88,27 +88,27 @@ export default Vue.extend({
 }
 
 .product__card_toys .card__image{
-  background-color: #5DBF79;
+  background-color: var(--main-success);
 }
 
 .product__card_toys:hover::before  {
-  border-color: #5DBF79;
+  border-color: var(--main-success);
 }
 
 .product__card_food .card__image {
-  background-color: #FFA049;
+  background-color: var(--main-orange);
 }
 
 .product__card_food:hover::before  {
-  border-color: #FFA049;
+  border-color: var(--main-orange);
 }
 
 .product__card_health .card__image {
-  background-color: #485fe2;
+  background-color: var(--main-blue);
 }
 
 .product__card_health:hover::before  {
-  border-color: #485fe2;
+  border-color: var(--secondary-blue);
 }
 
 .card__image {
@@ -140,7 +140,7 @@ export default Vue.extend({
   font-weight: 400;
   line-height: 150%;
   margin-left: 8px;
-  color: rgba(255, 255, 255, 0.4);
+  color: var(--text-gray);
 }
 
 .card__bottom {
@@ -165,17 +165,17 @@ export default Vue.extend({
 }
 
 .card__button_add {
-  background-color: #FFA049;
+  background-color: var(--main-orange);
   background-image: url('~@/assets/img/base/PlusCircle.png');
   background-size: 30px 30px;
   background-repeat: no-repeat;
   background-position: 18px 10px;
-  color: #fff;
+  color: var(--main-white);
   transition: 0.2s all ease;
 }
 
 .card__button_add:hover {
-  background-color: #ffbf49;
+  background-color: var(--button-orange);
 }
 
 .button__text {

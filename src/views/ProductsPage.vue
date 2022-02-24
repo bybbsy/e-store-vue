@@ -167,7 +167,7 @@ export default Vue.extend({
   text-decoration-line: underline;
   text-transform: uppercase;
   font-size: 1em;
-  color: #fff;
+  color: var(--main-white);
 }
 
 .products__list {
@@ -231,7 +231,7 @@ export default Vue.extend({
   font-size: 1.5em;
   line-height: 150%;
   font-weight: 600;
-  color: #fff;
+  color: var(--main-white);
 }
 
 /* Medias */

@@ -28,7 +28,6 @@ export default Vue.extend({
 
 ._container_left {
   margin: 0 300px 0 25px;
-  /* border: 1px solid tomato; */
 }
 
 ._container_right {
@@ -37,7 +36,7 @@ export default Vue.extend({
 
 .auth__left {
   width: 50%;
-  background-color: #28272B;
+  background-color: var(--main-purple);
 }
 
 
@@ -60,7 +59,7 @@ export default Vue.extend({
 
 .welcome-text__description {
   line-height: 150%;
-  color: #fff;
+  color: var(--main-white);
 }
 
 .welcome-text__description {
@@ -68,12 +67,12 @@ export default Vue.extend({
 }
 
 .welcome-text__description_orange {
-  color: #F0AB20;
+  color: var(--main-orange);
 }
 
 .auth__right {
   width: 50%;
-  background-color: rgba(255, 255, 255, 0.4);
+  background-color: var(--text-gray);
 }
 
 .auth__form {
@@ -129,10 +128,10 @@ export default Vue.extend({
 .form__input-email,
 .form__input-password,
 .form__input-name {
-  background-color: #F4F2F2;
+  background-color: var(--secondary-white);
   min-height: 52px;
   font-size: 1em;
-  color: #17273fde;
+  color: var(--dark-blue);
   padding: 12px 45px 12px 12px;
 }
 
@@ -154,7 +153,7 @@ export default Vue.extend({
 
 .form__input_sign-in,
 .form__input_sign-up {
-  background-color: #F0AB20;
+  background-color: var(--main-orange);
   height: 50px;
   font-weight: 500;
   font-size: 1.125em;
@@ -171,7 +170,7 @@ input[type=submit]:disabled{
 
 .form__input_sign-in:hover,
 .form__input_sign-up:hover {
-  background-color: #5dbf79;
+  background-color: var(--main-success);
 }
 
 .auth__hint {
@@ -188,13 +187,13 @@ input[type=submit]:disabled{
 }
 
 .hint__message_white {
-  color: #fff;
+  color: var(--main-white);
 }
 
 
 .hint__link {
   margin-left: 5px;
-  color: #F0AB20;
+  color: var(--main-orange);
 }
 
 @media screen and (max-width: 1400px) {

@@ -46,7 +46,7 @@ export default Vue.extend({
 .btn__bars {
   width: 100%;
   height: 100%;
-  color: #fff;
+  color: var(--main-white);
   background-color: transparent;
   font-size: 1.5em;
 }
