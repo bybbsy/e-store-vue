@@ -35,8 +35,8 @@
                          v-model.trim="userEmail"
                          >
                   <img src="~@/assets/img/form/form-email.png" alt="" class="input-img">
-                  <span class="input-block__error" v-if="emailIsInvalid.invalid">{{ $t(emailIsInvalid.errorMessage, { minLength: emailIsInvalid.params.minLength }) }}</span>
                 </div>
+                <span class="input-block__error" v-if="emailIsInvalid.invalid">{{ $t(emailIsInvalid.errorMessage, { minLength: emailIsInvalid.params.minLength }) }}</span>
               </div>
             </div>
             <div class="auth__row">
@@ -52,15 +52,8 @@
                          v-model.trim="userPassword"
                          >
                   <img src="~@/assets/img/form/form-password.png" alt="" class="input-img">
-                  <span class="input-block__error" v-if="passwordIsInvalid.invalid">{{ $t(passwordIsInvalid.errorMessage, { minLength: passwordIsInvalid.params.minLength }) }}</span>
                 </div>
-              </div>
-              <div class="auth__row">
-                <div class="field-block">
-                  <div class="input-block">
-                    <input type="text" v-model="number" style="border: 1px solid black;"/>
-                  </div>
-                </div>
+                <span class="input-block__error" v-if="passwordIsInvalid.invalid">{{ $t(passwordIsInvalid.errorMessage, { minLength: passwordIsInvalid.params.minLength }) }}</span>
               </div>
             </div>
           </div>

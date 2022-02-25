@@ -34,8 +34,8 @@
                          @focus="$v.firstname.$touch()"
                          v-model="firstname">
                   <img src="~@/assets/img/form/form-name.png" alt="" class="input-img">
-                  <span class="input-block__error" v-if="firstnameIsInvalid.invalid">{{ $t(firstnameIsInvalid.errorMessage, { minLength: firstnameIsInvalid.params.minLength }) }}</span>
                 </div>
+                <span class="input-block__error" v-if="firstnameIsInvalid.invalid">{{ $t(firstnameIsInvalid.errorMessage, { minLength: firstnameIsInvalid.params.minLength }) }}</span>
               </div>
               <div class="field-block">
                 <label for="sign-up-email" class="input__label">{{ $t('last_name') }}</label>
@@ -48,8 +48,8 @@
                          @focus="$v.lastname.$touch()"
                          v-model="lastname">
                   <img src="~@/assets/img/form/form-name.png" alt="" class="input-img">
-                  <span class="input-block__error" v-if="lastnameIsInvalid.invalid">{{ $t(lastnameIsInvalid.errorMessage, { minLength: lastnameIsInvalid.params.minLength }) }}</span>
                 </div>
+                <span class="input-block__error" v-if="lastnameIsInvalid.invalid">{{ $t(lastnameIsInvalid.errorMessage, { minLength: lastnameIsInvalid.params.minLength }) }}</span>
               </div>
             </div>
             <div class="auth__row">
@@ -64,8 +64,8 @@
                          @focus="$v.userEmail.$touch()"
                          v-model="userEmail">
                   <img src="~@/assets/img/form/form-email.png" alt="" class="input-img">
-                  <span class="input-block__error" v-if="emailIsInvalid.invalid">{{ $t(emailIsInvalid.errorMessage, { minLength: emailIsInvalid.params.minLength }) }}</span>
                 </div>
+                <span class="input-block__error" v-if="emailIsInvalid.invalid">{{ $t(emailIsInvalid.errorMessage, { minLength: emailIsInvalid.params.minLength }) }}</span>
               </div>
             </div>
             <div class="auth__row">
@@ -80,8 +80,8 @@
                          @focus="$v.userPassword.$touch()"
                          v-model="userPassword">
                   <img src="~@/assets/img/form/form-password.png" alt="" class="input-img">
-                  <span class="input-block__error" v-if="passwordIsInvalid.invalid">{{ $t(passwordIsInvalid.errorMessage, { minLength: passwordIsInvalid.params.minLength }) }}</span>
                 </div>
+                <span class="input-block__error" v-if="passwordIsInvalid.invalid">{{ $t(passwordIsInvalid.errorMessage, { minLength: passwordIsInvalid.params.minLength }) }}</span>
               </div>
               <div class="field-block">
                 <label for="sign-up-password-2" class="input__label">{{ $t('password') }}</label>
@@ -94,8 +94,8 @@
                          @focus="$v.repeatUserPassword.$touch()"
                          v-model="repeatUserPassword">
                   <img src="~@/assets/img/form/form-password.png" alt="" class="input-img">
-                  <span class="input-block__error" v-if="repeatPasswordIsInvalid.invalid">{{ $t(repeatPasswordIsInvalid.errorMessage, { minLength: repeatPasswordIsInvalid.params.minLength }) }}</span>
                 </div>
+                <span class="input-block__error" v-if="repeatPasswordIsInvalid.invalid">{{ $t(repeatPasswordIsInvalid.errorMessage, { minLength: repeatPasswordIsInvalid.params.minLength }) }}</span>
               </div>
             </div>
           </div>
