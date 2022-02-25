@@ -9,5 +9,8 @@
   "sign_in_button": "Inicio",
   "already_have_an_account": "¿Ya tienes una cuenta?",
   "dont_have_an_accound": "¿No tienes una cuenta?",
-  "invalid_field": "This field is required"
+  "warn_empty_field": "Este campo es obligatorio",
+  "warn_min_length": "La longitud mínima es {minLength} caracteres",
+  "warn_email_type": "Este campo debe ser el tipo de correo electrónico",
+  "warn_password_is_different": "La contraseña es diferente"
 }

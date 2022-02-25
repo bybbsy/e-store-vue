@@ -9,5 +9,8 @@
   "sign_in_button": "Войти",
   "already_have_an_account": "Уже есть аккаунт?",
   "dont_have_an_accound": "Еще нет аккаунта?",
-  "invalid_field": "This field is required"
+  "warn_empty_field": "Поле нужно заполнить",
+  "warn_min_length": "Минимальное количество символов: {minLength}.",
+  "warn_email_type": "Это поле должно содержать e-mail",
+  "warn_password_is_different": "Пароли не совпадают"
 }
