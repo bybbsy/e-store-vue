@@ -31,11 +31,11 @@
                          class="form__input form__input-email"
                          id="sign-in-email"
                          placeholder="John"
-                         @blur="$v.userEmail.$touch()"
+                         @focus="$v.userEmail.$touch()"
                          v-model.trim="userEmail"
                          >
                   <img src="~@/assets/img/form/form-email.png" alt="" class="input-img">
-                  <span class="input-block__error" v-if="emailIsInvalid">{{ $t('invalid_field') }}</span>
+                  <span class="input-block__error" v-if="emailIsInvalid.invalid">{{ $t(emailIsInvalid.errorMessage, { minLength: emailIsInvalid.params.minLength }) }}</span>
                 </div>
               </div>
             </div>
@@ -48,18 +48,25 @@
                          class="form__input form__input-password"
                          id="sign-in-password"
                          placeholder="********"
-                         @blur="$v.userPassword.$touch()"
+                         @focus="$v.userPassword.$touch()"
                          v-model.trim="userPassword"
                          >
                   <img src="~@/assets/img/form/form-password.png" alt="" class="input-img">
-                  <span class="input-block__error" v-if="$v.userPassword.$dirty">{{ $t('invalid_field') }}</span>
+                  <span class="input-block__error" v-if="passwordIsInvalid.invalid">{{ $t(passwordIsInvalid.errorMessage, { minLength: passwordIsInvalid.params.minLength }) }}</span>
+                </div>
+              </div>
+              <div class="auth__row">
+                <div class="field-block">
+                  <div class="input-block">
+                    <input type="text" v-model="number" style="border: 1px solid black;"/>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
           <div class="auth__control">
             <input type="submit"
-                   :disabled="emailIsInvalid || passwordIsInvalid"
+                   :disabled="emailIsInvalid.invalid || passwordIsInvalid.invalid"
                    :value="$t('sign_in_button')"
                    class="form__input form__input_sign-in"
                    >
@@ -75,19 +82,23 @@
 
 <script lang="ts">
 import { User } from '@/types/store/auth/state-types';
-import { email, required, minLength } from 'vuelidate/lib/validators';
-
+import { email, required, minLength, decimal } from 'vuelidate/lib/validators';
 import Vue from 'vue';
-import { faL } from '@fortawesome/free-solid-svg-icons';
+import { signinFormOptions } from '@/variables';
+import { validateEmail, validatePassword } from '@/helpers/auth';
 
 export default Vue.extend({
   data() {
     return {
       userEmail: '',
-      userPassword: ''
+      userPassword: '',
+      number: ''
     }
   },
   validations: {
+    number: {
+      decimal
+    },
     userEmail: {
       required,
       email,
@@ -100,16 +111,10 @@ export default Vue.extend({
   },
   computed: {
     emailIsInvalid() {
-      if(this.$v.userEmail.$dirty) {
-        return this.$v.userEmail.$invalid;
-      }
-      return false;
+      return validateEmail(this.$v, signinFormOptions);
     },
     passwordIsInvalid() {
-      if(this.$v.userPassword.$dirty) {
-        return this.$v.userPassword.$invalid;
-      }
-      return false;
+      return validatePassword(this.$v, signinFormOptions);
     }
   },
   methods: {
