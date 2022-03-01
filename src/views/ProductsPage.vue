@@ -58,6 +58,8 @@ import { Product as ProductItem } from '@/types/store/products/state-types';
 import { mapGetters } from 'vuex';
 import { emptyDetailProduct } from '@/variables';
 import { toggleDetails } from '@/helpers/useProducts';
+import { userIsAuthorized } from '@/helpers/auth';
+import firebase from 'firebase/compat';
 
 export default Vue.extend({
   name: 'products-page',
@@ -67,6 +69,15 @@ export default Vue.extend({
       products: [] as Array<ProductItem>,
     }
   },
+  async beforeRouteLeave(to, from, next) {
+      const userID = userIsAuthorized();
+
+      if(userID) {
+        let cart = JSON.stringify(this.getProductsCart);
+        await firebase.database().ref(`/users/${userID}/info/cart`).set(cart);
+      }
+      next()
+    },
   mounted() {
     this.$load(async () => {
       this.loadingData = true
@@ -83,8 +94,10 @@ export default Vue.extend({
     },
   },
   computed: {
+
     ...mapGetters({
-      detailsExpanded: 'getDetailsExpanded'
+      detailsExpanded: 'getDetailsExpanded',
+      getProductsCart: 'getProductsCart'
     }),
     mobileDevice() {
       return Vue.prototype.$isMobile;
