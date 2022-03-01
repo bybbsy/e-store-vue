@@ -12,13 +12,12 @@
       </div>
       <div class="card__bottom card__bottom_default-card">
         <div class="price">${{ product.price }}</div>
-        <div class="card__button card__button_add" @click.stop="handleAddToCart">
-          <div class="button__text" v-if="!inTheCart">Add to cart</div>
-          <div class="button__text" v-else>Remove to cart</div>
+        <div class="card__button card__button_add" v-if="!isInCart" @click.stop="handleAddToCart">
+          <div class="button__text">Add to cart</div>
         </div>
-        <!-- <div class="card__button card__button_remove" v-if="isInCart" @click.stop="handleRemoveFromCart">
+        <div class="card__button card__button_remove" v-else @click.stop="handleRemoveFromCart">
           <div class="button__text">Remove from cart</div>
-        </div> -->
+        </div>
       </div>
     </div>
 </template>
