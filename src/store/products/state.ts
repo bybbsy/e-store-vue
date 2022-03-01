@@ -12,5 +12,6 @@ export const state: State = {
     price: 0,
     comments: []
   },
+  productsCart: [],
   productDetails: false
 }
