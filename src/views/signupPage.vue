@@ -118,7 +118,7 @@
 <script lang="ts">
 import { UserFull } from '@/types/store/auth/state-types';
 import { email, required, minLength, sameAs } from 'vuelidate/lib/validators';
-import { signinFormOptions, signupFormOptions } from '@/variables';
+import { signupFormOptions } from '@/variables';
 import { validateEmail, validatePassword, validateName, checkPasswords } from '@/helpers/auth';
 
 import Vue from 'vue'
