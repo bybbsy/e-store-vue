@@ -12,9 +12,13 @@
       </div>
       <div class="card__bottom card__bottom_default-card">
         <div class="price">${{ product.price }}</div>
-        <div class="card__button card__button_add" @click.stop="addToCart">
-          <div class="button__text">Add to cart</div>
+        <div class="card__button card__button_add" @click.stop="handleAddToCart">
+          <div class="button__text" v-if="!inTheCart">Add to cart</div>
+          <div class="button__text" v-else>Remove to cart</div>
         </div>
+        <!-- <div class="card__button card__button_remove" v-if="isInCart" @click.stop="handleRemoveFromCart">
+          <div class="button__text">Remove from cart</div>
+        </div> -->
       </div>
     </div>
 </template>
@@ -23,27 +27,41 @@
 import Vue, { PropType } from 'vue';
 import Rating from './Rating.vue';
 import { Product } from '@/types/store/products/state-types';
-import { mapActions } from 'vuex';
+import { mapActions, mapGetters } from 'vuex';
+import { isProductInACart } from '@/helpers/useProducts';
+import { ProductOrNot } from '@/types/products';
 
 export default Vue.extend({
   name: 'default-card',
   props: {
-    product: Object as PropType<Product>
+    product: Object as PropType<Product>,
+  },
+  computed: {
+    ...mapGetters([
+      'getProductsCart'
+    ]),
+    isInCart(): ProductOrNot {
+      return isProductInACart(this.getProductsCart, this.product);
+    }
   },
   methods: {
-      ...mapActions(
-        ['toggleDetails', 'setDetails']
-      ),
-      async cardClick() {
-        this.toggleDetails();
-        await this.setDetails(this.product);
-      },
-
-      addToCart() {
-        // TODO Implement adding to cart
-        console.log("Added to cart")
-      }
+    ...mapActions([
+      'toggleDetails',
+      'setDetails',
+      'addToCart',
+      'removeFromCart'
+    ]),
+    async cardClick() {
+      this.toggleDetails();
+      await this.setDetails(this.product);
     },
+    handleAddToCart() {
+      this.addToCart(this.product);
+    },
+    handleRemoveFromCart() {
+      this.removeFromCart(this.product);
+    }
+  },
   components: {
     Rating
   }
@@ -169,9 +187,23 @@ export default Vue.extend({
   background-image: url('~@/assets/img/base/PlusCircle.png');
   background-size: 30px 30px;
   background-repeat: no-repeat;
-  background-position: 18px 10px;
+  background-position: 18px 50%;
   color: var(--main-white);
   transition: 0.2s all ease;
+}
+
+.card__button_remove {
+  background-color: var(--secondary-error);
+  background-image: url('~@/assets/img/base/recycle-bin.png');
+  background-size: 25px 25px;
+  background-repeat: no-repeat;
+  background-position: 15px 50%;
+  color: var(--main-white);
+  transition: 0.2s all ease;
+}
+
+.card__button_remove:hover {
+  background-color: var(--main-error);
 }
 
 .card__button_add:hover {
