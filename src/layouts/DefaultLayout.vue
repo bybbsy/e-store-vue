@@ -9,8 +9,9 @@
 import Vue from 'vue';
 import TheNavbar from '../components/TheNavbar/TheNavbar.vue';
 import firebase from "firebase/compat/app";
-import { mapActions } from 'vuex';
+import { mapActions, mapGetters } from 'vuex';
 import { userIsAuthorized } from "@/helpers/auth";
+import _ from 'lodash';
 
 export default Vue.extend({
     name: 'default-layout',
@@ -22,13 +23,20 @@ export default Vue.extend({
 
       if(userID) {
         let response = (await firebase.database().ref(`/users/${userID}/info`).get()).val();
-        this.setUserData(response);
+
+        let userData = _.omit(response, ['cart'])
+
+        let cart = JSON.parse(response.cart);
+
+        this.setUserData(userData);
+        this.setUserCart(cart);
       }
     },
     methods: {
-      ...mapActions(
-        ['setUserData']
-      )
+      ...mapActions([
+        'setUserData',
+        'setUserCart'
+      ])
     }
 })
 </script>
