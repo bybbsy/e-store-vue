@@ -1,6 +1,5 @@
 import { Mutations, MutationTypes } from "@/types/store/products/mutation-types";
 import { State } from "@/types/store/products/state-types";
-import _ from "lodash";
 import { MutationTree } from "vuex";
 
 export const mutations: MutationTree<State> & Mutations = {
@@ -23,6 +22,8 @@ export const mutations: MutationTree<State> & Mutations = {
     payload.count -= 1;
   },
   [MutationTypes.deleteFromCart](state, payload) {
-    _.remove(state.productsCart, payload)
+
+    const index = state.productsCart.indexOf(payload);
+    state.productsCart.splice(index, 1)
   }
 }
