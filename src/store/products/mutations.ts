@@ -22,8 +22,10 @@ export const mutations: MutationTree<State> & Mutations = {
     payload.count -= 1;
   },
   [MutationTypes.deleteFromCart](state, payload) {
-
     const index = state.productsCart.indexOf(payload);
-    state.productsCart.splice(index, 1)
+    state.productsCart.splice(index, 1);
+  },
+  [MutationTypes.setUserCart](state, payload) {
+    state.productsCart = payload;
   }
 }

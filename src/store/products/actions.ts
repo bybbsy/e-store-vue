@@ -65,5 +65,8 @@ export const actions: ActionTree<State, RootState> & Actions = {
     } else {
       commit('DELETE_FROM_CART', inACart)
     }
+  },
+  [ActionTypes.setUserCart]({commit}, payload) {
+    commit('SET_USER_CART', payload)
   }
 }
