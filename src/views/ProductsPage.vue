@@ -35,6 +35,9 @@
           <aside class="product-detail" v-if="detailsExpanded">
             <div class="product-detail__header">
               <h2>Información del Juguete</h2>
+              <button type="button" class="button" @click="closeDetailsCard">
+                <img src="~@/assets/img/base/close.png" class="button__icon" alt="">
+              </button>
             </div>
             <CardDetail />
           </aside>
@@ -53,6 +56,8 @@ import CardDetail from '@/components/Products/CardDetail.vue';
 
 import { Product as ProductItem } from '@/types/store/products/state-types';
 import { mapGetters } from 'vuex';
+import { emptyDetailProduct } from '@/variables';
+import { toggleDetails } from '@/helpers/useProducts';
 
 export default Vue.extend({
   name: 'products-page',
@@ -71,6 +76,11 @@ export default Vue.extend({
 
       this.loadingData = false
     })
+  },
+  methods: {
+    closeDetailsCard() {
+      return toggleDetails(true, emptyDetailProduct);
+    },
   },
   computed: {
     ...mapGetters({
@@ -224,6 +234,10 @@ export default Vue.extend({
   100% {
     margin-right: 0;
   }
+}
+.product-detail__header {
+  display: flex;
+  justify-content: space-between;
 }
 
 .product-detail__header h2 {
