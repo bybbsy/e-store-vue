@@ -1,23 +1,26 @@
 <template>
-  <div class="badge-block">
-    <span class="badge-info"></span>
+  <div v-if="value" class="badge-block badge-orange">
+    <span class="badge-info">{{ value }}</span>
   </div>
 </template>
 
 <script>
 export default {
-  props: [],
-
+  props: ['value'],
 }
 </script>
 
 <style>
 .badge-block {
   position: absolute;
-  top: 0;
-  right: 0;
+  top: -12px;
+  right: -6px;
   width: 25px;
   height: 25px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
 }
 
 .badge-info {
