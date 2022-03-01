@@ -1,7 +1,8 @@
 <template>
     <div class="product__card product__card_health" @click="cardClick">
       <div class="card__image">
-        <img :src="require('@/assets/img/mock/' + product.imgLink)" alt="">
+        <!-- <img :src="require('@/assets/img/mock/' + product.imgLink)" alt=""> -->
+        <img :src="product.imgLink">
       </div>
       <div class="card__content">
         <div class="title title__card_short">{{ product.name }}</div>

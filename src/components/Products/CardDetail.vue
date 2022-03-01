@@ -1,7 +1,8 @@
 <template>
   <div class="product__card product__card_health product__card_expanded _hide-scroll" v-if="productExists" >
       <div class="card__image card__image_detail">
-        <img :src="require('@/assets/img/mock/' + productDetail.imgLink)" alt="">
+        <!-- <img :src="require('@/assets/img/mock/' + productDetail.imgLink)" alt=""> -->
+        <img :src="productDetail.imgLink">
       </div>
       <div class="card__content">
         <div class="title title__card_short">{{ productDetail.name }}</div>
@@ -102,13 +103,6 @@ export default Vue.extend({
 
 .card__image_detail {
   height: 390px;
-}
-
-.card__image_detail img {
-  display: flex;
-  margin: auto;
-  width: unset;
-  height: unset;
 }
 
 .description {
