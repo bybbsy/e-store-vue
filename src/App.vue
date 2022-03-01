@@ -158,4 +158,10 @@ h6 {
 .card__bottom {
   display: flex;
 }
+
+
+.button {
+  display: inline-block;
+  background: transparent;
+}
 </style>
