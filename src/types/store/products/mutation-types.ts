@@ -8,7 +8,8 @@ export enum MutationTypes {
   addToCart = "ADD_TO_CART",
   increaseAmount = "INCREASE_AMOUNT",
   decreaseAmount = "DECREASE_AMOUNT",
-  deleteFromCart = "DELETE_FROM_CART"
+  deleteFromCart = "DELETE_FROM_CART",
+  setUserCart = "SET_USER_CART"
 }
 
 export type Mutations = {
@@ -18,5 +19,6 @@ export type Mutations = {
   [MutationTypes.addToCart](state: State, payload: CartProduct): void
   [MutationTypes.increaseAmount](state: State, payload: CartProduct): void,
   [MutationTypes.decreaseAmount](state: State, payload: CartProduct): void,
-  [MutationTypes.deleteFromCart](state: State, payload: CartProduct): void
+  [MutationTypes.deleteFromCart](state: State, payload: CartProduct): void,
+  [MutationTypes.setUserCart](state: State, payload: Array<CartProduct>): void
 }

@@ -7,13 +7,17 @@ export enum ActionTypes {
   toggleDetails = "toggleDetails",
   setDetails = "setDetails",
   addToCart = "addToCart",
-  removeFromCart = "removeFromCart"
+  removeFromCart = "removeFromCart",
+  setUserCart = "setUserCart"
 }
 
+type ActionCtx = ActionContext<State, RootState>;
+
 export type Actions = {
-  [ActionTypes.fetchProducts]({commit}: ActionContext<State, RootState>): void
-  [ActionTypes.toggleDetails]({commit}: ActionContext<State, RootState>): void
-  [ActionTypes.setDetails]({commit}: ActionContext<State, RootState>, payload: Product): void,
-  [ActionTypes.addToCart]({commit, state}: ActionContext<State, RootState>, payload: Product | DetailProduct): void,
-  [ActionTypes.removeFromCart]({commit, state}: ActionContext<State, RootState>, payload: CartProduct): void
+  [ActionTypes.fetchProducts]({commit}: ActionCtx): void
+  [ActionTypes.toggleDetails]({commit}: ActionCtx): void
+  [ActionTypes.setDetails]({commit}: ActionCtx, payload: Product): void,
+  [ActionTypes.addToCart]({commit, state}: ActionCtx, payload: Product | DetailProduct): void,
+  [ActionTypes.removeFromCart]({commit, state}: ActionCtx, payload: CartProduct): void
+  [ActionTypes.setUserCart]({commit}: ActionCtx, payload: Array<CartProduct>): void
 }
