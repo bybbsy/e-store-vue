@@ -1,4 +1,5 @@
 import { SignupFormOptions, SigninFormOptions, SignupFormFields } from '@/types/auth';
+import { DetailProduct } from './types/store/products/state-types';
 
 const signinFormOptions: SigninFormOptions = {
   userEmail: {
@@ -34,7 +35,19 @@ const signupFormOptions: SignupFormOptions = {
   }
 }
 
+const emptyDetailProduct: DetailProduct = {
+  // #TODO Add product ID
+  // #TODO Add default image while loading data
+  productID: '',
+  name: 'no-name',
+  imgLink: '',
+  rate: 0,
+  price: 0,
+  comments: []
+}
+
 export {
   signinFormOptions,
-  signupFormOptions
+  signupFormOptions,
+  emptyDetailProduct
 };
