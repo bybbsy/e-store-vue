@@ -29,7 +29,7 @@
 <script lang="ts">
 import Vue from 'vue';
 import { mapGetters, mapActions } from 'vuex';
-import BlockFilter from './BlockFilter.vue';
+import BlockFilter from './BlockCategories.vue';
 import { userIsAuthorized } from '@/helpers/auth';
 
 export default Vue.extend({

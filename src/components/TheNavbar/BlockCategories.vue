@@ -2,27 +2,18 @@
     <!-- TODO Если пунктов больше чем 3, то при помощи v-show скрывать остальные.
         Добавить возможность скрыть и раскрыть список -->
     <div class="navbar__filters-block">
-
         <div class="filter-block" v-for="(filter, index) in filterItems" :key="index">
             <div class="filter-block__body" v-if="!filter.authRequired || (filter.authRequired && uid)">
                 <div class="filter-block__main-filter">
                     <router-link :to="{ path: `/${filter.baseUrl}` }" class="filter-element main-filter__name">#{{ filter.mainCategory }}</router-link>
                 </div>
                 <ul class="filters-list">
-                <router-link class="filter-element"
+                  <BlockCategory
                     v-for="(category, categoryIndex) in filter.filterItems"
                     :key="categoryIndex"
-                    :to=" { path: `/${filter.baseUrl}/${category.link}`}"
-                    >
-
-                    <div class="filter-element__icon">
-                        <img :src="require('@/assets/img/base/' + category.icon)" :alt="category.name">
-                    </div>
-
-                    <div class="filter-element__name">
-                        <span>{{ category.link }}</span>
-                    </div>
-                </router-link>
+                    :filter="filter"
+                    :category="category"
+                  />
             </ul>
             </div>
         </div>
@@ -93,7 +84,7 @@
 import Vue from 'vue';
 import { filterBlock } from '@/types/filter/index';
 import { userIsAuthorized } from '@/helpers/auth'
-
+import BlockCategory from './BlockCategory.vue';
 
 export default Vue.extend({
   name: 'block-filter',
@@ -146,6 +137,9 @@ export default Vue.extend({
     uid() {
       return userIsAuthorized();
     }
+  },
+  components: {
+    BlockCategory
   }
 })
 </script>
@@ -169,10 +163,11 @@ export default Vue.extend({
 }
 
 .filter-element {
-    display: flex;
-    align-items: center;
-    cursor: pointer;
-    margin: 20px 0 0;
+  position: relative;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  margin: 20px 0 0;
 }
 
 .filter-element:hover .filter-element__icon {
