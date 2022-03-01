@@ -12,5 +12,13 @@ export const getters: GetterTree<State, RootState> & Getters = {
   },
   getDetails(state) {
     return state.currentProduct;
+  },
+  getProductsCartLength(state) {
+    return state.productsCart.reduce((previous, current) => {
+      return previous += current.count
+    }, 0)
+  },
+  getProductsCart(state) {
+    return state.productsCart;
   }
 }
