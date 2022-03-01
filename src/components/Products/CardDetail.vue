@@ -43,7 +43,7 @@
 import Vue from 'vue'
 import Rating from './Rating.vue';
 import moment from 'moment';
-import { formatDistance, subDays, addQuarters } from 'date-fns';
+import { formatDistance, subDays } from 'date-fns';
 import { mapGetters } from 'vuex';
 
 export default Vue.extend({
