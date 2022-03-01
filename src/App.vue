@@ -126,6 +126,7 @@ h6 {
   --secondary-white: #F4F2F2;
   --main-success: #5DBF79;
   --main-error: rgb(243, 38, 38);
+  --secondary-error: rgb(223, 53, 53);
   --main-blue: #485fe2;
   --secondary-blue: #485fe2;
   --main-purple: #323036;
