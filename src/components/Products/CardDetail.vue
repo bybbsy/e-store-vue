@@ -1,46 +1,48 @@
 <template>
   <div class="product__card product__card_health product__card_expanded _hide-scroll" v-if="productExists" >
+    <div class="card-container _hide-scroll">
       <div class="card__image card__image_detail">
-        <!-- <img :src="require('@/assets/img/mock/' + productDetail.imgLink)" alt=""> -->
-        <img :src="productDetail.imgLink">
-      </div>
-      <div class="card__content">
-        <div class="title title__card_short">{{ productDetail.name }}</div>
-        <div class="description description__card">{{ productDetail.description }}</div>
-        <div class="rate-block rate-block_detail">
-          <Rating :rate="productDetail.rate" />
-          <div class="rate-block__value">{{ productDetail.rate }}</div>
-        </div>
-      </div>
-      <div class="card__bottom card__bottom_detail-card">
-        <div class="price">${{ productDetail.price }}</div>
-        <div class="card__button card__button_add" v-if="!isInCart" @click.stop="handleAddToCart">
-          <div class="button__text">Add to cart</div>
-        </div>
-        <div class="card__button card__button_remove" v-else @click.stop="handleRemoveFromCart">
-          <div class="button__text">Remove from cart</div>
-        </div>
-      </div>
-
-      <div class="card__comments">
-        <div class="title card__comments_title">Comments</div>
-        <ul class="comments__list" v-if="productDetail.comments">
-          <li class="comments__comment" v-for="(comment, index) in productDetail.comments" :key='index'>
-            <div class="comment__icon">
-              <img src="~@/assets/img/mock/Avatar.jpg" alt="">
-            </div>
-            <div class="comment__content">
-              <div class="comment__top">
-                <div class="comment__author">{{ comment.username }}</div>
-                <div class="comment__date">{{ dateWithFns(comment.commentDate) }}</div>
-              </div>
-              <div class="comment__text">{{ comment.commentContent  }}</div>
-            </div>
-          </li>
-        </ul>
-        <div v-else>No comments</div>
+      <!-- <img :src="require('@/assets/img/mock/' + productDetail.imgLink)" alt=""> -->
+      <img :src="productDetail.imgLink">
+    </div>
+    <div class="card__content">
+      <div class="title title__card_short">{{ productDetail.name }}</div>
+      <div class="description description__card">{{ productDetail.description }}</div>
+      <div class="rate-block rate-block_detail">
+        <Rating :rate="productDetail.rate" />
+        <div class="rate-block__value">{{ productDetail.rate }}</div>
       </div>
     </div>
+    <div class="card__bottom card__bottom_detail-card">
+      <div class="price">${{ productDetail.price }}</div>
+      <div class="card__button card__button_add" v-if="!isInCart" @click.stop="handleAddToCart">
+        <div class="button__text">Add to cart</div>
+      </div>
+      <div class="card__button card__button_remove" v-else @click.stop="handleRemoveFromCart">
+        <div class="button__text">Remove from cart</div>
+      </div>
+    </div>
+
+    <div class="card__comments">
+      <div class="title card__comments_title">Comments</div>
+      <ul class="comments__list" v-if="productDetail.comments">
+        <li class="comments__comment" v-for="(comment, index) in productDetail.comments" :key='index'>
+          <div class="comment__icon">
+            <img src="~@/assets/img/mock/Avatar.jpg" alt="">
+          </div>
+          <div class="comment__content">
+            <div class="comment__top">
+              <div class="comment__author">{{ comment.username }}</div>
+              <div class="comment__date">{{ dateWithFns(comment.commentDate) }}</div>
+            </div>
+            <div class="comment__text">{{ comment.commentContent  }}</div>
+          </div>
+        </li>
+      </ul>
+      <div v-else>No comments</div>
+    </div>
+    </div>
+  </div>
 </template>
 
 <script lang="ts">
@@ -92,6 +94,11 @@ export default Vue.extend({
 </script>
 
 <style>
+.card-container {
+  min-height: 100%;
+  overflow: scroll;
+  border-radius: inherit;
+}
 
 .product__card_expanded {
   width: 100%;
@@ -99,6 +106,7 @@ export default Vue.extend({
   height: 100%;
   overflow-y: scroll;
   cursor: initial;
+  padding-bottom: 10px;
 }
 
 .card__image_detail {
