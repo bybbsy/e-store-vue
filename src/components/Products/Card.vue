@@ -41,7 +41,7 @@ export default Vue.extend({
     ]),
     isInCart(): ProductOrNot {
       return isProductInACart(this.getProductsCart, this.product);
-    }
+    },
   },
   methods: {
     ...mapActions([

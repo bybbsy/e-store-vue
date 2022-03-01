@@ -13,8 +13,11 @@
       </div>
       <div class="card__bottom card__bottom_detail-card">
         <div class="price">${{ productDetail.price }}</div>
-        <div class="card__button card__button_add" @click.stop="addToCart">
+        <div class="card__button card__button_add" v-if="!isInCart" @click.stop="handleAddToCart">
           <div class="button__text">Add to cart</div>
+        </div>
+        <div class="card__button card__button_remove" v-else @click.stop="handleRemoveFromCart">
+          <div class="button__text">Remove from cart</div>
         </div>
       </div>
 
@@ -44,25 +47,42 @@ import Vue from 'vue'
 import Rating from './Rating.vue';
 import moment from 'moment';
 import { formatDistance, subDays } from 'date-fns';
-import { mapGetters } from 'vuex';
+import { mapActions, mapGetters, ActionMethod } from 'vuex';
+import { ProductOrNot } from '@/types/products';
+import { isProductInACart } from '@/helpers/useProducts';
 
 export default Vue.extend({
+  name: 'detail-card',
   computed: {
     ...mapGetters({
+      getProductsCart: 'getProductsCart',
       productDetail: 'getDetails'
     }),
-    productExists() {
+    productExists(): boolean {
       return this.productDetail.productID.length > 0;
+    },
+    isInCart(): ProductOrNot {
+      return isProductInACart(this.getProductsCart, this.productDetail);
     }
   },
   methods: {
+    ...mapActions([
+      'addToCart',
+      'removeFromCart'
+    ]),
+    handleAddToCart()  {
+      this.addToCart(this.productDetail);
+    },
+    handleRemoveFromCart() {
+      this.removeFromCart(this.productDetail);
+    },
     dateWithMoment(date: Date) {
       date = new Date(2022)
     },
     dateWithFns(date: string) {
       let correctDate = Date.parse(date)
       return formatDistance(subDays(correctDate, 3), new Date(), { addSuffix: true })
-    }
+    },
   },
   components: {
     Rating
