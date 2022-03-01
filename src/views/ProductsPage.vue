@@ -70,14 +70,14 @@ export default Vue.extend({
     }
   },
   async beforeRouteLeave(to, from, next) {
-      const userID = userIsAuthorized();
+    const userID = userIsAuthorized();
 
-      if(userID) {
-        let cart = JSON.stringify(this.getProductsCart);
-        await firebase.database().ref(`/users/${userID}/info/cart`).set(cart);
-      }
-      next()
-    },
+    if(userID) {
+      let cart = JSON.stringify(this.getProductsCart);
+      await firebase.database().ref(`/users/${userID}/info/cart`).set(cart);
+    }
+    next()
+  },
   mounted() {
     this.$load(async () => {
       this.loadingData = true
