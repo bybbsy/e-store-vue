@@ -16,6 +16,10 @@ interface DetailProduct extends Product {
   comments: Array<CardComment>
 }
 
+interface CartProduct extends Product {
+  count: number
+}
+
 interface CardComment {
   productID: ProductID,
   userId: string,
@@ -27,7 +31,8 @@ interface CardComment {
 interface State {
   products: Array<Product>
   currentProduct: DetailProduct,
-  productDetails: boolean
+  productDetails: boolean,
+  productsCart: Array<CartProduct>
 }
 
-export { State, Product, DetailProduct, CardComment };
+export { State, Product, DetailProduct, CartProduct, CardComment };
