@@ -27,8 +27,9 @@ import Vue, { PropType } from 'vue';
 import Rating from './Rating.vue';
 import { Product } from '@/types/store/products/state-types';
 import { mapActions, mapGetters } from 'vuex';
-import { isProductInACart } from '@/helpers/useProducts';
+import { toggleDetails, isProductInACart } from '@/helpers/useProducts';
 import { ProductOrNot } from '@/types/products';
+import { emptyDetailProduct } from '@/variables';
 
 export default Vue.extend({
   name: 'default-card',
@@ -37,7 +38,8 @@ export default Vue.extend({
   },
   computed: {
     ...mapGetters([
-      'getProductsCart'
+      'getProductsCart',
+      'getDetails'
     ]),
     isInCart(): ProductOrNot {
       return isProductInACart(this.getProductsCart, this.product);
@@ -51,8 +53,20 @@ export default Vue.extend({
       'removeFromCart'
     ]),
     async cardClick() {
-      this.toggleDetails();
-      await this.setDetails(this.product);
+      const details = this.getDetails;
+
+      // If first click
+      if(!details.productID) {
+        await toggleDetails(true, this.product);
+      }
+      // If click on another card
+      else if(details.productID !== this.product.productID) {
+        await toggleDetails(false, this.product);
+      }
+      // If double click
+      else {
+        await toggleDetails(true, emptyDetailProduct);
+      }
     },
     handleAddToCart() {
       this.addToCart(this.product);
