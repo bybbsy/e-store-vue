@@ -2,6 +2,7 @@ import Vue from 'vue'
 import VueRouter, { RouteConfig } from 'vue-router'
 import Home from '../views/Home.vue'
 import { Route, NavigationGuardNext } from 'vue-router';
+import { userIsAuthorized } from '@/helpers/auth';
 
 Vue.use(VueRouter)
 
@@ -34,21 +35,31 @@ const routes: Array<RouteConfig> = [
     component: () => import('../views/signinPage.vue')
   },
   {
-    path: '/coupons',
-    name: 'coupons',
+    path: '/personal',
+    name: 'personal',
     meta: { layout: 'default', authRequired: true },
-    component: () => import('../views/CouponsPage.vue'),
-    beforeEnter: checkForAuth
+    component: () => import('../views/PersonalPage.vue'),
+    beforeEnter: checkForAuth,
+    children: [
+      {
+        path: 'coupons',
+        name: 'coupons',
+        meta: { layout: 'default', authRequired: true},
+        component: () => import('../views/CouponsPage.vue'),
+        beforeEnter: checkForAuth,
+      },
+      {
+        path: 'cart',
+        name: 'cart',
+        meta: { layout: 'default', authRequired: true },
+        component: () => import('../views/CartPage.vue'),
+        beforeEnter: checkForAuth,
+      }
+    ]
   },
   {
     path: '/products/:category?',
     name: 'products',
-    meta: { layout: 'default' },
-    component: () => import('../views/ProductsPage.vue')
-  },
-  {
-    path: '/personal',
-    name: 'personal',
     meta: { layout: 'default' },
     component: () => import('../views/ProductsPage.vue')
   },
@@ -67,8 +78,10 @@ const router = new VueRouter({
 })
 
 function checkForAuth(to: Route, from: Route, next: NavigationGuardNext<Vue>): void {
-  if(to.meta?.authRequired) {
+  if(to.meta?.authRequired && !userIsAuthorized()) {
     next({ name: 'sign-up'})
+  } else {
+    next()
   }
 }
 export default router
