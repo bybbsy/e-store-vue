@@ -159,6 +159,23 @@ h6 {
   display: flex;
 }
 
+._hide-scroll {
+  scrollbar-width: none;
+}
+
+._hide-scroll::-webkit-scrollbar {
+  display: none;
+}
+
+.wrapper--cover {
+  flex: 1 1 auto;
+  height: 100vh;
+  overflow: scroll;
+}
+
+.wrapper--dark {
+  background-color: var(--main-dark);
+}
 
 .button {
   display: inline-block;
