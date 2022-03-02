@@ -1,11 +1,12 @@
 <template>
-  <div class="">
-      <p>Coupons Page</p>
+  <div class="div">
+    <router-view/>
   </div>
 </template>
 
 <script lang="ts">
-import Vue from 'vue'
+import Vue from 'vue';
+
 export default Vue.extend({
 
 })
