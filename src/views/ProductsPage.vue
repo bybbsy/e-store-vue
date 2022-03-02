@@ -128,14 +128,6 @@ export default Vue.extend({
   scrollbar-width: none;
 }
 
-._hide-scroll {
-  scrollbar-width: none;
-}
-
-._hide-scroll::-webkit-scrollbar {
-  display: none;
-}
-
 .products__container::-webkit-scrollbar {
   display: none;
 }
