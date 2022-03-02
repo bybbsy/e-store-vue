@@ -16,6 +16,7 @@ import '@/plugins/fontAwesomeIcons';
 import i18n from './plugins/lang/i18n';
 import { errorHandlerPlugin } from '@/plugins/load';
 import Vuelidate from 'vuelidate';
+import vuetify from './plugins/vuetify'
 
 Vue.config.productionTip = false
 
@@ -32,6 +33,7 @@ firebase.auth().onAuthStateChanged(() => {
       i18n,
       router,
       store,
+      vuetify,
       render: h => h(App)
     }).$mount('#app')
   }
