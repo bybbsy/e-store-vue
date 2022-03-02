@@ -28,7 +28,7 @@ import Vue, { PropType } from 'vue';
 import Rating from './Rating.vue';
 import { Product } from '@/types/store/products/state-types';
 import { mapActions, mapGetters } from 'vuex';
-import { toggleDetails, isProductInACart } from '@/helpers/useProducts';
+import { toggleDetails, isProductInACart, sendCartToFirebase } from '@/helpers/useProducts';
 import { ProductOrNot } from '@/types/products';
 import { emptyDetailProduct } from '@/variables';
 
@@ -71,9 +71,11 @@ export default Vue.extend({
     },
     handleAddToCart() {
       this.addToCart(this.product);
+      sendCartToFirebase(this.getProductsCart);
     },
     handleRemoveFromCart() {
       this.removeFromCart(this.product);
+      sendCartToFirebase(this.getProductsCart);
     }
   },
   components: {

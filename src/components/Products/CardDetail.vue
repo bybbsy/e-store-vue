@@ -52,7 +52,7 @@ import moment from 'moment';
 import { formatDistance, subDays } from 'date-fns';
 import { mapActions, mapGetters, ActionMethod } from 'vuex';
 import { ProductOrNot } from '@/types/products';
-import { isProductInACart } from '@/helpers/useProducts';
+import { isProductInACart, sendCartToFirebase } from '@/helpers/useProducts';
 
 export default Vue.extend({
   name: 'detail-card',
@@ -75,9 +75,11 @@ export default Vue.extend({
     ]),
     handleAddToCart()  {
       this.addToCart(this.productDetail);
+      sendCartToFirebase(this.getProductsCart);
     },
     handleRemoveFromCart() {
       this.removeFromCart(this.productDetail);
+      sendCartToFirebase(this.getProductsCart);
     },
     dateWithMoment(date: Date) {
       date = new Date(2022)
