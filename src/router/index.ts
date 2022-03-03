@@ -84,4 +84,5 @@ function checkForAuth(to: Route, from: Route, next: NavigationGuardNext<Vue>): v
     next()
   }
 }
+
 export default router
