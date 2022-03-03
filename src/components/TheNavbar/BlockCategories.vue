@@ -109,7 +109,7 @@ export default Vue.extend({
             {
                 name: 'Food',
                 icon: 'Apple.png',
-                link: 'Food'
+                link: 'food'
             }
           ]
         },
