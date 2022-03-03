@@ -14,10 +14,10 @@ export enum ActionTypes {
 type ActionCtx = ActionContext<State, RootState>;
 
 export type Actions = {
-  [ActionTypes.fetchProducts]({commit}: ActionCtx): void
+  [ActionTypes.fetchProducts]({commit}: ActionCtx, category: string): void
   [ActionTypes.toggleDetails]({commit}: ActionCtx): void
   [ActionTypes.setDetails]({commit}: ActionCtx, payload: Product): void,
-  [ActionTypes.addToCart]({commit, state}: ActionCtx, payload: Product | DetailProduct): void,
+  [ActionTypes.addToCart]({commit, state}: ActionCtx, payload: Product | DetailProduct | CartProduct): void,
   [ActionTypes.removeFromCart]({commit, state}: ActionCtx, payload: CartProduct): void
   [ActionTypes.setUserCart]({commit}: ActionCtx, payload: Array<CartProduct>): void
 }
