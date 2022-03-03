@@ -7,8 +7,18 @@ import _ from 'lodash';
 import { isProductInACart } from '@/helpers/useProducts';
 
 export const actions: ActionTree<State, RootState> & Actions = {
-  async [ActionTypes.fetchProducts]({commit}) {
-    const snapshot = await firebase.firestore().collection('products').get();
+  async [ActionTypes.fetchProducts]({commit}, category) {
+    const collectionRef = firebase.firestore().collection('products');
+
+    let snapshot;
+
+    if(category) {
+      snapshot = await collectionRef.where('category', '==', category).get();
+    } else {
+      snapshot = await collectionRef.get();
+    }
+
+
     const receivedProducts = snapshot.docs.map(doc => {
       return {
         productID: doc.id,
@@ -44,7 +54,7 @@ export const actions: ActionTree<State, RootState> & Actions = {
 
     commit('SET_DETAILS', payload)
   },
-  [ActionTypes.addToCart]({commit, state}, payload) {
+  [ActionTypes.addToCart]({commit, state, getters}, payload) {
     // TODO Implement as a helper, to use it in other components
     const inACart = isProductInACart(state.productsCart, payload);
 
@@ -54,6 +64,7 @@ export const actions: ActionTree<State, RootState> & Actions = {
       })
       commit('ADD_TO_CART', cartProduct)
     } else {
+
       commit('INCREASE_AMOUNT', inACart)
     }
   },

@@ -16,10 +16,14 @@ export const mutations: MutationTree<State> & Mutations = {
     state.productsCart.unshift(payload);
   },
   [MutationTypes.increaseAmount](state, payload) {
-    payload.count += 1;
+    const index = state.productsCart.indexOf(payload);
+    payload.count++;
+    state.productsCart.splice(index, 1, payload);
   },
   [MutationTypes.decreaseAmount](state, payload) {
-    payload.count -= 1;
+    const index = state.productsCart.indexOf(payload);
+    payload.count--;
+    state.productsCart.splice(index, 1, payload);
   },
   [MutationTypes.deleteFromCart](state, payload) {
     const index = state.productsCart.indexOf(payload);
