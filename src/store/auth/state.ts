@@ -12,6 +12,7 @@ export const state: State = {
     password: ''
   },
   userData: {
+    imgLink: 'https://cdn.iconscout.com/icon/free/png-256/profile-417-1163876.png',
     firstName: '',
     lastName: '',
     email: '',

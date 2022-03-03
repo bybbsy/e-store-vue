@@ -22,8 +22,9 @@ interface CartProduct extends Product {
 
 interface CardComment {
   productID: ProductID,
-  userId: string,
-  // username: string,
+  userID: string,
+  userImage: string,
+  username: string,
   commentDate?: (Date | string),
   commentContent: string
 }

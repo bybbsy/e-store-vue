@@ -12,11 +12,15 @@ interface UserName {
   lastName: string
 }
 
+interface UserAvatar {
+  imgLink: string
+}
+
 interface User extends Email, Password {}
 
 interface UserFull extends User, UserName {}
 
-interface UserData extends UserName, Email {
+interface UserData extends UserName, Email, UserAvatar {
   coupons: [],
   cart: []
 }

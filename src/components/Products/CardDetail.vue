@@ -25,10 +25,10 @@
 
     <div class="card__comments">
       <div class="title card__comments_title">Comments</div>
-      <ul class="comments__list" v-if="productDetail.comments">
+      <ul class="comments__list" v-if="productDetail.comments.length >= 1">
         <li class="comments__comment" v-for="(comment, index) in productDetail.comments" :key='index'>
           <div class="comment__icon">
-            <img src="~@/assets/img/mock/Avatar.jpg" alt="">
+            <img :src="comment.userImage" alt="">
           </div>
           <div class="comment__content">
             <div class="comment__top">
@@ -71,7 +71,8 @@ export default Vue.extend({
   methods: {
     ...mapActions([
       'addToCart',
-      'removeFromCart'
+      'removeFromCart',
+      // 'setDetails'
     ]),
     handleAddToCart()  {
       this.addToCart(this.productDetail);

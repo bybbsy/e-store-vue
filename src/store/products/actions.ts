@@ -1,5 +1,5 @@
 import { Actions, ActionTypes } from "@/types/store/products/actions-types";
-import { State } from "@/types/store/products/state-types";
+import { CardComment, CartProduct, State } from "@/types/store/products/state-types";
 import { ActionTree } from "vuex";
 import { RootState } from "..";
 import firebase from "firebase/compat";
@@ -33,23 +33,19 @@ export const actions: ActionTree<State, RootState> & Actions = {
     commit('TOGGLE_DETAILS');
   },
   async [ActionTypes.setDetails]({commit}, payload) {
-    // const commentsRaw = await (await firebase.database().ref('/comments').get()).val();
-    // const comments = _.toArray(commentsRaw).filter(el => el?.productId === payload.productID);
+    const commentsRaw = await firebase.database().ref('/comments').get();
 
-    // const users = comments.forEach( async (el) => {
-    //   if(payload.productID === el.productId) {
-    //     const usernameRaw =  await firebase.database().ref(`/users/${el.userId}/info`).get();
-    //     const usernameR =  usernameRaw.val()
+    const commentData = await commentsRaw.val().filter((el: CardComment) => el.productID ===  payload.productID)
 
-    //     const username = await usernameR.firstName;
-    //     el.username = username;
-    //     console.log(el)
-    //     return el;
-    //   }
+    // const usersRaw = await (await firebase.database().ref('/users').get()).val()
+
+    // const userData = await commentData.forEach(async (el: CardComment) => {
+    //   return await (await firebase.database().ref(`/users/${el.userID}/info`).get()).val();
     // })
 
+
     _.assign(payload, {
-      // comments: comments
+      comments: commentData
     })
 
     commit('SET_DETAILS', payload)

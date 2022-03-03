@@ -5,7 +5,7 @@
           <div class="navbar__user-block">
               <div class="user-block__body">
                   <div class="user-block__icon">
-                      <img src="~@/assets/img/mock/Avatar.jpg" alt="Avatar">
+                      <img :src="userData.imgLink" alt="Avatar">
                   </div>
                   <div class="user-block__username">
                       <p>¡Hola, {{ getUsername }}</p>
@@ -43,7 +43,7 @@ export default Vue.extend({
     }),
     getUsername() {
       return `${this.userData.firstName} ${this.userData.lastName}`;
-    },
+    }
   },
   methods: {
     ...mapActions({
