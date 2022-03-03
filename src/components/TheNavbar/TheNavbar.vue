@@ -8,7 +8,11 @@
                       <img :src="userData.imgLink" alt="Avatar">
                   </div>
                   <div class="user-block__username">
-                      <p>¡Hola, {{ getUsername }}</p>
+                      <p>{{ getUsername }}</p>
+                  </div>
+
+                  <div class="user-block__extra">
+                    <p>{{ userData.email }} </p>
                   </div>
               </div>
           </div>
@@ -84,10 +88,15 @@ export default Vue.extend({
 
 .user-block__username {
   line-height: 150%;
-  text-align: center;
-  font-weight: 600;
+  /* text-align: center; */
+  font-weight: 500;
   color: var(--main-white);
-  font-size: 1.5em;
+  font-size: 1.2em;
+}
+
+.user-block__extra {
+  line-height: 150%;
+  color: var(--text-gray);
 }
 
 .user-block__icon {
