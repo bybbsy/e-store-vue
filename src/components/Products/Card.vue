@@ -13,12 +13,9 @@
       </div>
       <div class="card__bottom card__bottom_default-card">
         <div class="price">${{ product.price }}</div>
-        <div class="card__button card__button_add" v-if="!isInCart" @click.stop="handleAddToCart">
-          <div class="button__text">Add to cart</div>
-        </div>
-        <div class="card__button card__button_remove" v-else @click.stop="handleRemoveFromCart">
-          <div class="button__text">Remove from cart</div>
-        </div>
+
+        <Button v-if="!isInCart" button-text="Add to cart" :class="'card__button_add'" @click.stop.native="handleAddToCart"/>
+        <Button v-else button-text="Remove item" :class="'card__button_remove'" @click.stop.native="handleRemoveFromCart"/>
       </div>
     </div>
 </template>
@@ -31,6 +28,7 @@ import { mapActions, mapGetters } from 'vuex';
 import { toggleDetails, isProductInACart, sendCartToFirebase } from '@/helpers/useProducts';
 import { ProductOrNot } from '@/types/products';
 import { emptyDetailProduct } from '@/variables';
+import Button from '@/components/Button.vue';
 
 export default Vue.extend({
   name: 'default-card',
@@ -79,7 +77,7 @@ export default Vue.extend({
     }
   },
   components: {
-    Rating
+    Rating, Button
   }
 })
 </script>
@@ -187,52 +185,6 @@ export default Vue.extend({
   margin: auto 25px 0;
 }
 
-.card__button {
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  min-width: 180px;
-  min-height: 50px;
-  border-radius: 25px;
-  padding: 10px 18px 10px 50px;
-}
-
-.card__button_add {
-  background-color: var(--main-orange);
-  background-image: url('~@/assets/img/base/PlusCircle.png');
-  background-size: 30px 30px;
-  background-repeat: no-repeat;
-  background-position: 18px 50%;
-  color: var(--main-white);
-  transition: 0.2s all ease;
-}
-
-.card__button_remove {
-  background-color: var(--secondary-error);
-  background-image: url('~@/assets/img/base/recycle-bin.png');
-  background-size: 25px 25px;
-  background-repeat: no-repeat;
-  background-position: 15px 50%;
-  color: var(--main-white);
-  transition: 0.2s all ease;
-}
-
-.card__button_remove:hover {
-  background-color: var(--main-error);
-}
-
-.card__button_add:hover {
-  background-color: var(--button-orange);
-}
-
-.button__text {
-  width: 100%;
-  text-align: right;
-  font-size: 1.125em;
-  font-weight: 500;
-  line-height: 150%;
-}
 
 @media screen and (max-width: 980px) {
   .card__image {
@@ -246,17 +198,5 @@ export default Vue.extend({
   .card__bottom .price {
     font-size: 1.5em;
   }
-
-  .card__button {
-    min-width: 150px;
-    min-height: 40px;
-    padding: 7px 15px 7px 45px;
-  }
-
-  .card__button_add {
-    background-position: 15px 7px;
-    background-size: 25px 25px;
-  }
-
 }
 </style>

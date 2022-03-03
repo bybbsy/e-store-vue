@@ -15,12 +15,15 @@
     </div>
     <div class="card__bottom card__bottom_detail-card">
       <div class="price">${{ productDetail.price }}</div>
-      <div class="card__button card__button_add" v-if="!isInCart" @click.stop="handleAddToCart">
+      <Button v-if="!isInCart" button-text="Add to cart" :class="'card__button_add'" @click.stop.native="handleAddToCart" />
+
+      <Button v-else button-text="Remove item" :class="'card__button_remove'" @click.stop.native="handleRemoveFromCart" />
+      <!-- <div class="card__button card__button_add" v-if="!isInCart" @click.stop="handleAddToCart">
         <div class="button__text">Add to cart</div>
       </div>
       <div class="card__button card__button_remove" v-else @click.stop="handleRemoveFromCart">
         <div class="button__text">Remove from cart</div>
-      </div>
+      </div> -->
     </div>
 
     <div class="card__comments">
@@ -53,6 +56,7 @@ import { formatDistance, subDays } from 'date-fns';
 import { mapActions, mapGetters, ActionMethod } from 'vuex';
 import { ProductOrNot } from '@/types/products';
 import { isProductInACart } from '@/helpers/useProducts';
+import Button from '@/components/Button.vue';
 
 export default Vue.extend({
   name: 'detail-card',
@@ -89,7 +93,7 @@ export default Vue.extend({
     },
   },
   components: {
-    Rating
+    Rating, Button
   }
 })
 </script>
