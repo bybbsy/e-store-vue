@@ -133,6 +133,7 @@ h6 {
   --dark-blue: #17273fde;
   --darker-blue: #46444B;
   --main-orange-disabled: rgba(240,171,32, 0.2);
+  --dark-error-page: #0A0B16;
 }
 
 #app {
