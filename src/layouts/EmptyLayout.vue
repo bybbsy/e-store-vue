@@ -1,6 +1,6 @@
 <template>
     <div class="empty__wrapper">
-        <router-view/>
+        <router-view class="wrapper__container"/>
     </div>
 </template>
 <script lang="ts">
@@ -14,6 +14,10 @@ export default Vue.extend({
 .empty__wrapper {
   display: flex;
   flex: 1 1 auto;
+}
+
+.wrapper__container {
+  width: 100%;
 }
 
 .auth__body {
