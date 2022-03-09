@@ -188,13 +188,17 @@ export default Vue.extend({
 
 .products__list {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
   margin-top: 30px;
   gap: 25px;
 }
 
 .products__list_stretch {
-  justify-content: space-around;
+  justify-items: center;
+}
+
+.products__list_stretch .product__cart {
+  width: 100%;
 }
 
 .product-detail {
