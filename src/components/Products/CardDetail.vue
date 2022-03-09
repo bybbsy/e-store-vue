@@ -1,5 +1,5 @@
 <template>
-  <div class="product__card product__card_health product__card_expanded _hide-scroll" v-if="productExists" >
+  <div class="product__card product__card_expanded _hide-scroll" :class="getClass" v-if="productExists" >
     <div class="card-container _hide-scroll">
       <div class="card__image card__image_detail">
       <!-- <img :src="require('@/assets/img/mock/' + productDetail.imgLink)" alt=""> -->
@@ -54,9 +54,11 @@ import Rating from './Rating.vue';
 import moment from 'moment';
 import { formatDistance, subDays } from 'date-fns';
 import { mapActions, mapGetters, ActionMethod } from 'vuex';
-import { ProductOrNot } from '@/types/products';
+import { ProductOrNot, CategoriesSchema } from '@/types/products';
 import { isProductInACart } from '@/helpers/useProducts';
 import Button from '@/components/Button.vue';
+import { productBackgroundColors } from '@/variables';
+
 
 export default Vue.extend({
   name: 'detail-card',
@@ -70,6 +72,9 @@ export default Vue.extend({
     },
     isInCart(): ProductOrNot {
       return isProductInACart(this.getProductsCart, this.productDetail);
+    },
+    getClass(): string {
+      return productBackgroundColors[this.productDetail.category as keyof CategoriesSchema];
     }
   },
   methods: {

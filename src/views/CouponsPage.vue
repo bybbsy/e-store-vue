@@ -5,10 +5,7 @@
       </header>
       <main class="main-content">
         <section class="coupons-layout">
-          <Coupon />
-          <Coupon />
-          <Coupon />
-          <Coupon />
+          <Coupon v-for="(item, index) in couponsList" :key="index" :coupon="item"/>
         </section>
       </main>
   </div>
@@ -17,8 +14,54 @@
 <script lang="ts">
 import Vue from 'vue'
 import Coupon from '@/components/Coupon.vue';
+import moment from 'moment';
 
 export default Vue.extend({
+  data() {
+    return {
+      couponsList: [
+        {
+          discount: {
+            amount: 20,
+            type: 'percent'
+          },
+          category: 'toys',
+          dateExp: new Date(2023, 4, 1, 14),
+          description: '100$ off for each toys you pick up. You can easily apply this coupon to the current products in the cart or delete it.'
+        },
+        {
+          discount: {
+            amount: 10,
+            type: 'currency'
+          },
+          category: 'all',
+          dateExp: new Date(2022, 5, 2, 14),
+          description: '100$ off for each toys you pick up'
+        },
+        {
+          discount: {
+            amount: 100,
+            type: 'currency'
+          },
+          category: 'food',
+          dateExp: new Date(2023, 2, 1, 14),
+          description: '100$ off for each toys you pick up'
+        },
+        {
+          discount: {
+            amount: 50,
+            type: 'percent'
+          },
+          category: 'health',
+          dateExp: new Date(2023, 3, 1, 5),
+          description: '100$ off for each toys you pick up'
+        },
+      ]
+    }
+  },
+  mounted() {
+    console.log(moment(new Date(2007, 3, 1, 5)).toNow())
+  },
   components: {
     Coupon
   }
@@ -50,6 +93,7 @@ export default Vue.extend({
   min-width: 100%;
   grid-template-columns: repeat(auto-fit, minmax(350px, 400px));
   justify-content: space-evenly;
+  align-items: flex-start;
   gap: 15px;
 }
 
@@ -147,11 +191,14 @@ export default Vue.extend({
   margin-bottom: 10px;
 }
 
-
 .m-r-small-1 {
   margin-right: 2px;
 }
 
+
+.m-a-auto {
+  margin: auto;
+}
 /* paddings */
 
 .p-l-normal {
@@ -212,7 +259,6 @@ export default Vue.extend({
 .text-description {
   color: var(--text-description);
 }
-
 
 /* -- themes -- */
 

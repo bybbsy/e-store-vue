@@ -1,4 +1,5 @@
 import { SignupFormOptions, SigninFormOptions, SignupFormFields } from '@/types/auth';
+import { CategoriesSchema } from '@/types/products';
 import { DetailProduct } from './types/store/products/state-types';
 
 const signinFormOptions: SigninFormOptions = {
@@ -41,13 +42,21 @@ const emptyDetailProduct: DetailProduct = {
   productID: '',
   name: 'no-name',
   imgLink: '',
+  category: '',
   rate: 0,
   price: 0,
   comments: []
 }
 
+const productBackgroundColors: CategoriesSchema = {
+  toys: 'product__card_toys',
+  health: 'product__card_health',
+  food: 'product__card_food'
+}
+
 export {
   signinFormOptions,
   signupFormOptions,
-  emptyDetailProduct
+  emptyDetailProduct,
+  productBackgroundColors
 };

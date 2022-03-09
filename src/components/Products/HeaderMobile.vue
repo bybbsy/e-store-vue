@@ -2,7 +2,7 @@
   <header class="products-header products-header_mobile">
     <div class="menu-toggler">
       <button type="button" class="btn btn__bars" @click="toggleMenu">
-        {{ menuState }}
+        <!-- {{ menuState }} -->
         <font-awesome-icon icon="fa-solid fa-bars" class="toggle-menu__icon"/>
       </button>
     </div>

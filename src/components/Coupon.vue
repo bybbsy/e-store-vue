@@ -1,21 +1,17 @@
 <template>
   <div class="coupon theme-white" :class="{ 'pos-horizontal': !isExpanded, 'pos-vertical': isExpanded }" @click="toggleCoupon">
-    <div class="coupon-inner b-dashed b-light-gray" :class="{ 'b-r ': !isExpanded, 'b-b': isExpanded }">
-      <img v-if="!isExpanded" src="~@/assets/img/mock/Item1.png" alt="" class="item-image">
-      <div v-else class="text-description">
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Culpa possimus, corrupti rem corporis id vero? Vitae amet cum corrupti officia expedita! Cum, nam saepe! Neque sint minus voluptatibus odit sit.
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sapiente quas ea, provident nemo quasi cupiditate numquam voluptatum fuga ex cum sunt et saepe expedita facere consectetur nihil perferendis adipisci! Quae!
-        Lturi non placeat, beatae alias provident quod eaque voluptas odit. Odio natus nulla dignissimos minima iste, libero sequi commodi.
-
-      </div>
+    <div class="coupon-inner f-column b-dashed b-light-gray" :class="{ 'b-r ': !isExpanded, 'b-b': isExpanded }">
+      <img src="~@/assets/img/mock/Item1.png" alt="" class="item-image" :class="{'m-a-auto': !isExpanded, 'm-y-small-3': isExpanded}">
+      <div v-if="isExpanded" class="text-description">{{ coupon.description }}</div>
     </div>
     <div class="coupon-inner f-column p-l-normal">
       <h5 class="discount-value text-dark fw-thick">
-        <span class="m-r-small">$</span>
-        <span>1000</span>
+        <span class="m-r-small" v-if="coupon.discount.type === 'currency'">$</span>
+        <span>{{ coupon.discount.amount }}</span>
+        <span v-if="coupon.discount.type === 'percent'">%</span>
       </h5>
-      <div class="discount-items text-dark">Toys</div>
-      <div class="date-expire text-description" >Valid until 01 febrary</div>
+      <div class="discount-items text-dark">{{ coupon.category }}</div>
+      <div class="date-expire text-description" >Expires {{ getDate }} ({{ getDetailDate }})</div>
       <div class="group f-coloumn m-y-small-2" v-if="isExpanded">
         <button class="btn btn-success">Apply</button>
         <button class="btn btn-error" @click.stop="deleteCoupon">Delete</button>
@@ -25,7 +21,10 @@
 </template>
 
 <script>
+import moment from 'moment';
+
 export default {
+  props: ['coupon'],
   data() {
     return {
       expanded: false
@@ -34,6 +33,12 @@ export default {
   computed: {
     isExpanded() {
       return this.expanded;
+    },
+    getDate() {
+      return moment(new Date()).to(this.coupon.dateExp);
+    },
+    getDetailDate() {
+      return moment(this.coupon.dateExp).format('MMM Do YYYY HH:mm')
     }
   },
   methods: {

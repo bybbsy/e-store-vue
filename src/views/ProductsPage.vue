@@ -5,8 +5,8 @@
         <HeaderMobile v-if="mobileDevice"/>
         <Header v-else/>
         <div class="products__inner">
-          <div class="title category-name">Toys</div>
-          <div class="categories-block">
+          <div class="title category-name">{{ getCurrentCategory }}</div>
+          <!-- <div class="categories-block">
             <ul class="categories-block__list">
               <Category />
               <Category />
@@ -18,7 +18,7 @@
                 <img src="~@/assets/img/base/ArrowRight.png" alt="">
               </div>
             </div>
-          </div>
+          </div> -->
           <div class="products__list" v-if="products.length && !loadingData" :class="{ 'products__list_stretch' : detailsExpanded}">
             <Card v-for="(productItem, index) in products"
                   :key="index"
@@ -50,7 +50,6 @@
 import Vue from 'vue';
 import Header from '@/components/Products/Header.vue';
 import HeaderMobile from '@/components/Products/HeaderMobile.vue';
-import Category from '@/components/Products/Category.vue';
 import Card from '@/components/Products/Card.vue';
 import CardDetail from '@/components/Products/CardDetail.vue';
 
@@ -63,6 +62,10 @@ export default Vue.extend({
   name: 'products-page',
   data() {
     return {
+      currentCategory: {
+        current: '',
+        default: 'All'
+      },
       loadingData: false,
       products: [] as Array<ProductItem>,
     }
@@ -90,10 +93,14 @@ export default Vue.extend({
     }),
     mobileDevice() {
       return Vue.prototype.$isMobile;
+    },
+    getCurrentCategory(): string {
+      const category = this.$route.params.category ?? 'All'
+      return category.toUpperCase();
     }
   },
   components: {
-    Header, HeaderMobile, Category, Card, CardDetail,
+    Header, HeaderMobile, Card, CardDetail,
     LoadingSpinner: () => import('@/components/LoadingSpinner.vue')
   },
   watch: {
@@ -105,6 +112,8 @@ export default Vue.extend({
       this.products = this.$store.getters.getProducts;
 
       this.loadingData = false
+
+
     })
     }
   }
@@ -194,7 +203,7 @@ export default Vue.extend({
 }
 
 .products__list_stretch {
-  justify-items: center;
+  /* justify-items: center; */
 }
 
 .products__list_stretch .product__cart {

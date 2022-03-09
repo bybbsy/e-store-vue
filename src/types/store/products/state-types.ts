@@ -1,10 +1,11 @@
 type ProductID = string;
+type ProductCategory = string;
 
 interface Product {
   productID: ProductID,
   name: string,
   imgLink: string,
-  category?: string,
+  category: ProductCategory,
   subcategory?: string,
   price: number,
   rate: number
@@ -36,4 +37,4 @@ interface State {
   productsCart: Array<CartProduct>
 }
 
-export { State, Product, DetailProduct, CartProduct, CardComment };
+export { State, Product, DetailProduct, CartProduct, CardComment, ProductCategory };

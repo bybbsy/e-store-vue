@@ -1,5 +1,5 @@
 <template>
-    <div class="product__card product__card_health" @click="cardClick">
+    <div class="product__card" :class="getClass" @click="cardClick">
       <div class="card__image">
         <!-- <img :src="require('@/assets/img/mock/' + product.imgLink)" alt=""> -->
         <img :src="product.imgLink">
@@ -23,11 +23,11 @@
 <script lang="ts">
 import Vue, { PropType } from 'vue';
 import Rating from './Rating.vue';
-import { Product } from '@/types/store/products/state-types';
+import { Product, ProductCategory } from '@/types/store/products/state-types';
 import { mapActions, mapGetters } from 'vuex';
 import { toggleDetails, isProductInACart, sendCartToFirebase } from '@/helpers/useProducts';
-import { ProductOrNot } from '@/types/products';
-import { emptyDetailProduct } from '@/variables';
+import { CategoriesSchema, ProductOrNot } from '@/types/products';
+import { emptyDetailProduct, productBackgroundColors } from '@/variables';
 import Button from '@/components/Button.vue';
 
 export default Vue.extend({
@@ -43,6 +43,9 @@ export default Vue.extend({
     isInCart(): ProductOrNot {
       return isProductInACart(this.getProductsCart, this.product);
     },
+    getClass(): string {
+      return productBackgroundColors[this.product.category as keyof CategoriesSchema];
+    }
   },
   methods: {
     ...mapActions([
