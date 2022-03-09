@@ -125,6 +125,7 @@ h6 {
   --main-white: #fff;
   --secondary-white: #F4F2F2;
   --main-success: #5DBF79;
+  --secondary-success: #8ccc9e;
   --main-error: rgb(243, 38, 38);
   --secondary-error: rgb(223, 53, 53);
   --main-blue: #485fe2;
@@ -134,6 +135,7 @@ h6 {
   --darker-blue: #46444B;
   --main-orange-disabled: rgba(240,171,32, 0.2);
   --dark-error-page: #0A0B16;
+  --text-description: rgba(0, 0, 0, 0.4);
 }
 
 #app {
