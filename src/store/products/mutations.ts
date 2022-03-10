@@ -15,10 +15,7 @@ export const mutations: MutationTree<State> & Mutations = {
   [MutationTypes.addToCart](state, payload) {
     state.productsCart.unshift(payload);
   },
-  [MutationTypes.increaseAmount](state, payload) {
-    state.productsCart.splice(payload.index, 1, payload.product);
-  },
-  [MutationTypes.decreaseAmount](state, payload) {
+  [MutationTypes.changeProductAmount](state, payload) {
     state.productsCart.splice(payload.index, 1, payload.product);
   },
   [MutationTypes.deleteFromCart](state, payload) {

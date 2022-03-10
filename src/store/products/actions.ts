@@ -68,7 +68,7 @@ export const actions: ActionTree<State, RootState> & Actions = {
 
       product.count++;
 
-      commit('INCREASE_AMOUNT', { index, product })
+      commit('CHANGE_PRODUCT_AMOUNT', { index, product })
     }
   },
   [ActionTypes.removeFromCart]({commit, state}, payload) {
@@ -79,7 +79,7 @@ export const actions: ActionTree<State, RootState> & Actions = {
 
       product.count--;
 
-      commit('DECREASE_AMOUNT', { index, product })
+      commit('CHANGE_PRODUCT_AMOUNT', { index, product })
     } else {
       commit('DELETE_FROM_CART', inACart)
     }
