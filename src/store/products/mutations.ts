@@ -7,7 +7,7 @@ export const mutations: MutationTree<State> & Mutations = {
     state.products = payload;
   },
   [MutationTypes.toggleDetails](state) {
-    state.productDetails = !state.productDetails
+    state.productDetails = !state.productDetails;
   },
   [MutationTypes.setDetails](state, payload) {
     state.currentProduct = payload;
@@ -16,14 +16,10 @@ export const mutations: MutationTree<State> & Mutations = {
     state.productsCart.unshift(payload);
   },
   [MutationTypes.increaseAmount](state, payload) {
-    const index = state.productsCart.indexOf(payload);
-    payload.count++;
-    state.productsCart.splice(index, 1, payload);
+    state.productsCart.splice(payload.index, 1, payload.product);
   },
   [MutationTypes.decreaseAmount](state, payload) {
-    const index = state.productsCart.indexOf(payload);
-    payload.count--;
-    state.productsCart.splice(index, 1, payload);
+    state.productsCart.splice(payload.index, 1, payload.product);
   },
   [MutationTypes.deleteFromCart](state, payload) {
     const index = state.productsCart.indexOf(payload);

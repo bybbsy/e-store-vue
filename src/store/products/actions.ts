@@ -4,7 +4,7 @@ import { ActionTree } from "vuex";
 import { RootState } from "..";
 import firebase from "firebase/compat";
 import _ from 'lodash';
-import { isProductInACart } from '@/helpers/useProducts';
+import { isProductInACart, getProductIndex, getProductMutateData } from '@/helpers/useProducts';
 
 export const actions: ActionTree<State, RootState> & Actions = {
   async [ActionTypes.fetchProducts]({commit}, category) {
@@ -52,23 +52,34 @@ export const actions: ActionTree<State, RootState> & Actions = {
   },
   [ActionTypes.addToCart]({commit, state, getters}, payload) {
     // TODO Implement as a helper, to use it in other components
+    // Checks whether the product in a cart
     const inACart = isProductInACart(state.productsCart, payload);
 
+    // If not, creates base cart product object and then adds to cart
     if(!inACart) {
-      const cartProduct = _.assign(payload, {
+      const cartProduct = Object.assign(payload, {
         count: 1
       })
       commit('ADD_TO_CART', cartProduct)
-    } else {
+    }
+    // Else increases amount of current product in cart
+    else {
+      const { index, product } = getProductMutateData(state.productsCart, payload);
 
-      commit('INCREASE_AMOUNT', inACart)
+      product.count++;
+
+      commit('INCREASE_AMOUNT', { index, product })
     }
   },
   [ActionTypes.removeFromCart]({commit, state}, payload) {
     const inACart = isProductInACart(state.productsCart, payload);
 
     if(inACart && payload.count > 1) {
-      commit('DECREASE_AMOUNT', inACart)
+      const { index, product } = getProductMutateData(state.productsCart, payload);
+
+      product.count--;
+
+      commit('DECREASE_AMOUNT', { index, product })
     } else {
       commit('DELETE_FROM_CART', inACart)
     }
