@@ -21,6 +21,8 @@ interface CartProduct extends Product {
   count: number
 }
 
+type AnyProduct = Product | DetailProduct | CartProduct;
+
 interface CardComment {
   productID: ProductID,
   userID: string,
@@ -37,4 +39,13 @@ interface State {
   productsCart: Array<CartProduct>
 }
 
-export { State, Product, DetailProduct, CartProduct, CardComment, ProductCategory };
+
+export {
+  State,
+  Product,
+  DetailProduct,
+  CartProduct,
+  AnyProduct,
+  CardComment,
+  ProductCategory
+};
