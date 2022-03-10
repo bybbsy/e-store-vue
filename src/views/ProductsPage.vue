@@ -27,7 +27,7 @@
           </div>
           <LoadingSpinner v-else-if="loadingData"/>
           <div v-else class="products__list products__list_notification">
-            <p class="notification notification_message">Empty list</p>
+            <p class="notification notification_message empty-content_title">Empty list</p>
           </div>
         </div>
       </section>

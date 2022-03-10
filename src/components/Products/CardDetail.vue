@@ -42,7 +42,7 @@
           </div>
         </li>
       </ul>
-      <div v-else>No comments</div>
+      <div class="title empty-content_title text-center" v-else>No comments</div>
     </div>
     </div>
   </div>
@@ -163,6 +163,11 @@ export default Vue.extend({
 
 .comments__comment:not(:first-child) {
   margin-top: 25px;
+}
+
+.empty-content_title {
+  color: var(--text-gray);
+  font-size: 1em;
 }
 
 .comment__icon {

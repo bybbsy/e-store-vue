@@ -21,6 +21,7 @@ export default Vue.extend({
     return {
       couponsList: [
         {
+          image: '',
           discount: {
             amount: 20,
             type: 'percent'
@@ -30,6 +31,7 @@ export default Vue.extend({
           description: '100$ off for each toys you pick up. You can easily apply this coupon to the current products in the cart or delete it.'
         },
         {
+          image: '',
           discount: {
             amount: 10,
             type: 'currency'
@@ -39,22 +41,35 @@ export default Vue.extend({
           description: '100$ off for each toys you pick up'
         },
         {
+          image: 'https://image.similarpng.com/very-thumbnail/2020/06/Slice-pizza-with-cheese-clipart-PNG.png',
           discount: {
             amount: 100,
             type: 'currency'
           },
           category: 'food',
           dateExp: new Date(2023, 2, 1, 14),
-          description: '100$ off for each toys you pick up'
+          description: '20% off on any pizza: NY style pepperoni, chichen and cheese, '
         },
         {
+          image: 'https://www.pngfind.com/pngs/m/353-3538494_healthy-clip-art-food-hd-png-download.png',
+          discount: {
+            amount: 100,
+            type: 'currency'
+          },
+          category: 'food',
+          subcategory: 'pizza',
+          dateExp: new Date(2023, 2, 1, 14),
+          description: '5% off on frozen product you want.'
+        },
+        {
+          image: 'https://png.pngtree.com/png-clipart/20200701/original/pngtree-health-products-vitamins-png-image_5414239.jpg',
           discount: {
             amount: 50,
             type: 'percent'
           },
           category: 'health',
           dateExp: new Date(2023, 3, 1, 5),
-          description: '100$ off for each toys you pick up'
+          description: '100$ off on: pills, syrops'
         },
       ]
     }

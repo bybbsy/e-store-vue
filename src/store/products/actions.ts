@@ -37,12 +37,15 @@ export const actions: ActionTree<State, RootState> & Actions = {
 
     const commentData = await commentsRaw.val().filter((el: CardComment) => el.productID ===  payload.productID)
 
-    // const usersRaw = await (await firebase.database().ref('/users').get()).val()
+    for(let i = 0; i < commentData.length; i++) {
+      const userRaw = await firebase.database().ref('/users/' + <CardComment>commentData[i].userID).get();
+      const userData = await userRaw.val();
+      commentData[i].username = `${userData.info.firstName} ${userData.info.lastName}`;
+      commentData[i].userImage = userData.info.imgLink;
+    }
 
-    // const userData = await commentData.forEach(async (el: CardComment) => {
-    //   return await (await firebase.database().ref(`/users/${el.userID}/info`).get()).val();
-    // })
 
+    console.log(commentData)
 
     _.assign(payload, {
       comments: commentData

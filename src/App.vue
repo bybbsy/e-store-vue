@@ -180,6 +180,10 @@ h6 {
   background-color: var(--main-dark);
 }
 
+.text-center {
+  text-align: center;
+}
+
 .button {
   display: inline-block;
   background: transparent;
