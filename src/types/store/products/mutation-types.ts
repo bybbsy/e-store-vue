@@ -17,8 +17,8 @@ export type Mutations = {
   [MutationTypes.toggleDetails](state: State): void
   [MutationTypes.setDetails](state: State, payload: DetailProduct): void
   [MutationTypes.addToCart](state: State, payload: CartProduct): void
-  [MutationTypes.increaseAmount](state: State, payload: CartProduct): void,
-  [MutationTypes.decreaseAmount](state: State, payload: CartProduct): void,
+  [MutationTypes.increaseAmount](state: State, payload: { index: number, product: CartProduct }): void,
+  [MutationTypes.decreaseAmount](state: State, payload: { index: number, product: CartProduct }): void,
   [MutationTypes.deleteFromCart](state: State, payload: CartProduct): void,
   [MutationTypes.setUserCart](state: State, payload: Array<CartProduct>): void
 }
