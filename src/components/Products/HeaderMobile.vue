@@ -28,7 +28,7 @@ export default Vue.extend({
   },
   methods: {
     toggleMenu() {
-      console.log('fuck')
+      console.log('')
     }
   }
 })
