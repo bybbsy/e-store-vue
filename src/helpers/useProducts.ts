@@ -1,4 +1,4 @@
-import { CartProduct, Product, DetailProduct } from "@/types/store/products/state-types";
+import { CartProduct, Product, DetailProduct, AnyProduct } from "@/types/store/products/state-types";
 import { ProductOrNot } from "@/types/products";
 import store from '@/store/index';
 import { userIsAuthorized } from "./auth";
@@ -11,6 +11,16 @@ function isProductInACart(productsCart: Array<CartProduct>, payload: CartProduct
 
 function getProductIndex(productsCart: Array<CartProduct>, payload: CartProduct) {
   return productsCart.indexOf(payload);
+}
+
+function getProductMutateData(productsCart: Array<CartProduct>, payload: AnyProduct) {
+  const index = getProductIndex(productsCart, payload as CartProduct);
+  const product = <CartProduct>payload;
+
+  return {
+    index,
+    product
+  }
 }
 
 async function toggleDetails(toggle: boolean, payload: (DetailProduct | Product)) {
@@ -33,4 +43,10 @@ function sendCartToFirebase(currentCart: Array<CartProduct>) {
   return deb()
 }
 
-export { isProductInACart, toggleDetails, sendCartToFirebase, getProductIndex };
+export {
+  isProductInACart,
+  toggleDetails,
+  sendCartToFirebase,
+  getProductIndex,
+  getProductMutateData
+};
