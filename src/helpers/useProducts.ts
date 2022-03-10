@@ -8,6 +8,11 @@ import _ from "lodash";
 function isProductInACart(productsCart: Array<CartProduct>, payload: CartProduct | Product): ProductOrNot {
   return productsCart.find((el) => el.productID === payload.productID) ?? false;
 }
+
+function getProductIndex(productsCart: Array<CartProduct>, payload: CartProduct) {
+  return productsCart.indexOf(payload);
+}
+
 async function toggleDetails(toggle: boolean, payload: (DetailProduct | Product)) {
   if(toggle) {
     store.dispatch('toggleDetails');
@@ -28,4 +33,4 @@ function sendCartToFirebase(currentCart: Array<CartProduct>) {
   return deb()
 }
 
-export { isProductInACart, toggleDetails, sendCartToFirebase };
+export { isProductInACart, toggleDetails, sendCartToFirebase, getProductIndex };
