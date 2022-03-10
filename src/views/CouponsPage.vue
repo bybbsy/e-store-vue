@@ -4,7 +4,7 @@
         <h5 class="view-title text-white">Your coupons</h5>
       </header>
       <main class="main-content">
-        <section class="coupons-layout">
+        <section class="coupons-content">
           <Coupon v-for="(item, index) in couponsList" :key="index" :coupon="item"/>
         </section>
       </main>
@@ -103,7 +103,7 @@ export default Vue.extend({
   width: 100%;
 }
 
-.coupons-layout {
+.coupons-content {
   display: grid;
   min-width: 100%;
   grid-template-columns: repeat(auto-fit, minmax(350px, 400px));
