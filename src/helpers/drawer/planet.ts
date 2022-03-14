@@ -24,6 +24,11 @@ class Planet implements CanvasBase {
       ctx.drawImage(planetImage, this.x, this.y, size, size);
     })
   }
+
+  // planetClick() {
+
+  //   console.log("Planet click")
+  // }
 }
 
 function loopPlanets(ctxSettings: CanvasSettings, objectSettings: ObjectSettings<Planet>) {

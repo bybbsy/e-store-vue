@@ -2,6 +2,16 @@ import { CanvasBase, ObjectSettings, CanvasSettings } from "@/types/drawer";
 import { loopPlanets, Planet } from "./planet";
 import { loopStars, Star } from "./star";
 
+interface mouseCoords {
+  x: undefined | number,
+  y: undefined | number
+}
+
+const mouse: mouseCoords = {
+  x: undefined,
+  y: undefined
+}
+
 function reDrawObjectsParcticles<T extends CanvasBase>(objectParticles: Array<T>, canvasSettings: CanvasSettings) {
   for(const i in objectParticles) {
     objectParticles[i].reDraw(canvasSettings.ctx);
@@ -57,7 +67,13 @@ function init(canvas: HTMLCanvasElement) {
 
     drawObjects(ctxSettings, starsSettings);
     drawObjects(ctxSettings, planetsSettings);
+
+    canvas.addEventListener('click', (e) => {
+      mouse.x = e.x;
+      mouse.y = e.y;
+      console.log(mouse)
+    })
   }
 }
 
-export { init, reDrawObjectsParcticles }
+export { init, reDrawObjectsParcticles, mouse }
