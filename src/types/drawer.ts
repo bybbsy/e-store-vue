@@ -21,7 +21,7 @@ type ObjectSettings<T> = {
   objectParticles: Array<T>,
   // Allows to create class instance according to type
   objectClass: Constr<T>,
-  loopObjects: (canvasSettings: CanvasSettings) => void,
+  loopObjects: (canvasSettings: CanvasSettings, objectSettings: ObjectSettings<T>) => void,
 }
 
 export {

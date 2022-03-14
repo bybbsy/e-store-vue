@@ -6,11 +6,15 @@ class Star implements CanvasBase {
   x: number;
   y: number;
   size: number;
+  maxSize: number;
+  minSize: number;
 
   constructor(canvas: HTMLCanvasElement) {
     this.x = Math.random() * canvas.offsetWidth;
     this.y = Math.random() * canvas.offsetHeight;
     this.size = 1;
+    this.maxSize = 5
+    this.minSize = 1;
   }
 
   changeColor(ctx: CanvasRenderingContext2D) {
@@ -20,20 +24,23 @@ class Star implements CanvasBase {
   }
 
   reDraw(ctx: CanvasRenderingContext2D) {
+    if(mouse.x! - this.x < 50 && mouse.x! - this.x > -50
+       && mouse.y! - this.y < 50 && mouse.y! - this.y > -50
+      ) {
+      if(this.size < this.maxSize) {
+        this.size += 1;
+      }
+    } else if (this.size > this.minSize) {
+      this.size -= 1;
+    }
 
-    // const size = _.random(10, 19)
-    // let rad = this.size;
-
-    // if((mouse.x! - this.x) < 50) {
-    //   rad += 1;
-    // }
-
-    console.log(mouse.x)
     ctx.beginPath();
     ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2, false);
+    ctx.strokeStyle = "blue";
     ctx.fillStyle = 'white';
+    ctx.stroke();
     ctx.fill();
-    ctx.closePath();
+    // ctx.closePath();
   }
 
 
@@ -41,8 +48,10 @@ class Star implements CanvasBase {
 }
 
 function loopStars(ctxSettings: CanvasSettings, objectSettings: ObjectSettings<Star>) {
+  requestAnimationFrame(() => loopStars(ctxSettings, objectSettings));
+
+  ctxSettings.ctx.clearRect(0, 0, ctxSettings.canvas.offsetWidth, ctxSettings.canvas.offsetHeight);
   reDrawObjectsParcticles(objectSettings.objectParticles, ctxSettings);
-  setTimeout(() => loopStars(ctxSettings, objectSettings), 100);
 }
 
 export {

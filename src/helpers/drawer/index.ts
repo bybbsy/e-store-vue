@@ -26,7 +26,7 @@ function drawObjects<T>(ctxSettings: CanvasSettings, objectSettings: ObjectSetti
     objectSettings.objectParticles.push(objInstance)
   }
 
-  objectSettings.loopObjects(ctxSettings);
+  objectSettings.loopObjects(ctxSettings, objectSettings);
 }
 
 function setSize(ctx: CanvasRenderingContext2D) {
@@ -36,7 +36,7 @@ function setSize(ctx: CanvasRenderingContext2D) {
 
 
 function init(canvas: HTMLCanvasElement) {
-  const starsAmount = 200;
+  const starsAmount = 500;
   const starParticles: Array<Star> = [];
 
   const planetsAmount = 5;
@@ -68,10 +68,9 @@ function init(canvas: HTMLCanvasElement) {
     drawObjects(ctxSettings, starsSettings);
     drawObjects(ctxSettings, planetsSettings);
 
-    canvas.addEventListener('click', (e) => {
+    canvas.addEventListener('mousemove', (e) => {
       mouse.x = e.x;
       mouse.y = e.y;
-      console.log(mouse)
     })
   }
 }
