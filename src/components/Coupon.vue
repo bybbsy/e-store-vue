@@ -2,7 +2,7 @@
   <div class="coupon theme-white" :class="{ 'pos-horizontal': !isExpanded, 'pos-vertical': isExpanded }" @click="toggleCoupon">
     <div class="coupon-inner f-column b-dashed b-light-gray" :class="{ 'b-r ': !isExpanded, 'b-b': isExpanded }">
       <img :src="coupon.image" alt="" class="item-image" :class="{'m-a-auto': !isExpanded, 'm-y-small-3': isExpanded}">
-      <div v-if="isExpanded" class="text-description">{{ coupon.description }}</div>
+      <div v-if="isExpanded" role="coupon-desc" class="text-description">{{ coupon.description }}</div>
     </div>
     <div class="coupon-inner f-column p-l-normal">
       <h5 class="discount-value text-dark fw-thick">
@@ -46,7 +46,7 @@ export default {
       this.expanded = !this.expanded;
     },
     deleteCoupon() {
-      alert("Deleted")
+      console.log("Deleted")
     }
   }
 }

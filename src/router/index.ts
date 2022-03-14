@@ -11,7 +11,7 @@ const routes: Array<RouteConfig> = [
     path: '/',
     name: 'Home',
     meta: { layout: 'default' },
-    component: Home
+    redirect: to => 'products'
   },
   {
     path: '/about',
