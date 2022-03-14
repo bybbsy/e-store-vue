@@ -1,6 +1,6 @@
 <template>
   <div class="personal-content">
-    <div class="cart-content">
+    <div class="cart-content" v-if="getProductsCartLength > 0">
       <v-simple-table dense class="cart-content__table">
         <template v-slot:default>
           <tbody name="list" is="transition-group">
@@ -71,6 +71,14 @@
         </v-card-actions>
       </v-card>
     </div>
+    <div class="cart-content empty d-flex flex-column align-center mt-10" v-else>
+       <v-toolbar-title class="white--text">Your cart is empty</v-toolbar-title>
+
+       <div class="">
+         <v-toolbar-title class="white--text d-inline-flex mr-2 mt-5">Visit our</v-toolbar-title>
+         <router-link :to="'/products'">Products page</router-link>
+       </div>
+    </div>
   </div>
 </template>
 
@@ -84,7 +92,6 @@ import _ from 'lodash';
 export default Vue.extend({
   data () {
     return {
-      cars: [] as Array<CartProduct>,
       discount: 30
     }
   },
