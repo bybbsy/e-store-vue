@@ -24,7 +24,7 @@
 <script lang="ts">
 import Vue from 'vue'
 import _ from 'lodash';
-import { init } from '@/helpers/drawer';
+import { init } from '@/helpers/drawer/index';
 
 export default Vue.extend({
 
