@@ -3,7 +3,7 @@
     <div class="cart-content">
       <v-simple-table dense class="cart-content__table">
         <template v-slot:default>
-          <tbody>
+          <tbody name="list" is="transition-group">
             <tr
               v-for="item in getProductsCart"
               :key="item.productID"
@@ -127,6 +127,22 @@ export default Vue.extend({
 </script>>
 
 <style>
+
+.list-enter-active,
+.list-leave-active {
+  transition: all 0.5s;
+}
+.list-enter,
+.list-leave-to {
+  opacity: 0;
+  transform: scale(0);
+}
+.list-move {
+  transition: transform 0.5s;
+}
+.item-row {
+  display: table-row;
+}
 
 .cart-content {
   display: flex;
