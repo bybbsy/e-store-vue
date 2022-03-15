@@ -92,23 +92,6 @@ export default Vue.extend({
     return {
       filterItems: [
         {
-          mainCategory: 'general',
-          baseUrl: '',
-          authRequired: false,
-          filterItems: [
-            {
-                name: 'Home',
-                icon: 'Light-bulb.png',
-                link: '/home'
-            },
-            {
-                name: 'About',
-                icon: 'Heart.png',
-                link: 'about'
-            }
-          ]
-        },
-        {
           mainCategory: 'store',
           baseUrl: 'products',
           authRequired: false,

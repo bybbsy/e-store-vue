@@ -104,18 +104,18 @@ export default Vue.extend({
     LoadingSpinner: () => import('@/components/LoadingSpinner.vue')
   },
   watch: {
-    // $route(to, from) {
-    //   this.$load(async () => {
-    //   this.loadingData = true
-    //   const category = to.params.category ?? '';
-    //   await this.$store.dispatch('fetchProducts', category);
-    //   this.products = this.$store.getters.getProducts;
+    $route(to, from) {
+      this.$load(async () => {
+      this.loadingData = true
+      const category = to.params.category ?? '';
+      await this.$store.dispatch('fetchProducts', category);
+      this.products = this.$store.getters.getProducts;
 
-    //   this.loadingData = false
+      this.loadingData = false
 
 
-    // })
-    // }
+    })
+    }
   }
 })
 </script>
