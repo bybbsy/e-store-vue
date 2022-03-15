@@ -42,6 +42,13 @@ const routes: Array<RouteConfig> = [
     beforeEnter: checkForAuth,
     children: [
       {
+        path: '/',
+        name: 'personal-settings',
+        meta: { layout: 'default', authRequired: true},
+        component: () => import('../views/SettingsPage.vue'),
+        beforeEnter: checkForAuth,
+      },
+      {
         path: 'coupons',
         name: 'coupons',
         meta: { layout: 'default', authRequired: true},
