@@ -1,0 +1,12 @@
+.l-three-rows {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(200px, 350px));
+  gap: 5px;
+}
+
+
+.l-four-rows {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(200px, 350px));
+  gap: 5px;
+}

@@ -1,0 +1,18 @@
+.button-change {
+  font-size: 1.2em;
+  color: orange;
+}
+
+.button-submit {
+  display: block;
+  min-width: 150px;
+  max-width: 250px;
+  height: 35px;
+  background-color: var(--main-orange);
+  transition: 0.2s all ease;
+}
+
+.button-submit:hover {
+  background-color: var(--secondary-orange);
+  transform: translateY(1px) translateX(1px);
+}
