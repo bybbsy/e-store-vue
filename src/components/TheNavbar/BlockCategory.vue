@@ -6,7 +6,7 @@
     </div>
 
     <div class="filter-element__name">
-        <span>{{ category.link }}</span>
+        <span>{{ category.name }}</span>
     </div>
   </router-link>
 </template>

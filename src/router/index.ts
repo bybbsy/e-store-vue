@@ -8,14 +8,14 @@ Vue.use(VueRouter)
 
 const routes: Array<RouteConfig> = [
   {
-    path: '/',
-    name: 'Home',
+    path: '/home',
+    name: 'home',
     meta: { layout: 'default' },
-    redirect: to => 'products'
+    component: Home
   },
   {
     path: '/about',
-    name: 'About',
+    name: 'about',
     meta: { layout: 'default' },
     // route level code-splitting
     // this generates a separate chunk (about.[hash].js) for this route
@@ -74,7 +74,7 @@ const routes: Array<RouteConfig> = [
     path: '*',
     name: 'error',
     meta: { layout: 'empty' },
-    component: () => import(/* webpackChunkName: "about" */ '../views/ErrorPage.vue')
+    component: () => import(/* webpackChunkName: "error" */ '../views/ErrorPage.vue')
   }
 ]
 
