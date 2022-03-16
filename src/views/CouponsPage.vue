@@ -1,10 +1,10 @@
 <template>
-  <div class="page">
+  <div class="couponsPage">
       <header class="header">
-        <h5 class="view-title text-white">Your coupons</h5>
+        <h5 class="viewTitle textWhite">Your coupons</h5>
       </header>
-      <main class="main-content">
-        <section class="coupons-content">
+      <main class="mainContent">
+        <section class="couponsContent">
           <Coupon v-for="(item, index) in couponsList" :key="index" :coupon="item"/>
         </section>
       </main>
