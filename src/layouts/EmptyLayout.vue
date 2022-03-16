@@ -31,7 +31,7 @@ export default Vue.extend({
 }
 
 ._container_left {
-  margin: 0 300px 0 25px;
+  margin: 0 25px;
 }
 
 ._container_right {
@@ -47,7 +47,7 @@ export default Vue.extend({
 .left__content {
   display: flex;
   flex-direction: column;
-  margin: 0 0 0 auto;
+  margin: 0 auto 0 auto;
   justify-content: center;
   align-items: center;
 }
