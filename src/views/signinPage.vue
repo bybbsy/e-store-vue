@@ -83,8 +83,6 @@ import { InputError } from '@/types/auth';
 import _ from 'lodash';
 
 
-
-
 export default Vue.extend({
   data() {
     return {
@@ -132,10 +130,6 @@ export default Vue.extend({
       })
 
     }
-  },
-  mounted() {
-    this.emailValid = validateEmail(this.$v, signinFormOptions);
-    this.passwordValid = validatePassword(this.$v, signinFormOptions);
   },
   watch: {
     userEmail: _.debounce(function(this: any) {
