@@ -95,7 +95,7 @@
                     class="form__input form__input_sign-up"
                     :value="$t('sign_up_button')"
                     >
-            <p class="input-block__error">Hey</p>
+            <p class="input-block__error" v-if="authError">{{ authError }}</p>
           </div>
           <div class="auth__hint">
             <p class="hint__message">{{ $t('already_have_an_account') }} <router-link class="hint__link" :to="{name: 'sign-in'}">{{ $t('sign_in_button') }}</router-link></p>
