@@ -1,0 +1,11 @@
+.textWhite {
+  color: var(--main-white);
+}
+
+.textDark {
+  color: var(--main-dark);
+}
+
+.textLightGray {
+  color: var(--text-description);
+}

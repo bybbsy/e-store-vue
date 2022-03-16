@@ -1,15 +1,15 @@
-.b-r {
+.borderRight {
   border-right: 2px;
 }
 
-.b-b {
+.borderBottom {
   border-bottom: 2px;
 }
 
-.b-dashed {
+.borderDashed {
   border-style: dashed;
 }
 
-.b-light-gray {
+.borderLightGray {
   border-color: var(--darker-blue);
 }

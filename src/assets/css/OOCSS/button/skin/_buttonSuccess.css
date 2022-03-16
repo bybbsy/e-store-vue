@@ -1,7 +1,7 @@
-.btn-success {
+.buttonSuccess {
   background-color: var(--main-success);
 }
 
-.btn-success:hover {
+.buttonSuccess:hover {
   background-color: var(--secondary-success);
 }

@@ -1,20 +1,20 @@
 <template>
-  <div class="coupon theme-white" :class="{ 'pos-horizontal': !isExpanded, 'pos-vertical': isExpanded }" @click="toggleCoupon">
-    <div class="coupon-inner f-column b-dashed b-light-gray" :class="{ 'b-r ': !isExpanded, 'b-b': isExpanded }">
-      <img :src="coupon.image" alt="" class="item-image" :class="{'m-a-auto': !isExpanded, 'm-y-small-3': isExpanded}">
+  <div class="coupon themeWhite" :class="{ 'posHorizontal': !isExpanded, 'posVertical': isExpanded }" @click="toggleCoupon">
+    <div class="couponInner flexColumn borderDashed borderLightGray" :class="{ 'borderRight ': !isExpanded, 'borderBottom': isExpanded }">
+      <img :src="coupon.image" alt="" class="item-image" :class="{'marginAllAuto': !isExpanded, 'marginYSmall3 ': isExpanded}">
       <div v-if="isExpanded" role="coupon-desc" class="text-description">{{ coupon.description }}</div>
     </div>
-    <div class="coupon-inner f-column p-l-normal">
-      <h5 class="discount-value text-dark fw-thick">
-        <span class="m-r-small" v-if="coupon.discount.type === 'currency'">$</span>
+    <div class="couponInner flexColumn paddingLeftNormal">
+      <h5 class="discountValue textDark fontWeightThick">
+        <span class="marginRightSmall1" v-if="coupon.discount.type === 'currency'">$</span>
         <span>{{ coupon.discount.amount }}</span>
         <span v-if="coupon.discount.type === 'percent'">%</span>
       </h5>
-      <div class="discount-items text-dark">{{ coupon.category }}</div>
-      <div class="date-expire text-description" >Expires {{ getDate }} ({{ getDetailDate }})</div>
-      <div class="group f-coloumn m-y-small-2" v-if="isExpanded">
-        <button class="btn btn-success">Apply</button>
-        <button class="btn btn-error" @click.stop="deleteCoupon">Delete</button>
+      <div class="discountTarget textDark">{{ coupon.category }}</div>
+      <div class="dateExpire textLightGray" >Expires {{ getDate }} ({{ getDetailDate }})</div>
+      <div class="group marginRightSmall2" v-if="isExpanded">
+        <button class="button buttonSuccess">Apply</button>
+        <button class="button buttonError" @click.stop="deleteCoupon">Delete</button>
       </div>
     </div>
   </div>

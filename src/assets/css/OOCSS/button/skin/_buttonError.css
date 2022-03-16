@@ -1,7 +1,7 @@
-.btn-error {
+.buttonError {
   background-color: var(--main-error);
 }
 
-.btn-error:hover {
+.buttonEerror:hover {
   background-color: var(--secondary-error);
 }

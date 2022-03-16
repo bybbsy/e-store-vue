@@ -1,4 +1,5 @@
 @import './typography/_typography.css';
+@import './typography/skins/_typographyColor.css';
 
 
 @import './content/_mainContent.css';
@@ -20,6 +21,8 @@
 @import './coupon/buttonsGroup/_buttonsGroup.css';
 @import './coupon/image/_image.css';
 @import './coupon/text/_dateExpire.css';
+@import './coupon/text/_discountValue.css';
+@import './coupon/text//_discountItems.css';
 
 
 @import './button/_button.css';
