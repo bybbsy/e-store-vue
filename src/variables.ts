@@ -55,7 +55,7 @@ const productBackgroundColors: CategoriesSchema = {
 }
 
 const emptyEmail: InputError = {
-  invalid: false,
+  invalid: true,
   errorMessage: '',
   params: {
     minLength: signupFormOptions.userEmail.minLength.toString(),
@@ -63,7 +63,7 @@ const emptyEmail: InputError = {
 }
 
 const emptyPassword: InputError = {
-  invalid: false,
+  invalid: true,
   errorMessage: '',
   params: {
     minLength: signupFormOptions.userPassword.minLength.toString(),
@@ -71,7 +71,7 @@ const emptyPassword: InputError = {
 }
 
 const emptyFirstname: InputError = {
-  invalid: false,
+  invalid: true,
   errorMessage: '',
   params: {
     minLength: signupFormOptions.firstname.minLength.toString(),
@@ -79,7 +79,7 @@ const emptyFirstname: InputError = {
 }
 
 const emptyLastname: InputError = {
-  invalid: false,
+  invalid: true,
   errorMessage: '',
   params: {
     minLength: signupFormOptions.lastname.minLength.toString(),
