@@ -77,15 +77,22 @@
 import { User } from '@/types/store/auth/state-types';
 import { email, required, minLength, decimal } from 'vuelidate/lib/validators';
 import Vue from 'vue';
-import { signinFormOptions } from '@/variables';
+import { emptyEmail, emptyPassword, signinFormOptions } from '@/variables';
 import { validateEmail, validatePassword } from '@/helpers/auth';
+import { InputError } from '@/types/auth';
+import _ from 'lodash';
+
+
+
 
 export default Vue.extend({
   data() {
     return {
       userEmail: '',
       userPassword: '',
-      number: ''
+      number: '',
+      emailValid: emptyEmail,
+      passwordValid: emptyPassword
     }
   },
   validations: {
@@ -103,11 +110,13 @@ export default Vue.extend({
     }
   },
   computed: {
-    emailIsInvalid() {
-      return validateEmail(this.$v, signinFormOptions);
+    emailIsInvalid(): InputError {
+      return this.emailValid;
+      // return validateEmail(this.$v, signinFormOptions);
     },
-    passwordIsInvalid() {
-      return validatePassword(this.$v, signinFormOptions);
+    passwordIsInvalid(): InputError {
+      return this.passwordValid;
+      // return validatePassword(this.$v, signinFormOptions);
     }
   },
   methods: {
@@ -123,6 +132,19 @@ export default Vue.extend({
       })
 
     }
+  },
+  mounted() {
+    this.emailValid = validateEmail(this.$v, signinFormOptions);
+    this.passwordValid = validatePassword(this.$v, signinFormOptions);
+  },
+  watch: {
+    userEmail: _.debounce(function(this: any) {
+      this.emailValid = validateEmail(this.$v, signinFormOptions);
+    }, 1000),
+    userPassword: _.debounce(function(this: any) {
+      this.passwordValid = validatePassword(this.$v, signinFormOptions);
+      console.log(this.userPassword)
+    }, 1000)
   }
 })
 </script>
