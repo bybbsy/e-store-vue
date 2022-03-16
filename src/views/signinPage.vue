@@ -10,7 +10,7 @@
             <h2 class="title ">Welcome back</h2>
             <p class="welcome-text__description">Just a couple of clicks and we get started</p>
             <p class="welcome-text__description welcome-text__description_orange">or</p>
-            <p class="hint__message hint__message_white">Go to the <router-link :to="{ name: 'Products'}" class="hint__link">main page</router-link> </p>
+            <p class="hint__message hint__message_white">Go to the <router-link :to="{ name: 'products'}" class="hint__link">main page</router-link> </p>
           </div>
         </div>
       </div>
@@ -63,6 +63,7 @@
                    :value="$t('sign_in_button')"
                    class="form__input form__input_sign-in"
                    >
+            <p class="input-block__error">{{ authError }}</p>
           </div>
           <div class="auth__hint">
             <p class="hint__message">{{ $t('dont_have_an_accound') }}<router-link class="hint__link" :to="{name: 'sign-up'}">{{ $t('sign_up_title') }}</router-link></p>
@@ -90,7 +91,8 @@ export default Vue.extend({
       userPassword: '',
       number: '',
       emailValid: emptyEmail,
-      passwordValid: emptyPassword
+      passwordValid: emptyPassword,
+      authError: ''
     }
   },
   validations: {
@@ -127,6 +129,8 @@ export default Vue.extend({
       this.$load(async () => {
         await this.$store.dispatch('LOGIN', formData);
         await this.$router.push('/products')
+      }, (error) => {
+        this.authError = error.message;
       })
 
     }
