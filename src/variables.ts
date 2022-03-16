@@ -1,4 +1,4 @@
-import { SignupFormOptions, SigninFormOptions, SignupFormFields } from '@/types/auth';
+import { SignupFormOptions, SigninFormOptions, SignupFormFields, InputError } from '@/types/auth';
 import { CategoriesSchema } from '@/types/products';
 import { DetailProduct } from './types/store/products/state-types';
 
@@ -54,9 +54,46 @@ const productBackgroundColors: CategoriesSchema = {
   food: 'product__card_food'
 }
 
+const emptyEmail: InputError = {
+  invalid: false,
+  errorMessage: '',
+  params: {
+    minLength: signupFormOptions.userEmail.minLength.toString(),
+  }
+}
+
+const emptyPassword: InputError = {
+  invalid: false,
+  errorMessage: '',
+  params: {
+    minLength: signupFormOptions.userPassword.minLength.toString(),
+  }
+}
+
+const emptyFirstname: InputError = {
+  invalid: false,
+  errorMessage: '',
+  params: {
+    minLength: signupFormOptions.firstname.minLength.toString(),
+  }
+}
+
+const emptyLastname: InputError = {
+  invalid: false,
+  errorMessage: '',
+  params: {
+    minLength: signupFormOptions.lastname.minLength.toString(),
+  }
+}
+
+
 export {
   signinFormOptions,
   signupFormOptions,
   emptyDetailProduct,
-  productBackgroundColors
+  productBackgroundColors,
+  emptyFirstname,
+  emptyLastname,
+  emptyEmail,
+  emptyPassword
 };
