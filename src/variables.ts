@@ -54,6 +54,8 @@ const productBackgroundColors: CategoriesSchema = {
   food: 'product__card_food'
 }
 
+const inputDelay = 1000;
+
 const emptyEmail: InputError = {
   invalid: true,
   errorMessage: '',
@@ -86,7 +88,6 @@ const emptyLastname: InputError = {
   }
 }
 
-
 export {
   signinFormOptions,
   signupFormOptions,
@@ -95,5 +96,6 @@ export {
   emptyFirstname,
   emptyLastname,
   emptyEmail,
-  emptyPassword
+  emptyPassword,
+  inputDelay
 };
