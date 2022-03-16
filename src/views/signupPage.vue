@@ -118,10 +118,12 @@
 <script lang="ts">
 import { UserFull } from '@/types/store/auth/state-types';
 import { email, required, minLength, sameAs } from 'vuelidate/lib/validators';
-import { signupFormOptions } from '@/variables';
+import { emptyEmail, emptyFirstname, emptyLastname, emptyPassword, signupFormOptions, inputDelay } from '@/variables';
 import { validateEmail, validatePassword, validateName, checkPasswords } from '@/helpers/auth';
 
 import Vue from 'vue'
+import _ from 'lodash';
+import { InputError } from '@/types/auth';
 export default Vue.extend({
   data() {
     return {
@@ -129,7 +131,12 @@ export default Vue.extend({
       lastname: '',
       userEmail: '',
       userPassword: '',
-      repeatUserPassword: ''
+      repeatUserPassword: '',
+      emailValid: emptyEmail,
+      passwordValid: emptyPassword,
+      repeatPasswordValid: emptyPassword,
+      firstnameValid: emptyFirstname,
+      lastnameValid: emptyLastname
     }
   },
   validations: {
@@ -156,20 +163,20 @@ export default Vue.extend({
     }
   },
   computed: {
-    firstnameIsInvalid() {
-      return validateName(this.$v, signupFormOptions, 'firstname');
+    firstnameIsInvalid(): InputError {
+      return this.firstnameValid
     },
-    lastnameIsInvalid() {
-      return validateName(this.$v, signupFormOptions, 'lastname');
+    lastnameIsInvalid(): InputError {
+      return this.lastnameValid;
     },
-    emailIsInvalid() {
-      return validateEmail(this.$v, signupFormOptions);
+    emailIsInvalid(): InputError {
+      return this.emailValid;
     },
-    passwordIsInvalid() {
-      return validatePassword(this.$v, signupFormOptions);
+    passwordIsInvalid(): InputError {
+      return this.passwordValid;
     },
-    repeatPasswordIsInvalid() {
-      return checkPasswords(this.$v, signupFormOptions, 'repeatUserPassword');
+    repeatPasswordIsInvalid(): InputError {
+      return this.repeatPasswordValid;
     }
   },
   methods: {
@@ -185,8 +192,24 @@ export default Vue.extend({
         await this.$store.dispatch('REGISTER', formData);
         await this.$router.push('/products')
       })
-
     }
+  },
+  watch: {
+    firstname: _.debounce(function (this: any) {
+      this.firstnameValid = validateName(this.$v, signupFormOptions, 'firstname');
+    }, inputDelay),
+    lastname: _.debounce(function (this: any) {
+      this.lastnameValid = validateName(this.$v, signupFormOptions, 'lastname');
+    }, inputDelay),
+    userEmail: _.debounce(function (this: any) {
+      this.emailValid = validateEmail(this.$v, signupFormOptions);
+    }, inputDelay),
+    userPassword: _.debounce(function(this: any) {
+      this.passwordValid = validatePassword(this.$v, signupFormOptions);
+    }, inputDelay),
+    repeatUserPassword: _.debounce(function(this: any) {
+      this.repeatPasswordValid = checkPasswords(this.$v, signupFormOptions, 'repeatUserPassword');
+    }, inputDelay)
   }
 })
 </script>
