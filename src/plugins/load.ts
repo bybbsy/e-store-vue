@@ -13,7 +13,7 @@ export async function errorHandlerPlugin(Vue: typeof _Vue) {
       await action();
     } catch (e) {
       if(errorHandler) {
-        errorHandler()
+        errorHandler(e)
       } else {
         throw e;
       }
