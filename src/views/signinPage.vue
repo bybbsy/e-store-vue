@@ -121,6 +121,7 @@ export default Vue.extend({
   },
   methods: {
     async submitHandler() {
+      this.authError = '';
       let formData: User =  {
         email: this.userEmail,
         password: this.userPassword

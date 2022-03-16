@@ -183,6 +183,7 @@ export default Vue.extend({
   },
   methods: {
     async submitHandler() {
+      this.authError = '';
       let formData: UserFull = {
         firstName: this.firstname,
         lastName: this.lastname,
