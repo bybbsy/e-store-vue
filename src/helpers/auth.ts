@@ -17,7 +17,10 @@ function validateEmail($v: ValidationProp, authFormOptions: SignupFormOptions | 
       minLength: minLength.toString()
     }
   }
-
+  if(!length) {
+    objError.invalid = true;
+    return objError;
+  }
   if ($v.userEmail.$dirty && !length) {
     objError.errorMessage = 'warn_empty_field';
     return objError;
@@ -45,7 +48,10 @@ function validatePassword($v: ValidationProp, authFormOptions: SignupFormOptions
       minLength: minLength.toString()
     }
   }
-
+  if(!length) {
+    objError.invalid = true;
+    return objError;
+  }
   if ($v.userPassword.$dirty && !length) {
     objError.errorMessage = 'warn_empty_field';
     return objError;
@@ -70,6 +76,10 @@ function validateName($v: ValidationProp, authFormOptions: SignupFormOptions, fi
     }
   }
 
+  if(!length) {
+    objError.invalid = true;
+    return objError;
+  }
   if ($v[field].$dirty && !length) {
     objError.errorMessage = 'warn_empty_field';
     return objError;
@@ -94,6 +104,10 @@ function checkPasswords($v: ValidationProp, authFormOptions: SignupFormOptions, 
     }
   }
 
+  if(!length) {
+    objError.invalid = true;
+    return objError;
+  }
   if ($v[field].$dirty && !length) {
     objError.errorMessage = 'warn_empty_field';
     return objError;
