@@ -25,8 +25,7 @@ function getProductMutateData(productsCart: Array<CartProduct>, payload: AnyProd
 
 async function toggleDetails(toggle: boolean, payload: (DetailProduct | Product)) {
   if(toggle) {
-    // if await is removed, then card glitches when the animtaion of closing is not finished
-    await store.dispatch('toggleDetails');
+    store.dispatch('toggleDetails');
   }
   await store.dispatch('setDetails', payload);
 }
