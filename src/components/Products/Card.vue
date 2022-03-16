@@ -28,6 +28,8 @@ import { mapActions, mapGetters } from 'vuex';
 import { toggleDetails, isProductInACart, sendCartToFirebase } from '@/helpers/useProducts';
 import { CategoriesSchema, ProductOrNot } from '@/types/products';
 import { emptyDetailProduct, productBackgroundColors } from '@/variables';
+import _ from 'lodash';
+
 import Button from '@/components/Button.vue';
 
 export default Vue.extend({
@@ -38,7 +40,8 @@ export default Vue.extend({
   computed: {
     ...mapGetters([
       'getProductsCart',
-      'getDetails'
+      'getDetails',
+      'getDetailsExpanded'
     ]),
     isInCart(): ProductOrNot {
       return isProductInACart(this.getProductsCart, this.product);
@@ -49,27 +52,44 @@ export default Vue.extend({
   },
   methods: {
     ...mapActions([
-      'toggleDetails',
       'setDetails',
       'addToCart',
       'removeFromCart'
     ]),
-    async cardClick() {
-      const details = this.getDetails;
+    // async clickWrapper() {
+    //   const details = this.getDetails;
 
-      // If first click
-      if(!details.productID) {
+    //   // If first click
+    //   if(!details.productID) {
+    //     await toggleDetails(true, this.product);
+    //   }
+    //   // If click on another card
+    //   else if(details.productID !== this.product.productID) {
+    //     await toggleDetails(false, this.product);
+    //   }
+    //   // If double click
+    //   else {
+    //     await toggleDetails(true, emptyDetailProduct);
+    //   }
+    // },
+    cardClick: _.debounce(async function(this: any) {
+      const details = this.getDetails;
+      const detailsState = this.getDetailsExpanded;
+
+      console.log(detailsState)
+      // If first click or if menu state is false, but the content is loaded;
+      if(!details.productID || (details.productID && !detailsState)) {
         await toggleDetails(true, this.product);
       }
       // If click on another card
       else if(details.productID !== this.product.productID) {
         await toggleDetails(false, this.product);
       }
-      // If double click
-      else {
+      // If dobule click on this product
+      else if(details.productID && detailsState) {
         await toggleDetails(true, emptyDetailProduct);
       }
-    },
+    }, 200),
     handleAddToCart() {
       this.addToCart(this.product);
       sendCartToFirebase(this.getProductsCart);
