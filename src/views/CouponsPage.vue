@@ -83,15 +83,16 @@ export default Vue.extend({
 })
 </script>
 
-<style>
-.page {
+<style scoped>
+@import '~@/assets/css/OOCSS/index.css';
+/* .page {
   display: flex;
   flex-direction: column;
   height: 100%;
-}
+} */
 
 /* Base styles */
-.header {
+/* .header {
   display: flex;
   width: 100%;
   height: 45px;
@@ -110,9 +111,9 @@ export default Vue.extend({
   justify-content: space-evenly;
   align-items: flex-start;
   gap: 15px;
-}
+} */
 
-.coupon {
+/* .coupon {
   position: relative;
   display: grid;
   min-height: 100px;
@@ -152,9 +153,9 @@ export default Vue.extend({
   display: flex;
   margin: auto 0 5px 0;
   font-size: 0.8em;
-}
+} */
 
-.b-r {
+/* .b-r {
   border-right: 2px;
 }
 
@@ -168,66 +169,20 @@ export default Vue.extend({
 
 .b-light-gray {
   border-color: var(--darker-blue);
-}
+} */
 
 /*  margins */
 
-.m-t-normal-1 {
-  margin-top: 15px;
-}
-
-.m-y-normal-1 {
-  margin-top: 15px;
-  margin-bottom: 15px;
-}
-
-.m-y-small-1 {
-  margin-top: 2px;
-  margin-bottom: 2px;
-}
-
-.m-y-small-2 {
-  margin-top: 4px;
-  margin-bottom: 4px;
-}
-
-.m-y-small-3 {
-  margin-top: 6px;
-  margin-bottom: 6px;
-}
-
-.m-y-small-4 {
-  margin-top: 8px;
-  margin-bottom: 8px;
-}
-
-.m-y-small-5 {
-  margin-top: 10px;
-  margin-bottom: 10px;
-}
-
-.m-r-small-1 {
-  margin-right: 2px;
-}
-
-
-.m-a-auto {
-  margin: auto;
-}
 /* paddings */
 
-.p-l-normal {
-  padding-left: 15px;
 
-}
-
-.group {
+/* .group {
   width: 100%;
   display: flex;
   justify-content: space-around;
-}
+} */
 
-.btn {
+/* .btn {
   border-radius: 5px;
   margin: 0 15px;
   padding: 5px 0;
@@ -253,17 +208,17 @@ export default Vue.extend({
 
 .btn-error:hover {
   background-color: var(--secondary-error);
-}
+} */
 /* Skins */
 
-.view-title {
+/* .view-title {
   display: flex;
   font-size: 1.5em;
-}
+} */
 
 /* -- text colors --- */
 
-.text-white {
+/* .text-white {
   color: var(--main-white);
 }
 
@@ -273,33 +228,21 @@ export default Vue.extend({
 
 .text-description {
   color: var(--text-description);
-}
+} */
 
 /* -- themes -- */
 
-.theme-white {
-  background-color: var(--main-white);
-}
 
-
-.discount-value {
-  font-size: 1.2em;
-}
-
-.fw-thick {
-  font-weight: 500;
-}
 
 
 /* -- coupons placements -- */
 
-.pos-horizontal {
+/* .pos-horizontal {
   grid-template-columns: 1fr 2fr;
 }
 
 .pos-vertical {
   grid-template-rows: 2fr 1fr;
-  /* height: 550px; */
 }
 
 .pos-horizontal::before,
@@ -331,9 +274,5 @@ export default Vue.extend({
   top: 67%;
   right: 0;
   transform: translate(50%, -67%);
-}
-
-.f-column {
-  flex-direction: column;
-}
+} */
 </style>

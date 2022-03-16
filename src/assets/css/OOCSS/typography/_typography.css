@@ -1,0 +1,27 @@
+/* Base */
+.view-title {
+  display: flex;
+  font-size: 1.5em;
+}
+
+.discount-value {
+  font-size: 1.2em;
+}
+
+.fw-thick {
+  font-weight: 500;
+}
+
+
+/* Skins */
+.text-white {
+  color: var(--main-white);
+}
+
+.text-dark {
+  color: var(--main-dark);
+}
+
+.text-description {
+  color: var(--text-description);
+}

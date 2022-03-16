@@ -1,0 +1,15 @@
+.b-r {
+  border-right: 2px;
+}
+
+.b-b {
+  border-bottom: 2px;
+}
+
+.b-dashed {
+  border-style: dashed;
+}
+
+.b-light-gray {
+  border-color: var(--darker-blue);
+}

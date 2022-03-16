@@ -1,0 +1,28 @@
+.coupon {
+  position: relative;
+  display: grid;
+  min-height: 100px;
+  border-radius: 25px;
+  padding: 5px 20px;
+  transition: 0.2s all ease;
+  cursor: pointer;
+}
+
+.coupon::before,
+.coupon::after {
+  content: '';
+  position: absolute;
+  display: none;
+  width: 30px;
+  height: 30px;
+  background-color: var(--main-dark);
+  border-radius: 50%;
+}
+
+.coupon:hover {
+  transform: scale(1.05);
+}
+
+.coupon-inner {
+  display: flex;
+}

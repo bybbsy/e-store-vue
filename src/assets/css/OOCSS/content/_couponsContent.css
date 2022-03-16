@@ -1,0 +1,8 @@
+.coupons-content {
+  display: grid;
+  min-width: 100%;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 400px));
+  justify-content: space-evenly;
+  align-items: flex-start;
+  gap: 15px;
+}

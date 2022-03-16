@@ -1,0 +1,27 @@
+@import './typography/_typography.css';
+
+
+@import './content/_mainContent.css';
+@import './content/_couponsContent.css';
+
+
+@import './header/_header.css';
+
+
+@import './utils/_border.css';
+@import './utils/_flexDirection.css';
+@import './utils/_margin.css';
+@import './utils/_padding.css';
+@import './utils/skin/_backgroundColor.css';
+
+
+@import './coupon/_coupon.css';
+@import './coupon/gridTemplate/_gridPositioning.css';
+@import './coupon/buttonsGroup/_buttonsGroup.css';
+@import './coupon/image/_image.css';
+@import './coupon/text/_dateExpire.css';
+
+
+@import './button/_button.css';
+@import './button/skin/_buttonError.css';
+@import './button/skin/_buttonSuccess.css';
