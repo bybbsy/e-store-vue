@@ -29,10 +29,19 @@ type SigninFormOptions = formOptions<SigninFormFields>;
 
 type SignupFormOptions = formOptions<SignupFormFields>;
 
+interface InputError {
+  invalid: boolean,
+  errorMessage: string,
+  params: {
+    minLength: string
+  }
+}
+
 export {
   ValidationProp,
   SigninFormFields,
   SignupFormFields,
   SigninFormOptions,
-  SignupFormOptions
+  SignupFormOptions,
+  InputError
 }
