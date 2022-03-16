@@ -188,4 +188,9 @@ h6 {
   display: inline-block;
   background: transparent;
 }
+
+.input-block__error {
+  line-height: 150%;
+  color: var(--main-error);
+}
 </style>
