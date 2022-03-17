@@ -90,7 +90,14 @@ const routes: Array<RouteConfig> = [
       {
         path: 'crud',
         name: 'admin-crud',
-        component: () => import('../views/Admin/crudPage.vue')
+        component: () => import('../views/Admin/crudPage.vue'),
+        children: [
+          {
+            path: 'create',
+            name: 'crud-create',
+            component: () => import('../views/Admin/Crud/createPage.vue')
+          }
+        ]
       }
     ]
   }
