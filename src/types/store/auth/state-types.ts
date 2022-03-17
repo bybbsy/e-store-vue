@@ -16,11 +16,15 @@ interface UserAvatar {
   imgLink: string
 }
 
+interface UserRole {
+  role: string
+}
+
 interface User extends Email, Password {}
 
 interface UserFull extends User, UserName {}
 
-interface UserData extends UserName, Email, UserAvatar {
+interface UserData extends UserName, Email, UserAvatar, UserRole {
   coupons: [],
   cart: []
 }
