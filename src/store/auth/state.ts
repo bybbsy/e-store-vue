@@ -3,7 +3,7 @@ import { State } from "@/types/store/auth/state-types";
 export const state: State = {
   user: {
     email: '',
-    password: ''
+    password: '',
   },
   userFull: {
     firstName: '',
@@ -16,6 +16,7 @@ export const state: State = {
     firstName: '',
     lastName: '',
     email: '',
+    role: '',
     coupons: [],
     cart: []
   }
