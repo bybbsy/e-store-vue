@@ -3,6 +3,7 @@ import VueRouter, { RouteConfig } from 'vue-router'
 import Home from '../views/Home.vue'
 import { Route, NavigationGuardNext } from 'vue-router';
 import { userIsAuthorized } from '@/helpers/auth';
+import store from '@/store/index';
 
 Vue.use(VueRouter)
 
@@ -75,6 +76,23 @@ const routes: Array<RouteConfig> = [
     name: 'error',
     meta: { layout: 'empty' },
     component: () => import(/* webpackChunkName: "about" */ '../views/ErrorPage.vue')
+  },
+  {
+    path: '/admin',
+    name: 'admin',
+    component: () => import('../views/Admin/adminWrapper.vue'),
+    children: [
+      {
+        path: '/',
+        name: 'admin-main',
+        component: () => import('../views/Admin/mainPage.vue')
+      },
+      {
+        path: 'crud',
+        name: 'admin-crud',
+        component: () => import('../views/Admin/crudPage.vue')
+      }
+    ]
   }
 ]
 
@@ -91,5 +109,10 @@ function checkForAuth(to: Route, from: Route, next: NavigationGuardNext<Vue>): v
     next()
   }
 }
+
+// TODO Checks for user role. If admin then allows to enter, else redirects
+// function checkForRole(to: Route, from: Route, next: NavigationGuardNext<Vue>): void {
+
+// }
 
 export default router
