@@ -6,19 +6,6 @@
         <Header v-else/>
         <div class="products__inner">
           <div class="title category-name">{{ getCurrentCategory }}</div>
-          <!-- <div class="categories-block">
-            <ul class="categories-block__list">
-              <Category />
-              <Category />
-              <Category />
-            </ul>
-            <div class="categories-block__button">
-              <button class="button categories-scroll-button">VER MÁS</button>
-              <div class="button__icon">
-                <img src="~@/assets/img/base/ArrowRight.png" alt="">
-              </div>
-            </div>
-          </div> -->
           <div class="products__list" v-if="products.length && !loadingData" :class="{ 'products__list_stretch' : detailsExpanded}">
             <Card v-for="(productItem, index) in products"
                   :key="index"
