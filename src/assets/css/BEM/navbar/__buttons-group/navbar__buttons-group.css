@@ -1,0 +1,7 @@
+.navbar__buttons-group {
+  display: flex;
+  flex-direction: column;
+  margin: auto 0 0;
+  width: 100%;
+  height: 100%;
+}

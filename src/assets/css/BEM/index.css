@@ -1,0 +1,17 @@
+@import '../BEM/normalize/normalize.css';
+
+@import '../BEM/default/colors.css';
+
+@import '../BEM/navbar/navbar.css';
+@import '../BEM/navbar/__container/navbar__container.css';
+@import '../BEM/navbar/__user-block/navbar__user-block.css';
+@import '../BEM/navbar/__username/navbar__username.css';
+@import '../BEM/navbar/__email/navbar__email.css';
+@import '../BEM/navbar/__avatar/navbar__avatar.css';
+@import '../BEM/navbar/__auth-block/navbar__auth-block.css';
+@import '../BEM/navbar/__buttons-group/navbar__buttons-group.css';
+@import '../BEM/navbar/__button/navbar__button.css';
+@import '../BEM/navbar/__button/_sign-in/navbar__button_sign-in.css';
+@import '../BEM/navbar/__button/_sign-up/navbar__button_sign-up.css';
+@import '../BEM/navbar/__button/_sign-out/navbar__button_sign-out.css';
+

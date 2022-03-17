@@ -1,0 +1,25 @@
+.navbar {
+  min-width: 300px;
+  background-color: var(--secondary-dark);
+  padding: 50px 0;
+  overflow: hidden scroll;
+  height: 100vh;
+  scrollbar-width: none;
+}
+
+.navbar::-webkit-scrollbar {
+  display: none;
+}
+
+@media screen and (max-width: 1080px) {
+  .navbar {
+    min-width: 150px;
+  }
+}
+
+@media screen and (max-width: 980px) {
+  .navbar {
+    min-width: 300px;
+    margin-left: -300px;
+  }
+}
