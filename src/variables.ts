@@ -88,6 +88,8 @@ const emptyLastname: InputError = {
   }
 }
 
+const allowedUsers = ['admin', 'moderator'];
+
 export {
   signinFormOptions,
   signupFormOptions,
@@ -97,5 +99,6 @@ export {
   emptyLastname,
   emptyEmail,
   emptyPassword,
-  inputDelay
+  inputDelay,
+  allowedUsers
 };
