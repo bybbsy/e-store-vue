@@ -68,10 +68,13 @@
 import { User } from '@/types/store/auth/state-types';
 import { email, required, minLength, decimal } from 'vuelidate/lib/validators';
 import Vue from 'vue';
-import { emptyEmail, emptyPassword, inputDelay, signinFormOptions } from '@/variables';
-import { validateEmail, validatePassword } from '@/helpers/auth';
+import { allowedUsers, emptyEmail, emptyPassword, inputDelay, signinFormOptions } from '@/variables';
+import { userIsAuthorized, validateEmail, validatePassword } from '@/helpers/auth';
 import { InputError } from '@/types/auth';
 import _ from 'lodash';
+import store from '@/store';
+import firebase from 'firebase/compat';
+import { mapActions } from 'vuex';
 
 
 export default Vue.extend({
@@ -110,6 +113,10 @@ export default Vue.extend({
     }
   },
   methods: {
+    ...mapActions([
+      'setUserData',
+      'setUserCart',
+    ]),
     async submitHandler() {
       this.authError = '';
       let formData: User =  {
@@ -119,7 +126,25 @@ export default Vue.extend({
 
       this.$load(async () => {
         await this.$store.dispatch('LOGIN', formData);
-        await this.$router.push('/products')
+
+        const userID = userIsAuthorized();
+
+        if(userID) {
+          let response = (await firebase.database().ref(`/users/${userID}/info`).get()).val();
+
+          let userData = _.omit(response, ['cart'])
+
+          let cart = JSON.parse(response.cart);
+
+          this.setUserData(userData);
+          this.setUserCart(cart);
+
+          if(allowedUsers.includes(userData.role)) {
+            this.$router.push({ name: 'admin-main' })
+          } else {
+            this.$router.push('/products')
+          }
+        }
       }, (error) => {
         this.authError = error.message;
       })
