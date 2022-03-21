@@ -7,13 +7,23 @@ interface Product {
   imgLink: string,
   category: ProductCategory,
   subcategory?: string,
+  currency?: string,
   price: number,
-  rate: number
+  rate: number,
+  description?: string,
 }
 
+interface EditProduct {
+  name: string,
+  imgLink: string,
+  category: ProductCategory,
+  currency?: string,
+  price: number,
+  rate: number,
+  description?: string,
+}
 // Product interface for expanded card
 interface DetailProduct extends Product {
-  description?: string,
   comments: Array<CardComment>
 }
 
@@ -47,5 +57,6 @@ export {
   CartProduct,
   AnyProduct,
   CardComment,
-  ProductCategory
+  ProductCategory,
+  EditProduct
 };
