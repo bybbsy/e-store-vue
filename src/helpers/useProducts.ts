@@ -3,6 +3,7 @@ import { ProductOrNot } from "@/types/products";
 import store from '@/store/index';
 import { userIsAuthorized } from "./auth";
 import firebase from "firebase/compat";
+import { doc, getDoc, getFirestore } from 'firebase/firestore';
 import _ from "lodash";
 
 function isProductInACart(productsCart: Array<CartProduct>, payload: CartProduct | Product): ProductOrNot {
@@ -43,10 +44,41 @@ function sendCartToFirebase(currentCart: Array<CartProduct>) {
   return deb()
 }
 
+async function findByField(field: string, value: string) {
+  const collectionRef = firebase.firestore().collection('products');
+  const filteredRaw = await collectionRef.where(field, '==', value).get();
+  return filteredRaw.docs.map(item => {
+    return {
+      productID: item.id,
+      ...item.data()
+    }
+  })
+}
+
+async function findById(value: string) {
+  if(value.length) {
+    const db = getFirestore();
+
+    const snap = await getDoc(doc(db, 'products', value ));
+
+    if(snap.exists()) {
+      return [{
+        productID: snap.id,
+        ...snap.data()
+      }]
+    }
+
+    return [];
+  }
+}
+
 export {
   isProductInACart,
   toggleDetails,
   sendCartToFirebase,
   getProductIndex,
-  getProductMutateData
+  getProductMutateData,
+  findByField,
+  findById
 };
+
