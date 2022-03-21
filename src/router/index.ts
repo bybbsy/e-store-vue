@@ -4,6 +4,7 @@ import Home from '../views/Home.vue'
 import { Route, NavigationGuardNext } from 'vue-router';
 import { userIsAuthorized } from '@/helpers/auth';
 import store from '@/store/index';
+import { UserData } from '@/types/store/auth/state-types';
 
 Vue.use(VueRouter)
 
@@ -85,7 +86,7 @@ const routes: Array<RouteConfig> = [
       {
         path: '/',
         name: 'admin-main',
-        component: () => import('../views/Admin/mainPage.vue')
+        component: () => import('../views/Admin/mainPage.vue'),
       },
       {
         path: 'crud',
@@ -96,6 +97,11 @@ const routes: Array<RouteConfig> = [
             path: 'create',
             name: 'crud-create',
             component: () => import('../views/Admin/Crud/createPage.vue')
+          },
+          {
+            path: 'all',
+            name: 'crud-all',
+            component: () => import('../views/Admin/Crud/allProductsPage.vue')
           }
         ]
       }
@@ -118,8 +124,23 @@ function checkForAuth(to: Route, from: Route, next: NavigationGuardNext<Vue>): v
 }
 
 // TODO Checks for user role. If admin then allows to enter, else redirects
-// function checkForRole(to: Route, from: Route, next: NavigationGuardNext<Vue>): void {
+function checkForRole(to: Route, from: Route, next: NavigationGuardNext<Vue>): void {
 
-// }
+  // const userData = store.getters.getUserData as UserData;
+  // if(userData.role !== 'admin') {
+  //   // console.log(userData.role)
+  //   next({ name: 'products'});
+  // }
+  // next({ name: 'admin-main' });
+
+  // if(store.getters.getUserData) {
+  //   Promise.all([
+  //     store.getters.getUserData
+  //   ])
+  // } else {
+
+  // }
+
+}
 
 export default router
