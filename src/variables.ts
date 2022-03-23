@@ -90,6 +90,27 @@ const emptyLastname: InputError = {
 
 const allowedUsers = ['admin', 'moderator'];
 
+
+const innerLinks = {
+  dashboard: [
+    { name: 'Visit Dashboard', link: 'admin-main', icon: 'mdi-monitor-dashboard' }
+  ],
+  manageItems: [
+    { name: 'Create', link: 'crud-create', icon: 'mdi-hamburger-plus' },
+    { name: 'Manage', link: 'crud-all', icon: 'mdi-food' }
+  ],
+  estore: [
+    { name: 'Visit e-store', link: 'products', icon: 'mdi-storefront-outline' }
+  ]
+};
+
+const mainLinks = [
+  { name: 'Dashboard', link: 'admin-main', icon: 'mdi-view-dashboard-outline' },
+  { name: 'Manage items', link: 'admin-crud', icon: 'mdi-barcode-scan' },
+  { name: 'E-store', link: 'products', icon: 'mdi-store-outline' }
+]
+
+
 export {
   signinFormOptions,
   signupFormOptions,
@@ -100,5 +121,7 @@ export {
   emptyEmail,
   emptyPassword,
   inputDelay,
-  allowedUsers
+  allowedUsers,
+  innerLinks,
+  mainLinks
 };
