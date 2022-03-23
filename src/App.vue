@@ -12,12 +12,52 @@ import DefaultLayout from './layouts/DefaultLayout.vue'
 import EmptyLayout from './layouts/EmptyLayout.vue'
 
 import {isMobile} from "@/helpers/useDetectDevice";
+import { userIsAuthorized } from './helpers/auth';
+import firebase from 'firebase/compat';
+import { mapActions } from 'vuex';
+import { allowedUsers } from './variables';
+import _ from 'lodash';
 export default Vue.extend({
   name: 'App',
+  data() {
+    return {
+      userID: '' as (string | null)
+    }
+  },
   computed: {
     layout() {
       return (this.$route.meta?.layout ?? 'empty') + '-layout'
     }
+  },
+  methods: {
+    ...mapActions([
+      'setUserData',
+      'setUserCart'
+    ])
+  },
+  created() {
+    this.$load(async () => {
+
+      this.userID = userIsAuthorized();
+      let userRole;
+
+      if(this.userID) {
+        let response = (await firebase.database().ref(`/users/${this.userID}/info`).get()).val();
+
+        let userData = _.omit(response, ['cart'])
+
+        userRole = userData.role;
+
+        let cart = JSON.parse(response.cart);
+
+        this.setUserData(userData);
+        this.setUserCart(cart);
+
+      }
+      if(!allowedUsers.includes(userRole)) {
+          this.$router.push({ name: 'products'})
+        }
+    })
   },
   mounted() {
     Vue.prototype.$isMobile = isMobile();
