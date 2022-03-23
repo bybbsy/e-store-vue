@@ -80,11 +80,10 @@ const routes: Array<RouteConfig> = [
   },
   {
     path: '/admin',
-    name: 'admin',
     component: () => import('../views/Admin/adminWrapper.vue'),
     children: [
       {
-        path: '/',
+        path: 'dashboard',
         name: 'admin-main',
         component: () => import('../views/Admin/mainPage.vue'),
       },
@@ -92,6 +91,7 @@ const routes: Array<RouteConfig> = [
         path: 'crud',
         name: 'admin-crud',
         component: () => import('../views/Admin/crudPage.vue'),
+        redirect: { name: 'crud-create'},
         children: [
           {
             path: 'create',
@@ -121,26 +121,6 @@ function checkForAuth(to: Route, from: Route, next: NavigationGuardNext<Vue>): v
   } else {
     next()
   }
-}
-
-// TODO Checks for user role. If admin then allows to enter, else redirects
-function checkForRole(to: Route, from: Route, next: NavigationGuardNext<Vue>): void {
-
-  // const userData = store.getters.getUserData as UserData;
-  // if(userData.role !== 'admin') {
-  //   // console.log(userData.role)
-  //   next({ name: 'products'});
-  // }
-  // next({ name: 'admin-main' });
-
-  // if(store.getters.getUserData) {
-  //   Promise.all([
-  //     store.getters.getUserData
-  //   ])
-  // } else {
-
-  // }
-
 }
 
 export default router
