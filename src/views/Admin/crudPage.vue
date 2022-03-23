@@ -1,18 +1,19 @@
 <template>
   <v-row>
-    <v-col cols="2">
+    <v-col cols="2" v-if="!$vuetify.breakpoint.mobile">
       <v-sheet rounded="lg">
-        <v-list>
+        <v-list rounded>
           <v-list-item-group
-            color="primary"
+            color="teal darken-2"
             v-model="selectedItem"
+            rounded="0"
             >
-            <v-list-item
-              v-for="(action, index) in actions"
-              :key="index"
-              :to="{ name: action.link }"
-              link
-            >
+              <v-list-item
+                v-for="(action, index) in actions"
+                :key="index"
+                :to="{ name: action.link }"
+                link
+              >
               <v-list-item-icon>
                   <v-icon v-text="action.icon"></v-icon>
                 </v-list-item-icon>

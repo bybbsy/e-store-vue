@@ -6,11 +6,11 @@
           <h6>Remove the product you find</h6>
         </v-app-bar-title>
       </v-col>
-      <v-col cols="3">
+      <v-col :class="getResponviseColsMobile">
         <v-text-field
           v-model.trim="searchById"
           label="Find item by id"
-          color="primary"
+          color="teal"
           filled
           dense
           rounded
@@ -18,11 +18,11 @@
           hide-details=""
         ></v-text-field>
       </v-col>
-      <v-col cols="3">
+      <v-col :class="getResponviseColsMobile">
         <v-text-field
           v-model.trim="searchByCategory"
           label="Find item by category"
-          color="primary"
+          color="teal"
           filled
           dense
           rounded
@@ -30,11 +30,11 @@
           hide-details=""
         ></v-text-field>
       </v-col>
-      <v-col cols="3">
+      <v-col :class="getResponviseColsMobile">
         <v-text-field
           v-model.trim="searchByName"
           label="Find item by name"
-          color="primary"
+          color="teal"
           filled
           dense
           rounded
@@ -49,9 +49,18 @@
         :items="items"
         :items-per-page="10"
         :loading="loading"
-        height="100%"
+        loader-height="100"
+        mobile-breakpoint="1000"
+        no-data-text="Ниче не нашел"
+        loading-text="Loading data"
+        height
         class="elevation-1"
       >
+        <template v-slot:item.imgLink="{ item }">
+          <div class="p-2">
+            <v-img :src="item.imgLink" :alt="item.imgLink" contain width="55" height="55"></v-img>
+          </div>
+        </template>
         <template v-slot:item.rate="{ item }">
           <v-chip
             :color="getColorRate(item.rate)"
@@ -172,7 +181,7 @@
       </v-card>
     </v-dialog>
 
-    <v-dialog v-model="dialogDelete" max-width="500px">
+    <v-dialog v-model="dialogDelete" max-width="500px" >
       <v-card>
         <v-card-title class="text-h5">Are you sure you want to delete this item?</v-card-title>
         <v-card-text class="mx-0 my-2 py-0">ID: {{ editedItem.productID }}</v-card-text>
@@ -217,8 +226,8 @@ export default Vue.extend({
         food: 'orange'
       } as ProductCategories,
       headers: [
-          { text: 'productId', value: 'id', sortable: false },
-          { text: 'Image', value: 'image', sortable: false },
+          { text: 'productId', value: 'productID', sortable: false },
+          { text: 'Image', value: 'imgLink', sortable: false },
           {
             text: 'Product',
             align: 'start',
@@ -262,6 +271,16 @@ export default Vue.extend({
     }
   },
   computed: {
+    getResponviseColsMobile() {
+      let cols = 'col-';
+      switch(this.$vuetify.breakpoint.name) {
+        case 'xs': return cols + 12
+        case 'mobile': return cols + 12
+        case 'md':
+        case 'sm': return cols + 6
+      }
+      return cols + 2
+    },
     getItems(): { length: number, result: Array<Product> } {
       return {
         length: this.items.length,
