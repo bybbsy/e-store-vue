@@ -10,7 +10,8 @@ export default new Vuetify({
   theme: {
     themes: {
       light: {
-        warning: colors.orange.accent3
+        warning: colors.orange.accent3,
+        primaryLight: colors.blue.lighten1
       }
     }
   }
