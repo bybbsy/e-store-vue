@@ -19,6 +19,7 @@
 
 <script lang="ts">
 import Vue from 'vue';
+import { mapActions } from 'vuex';
 import Input from '../SearchInput.vue';
 
 export default Vue.extend({
@@ -27,10 +28,11 @@ export default Vue.extend({
     Input
   },
   methods: {
+    ...mapActions(['toggleNavbar']),
     toggleMenu() {
-      console.log('')
+      this.toggleNavbar();
     }
-  }
+  },
 })
 </script>
 

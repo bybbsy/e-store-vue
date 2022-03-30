@@ -1,6 +1,6 @@
 <template>
     <!--#TODO navbar navbar_collapsed if navbar is collapsed-->
-  <aside class="navbar">
+  <aside class="navbar" :class="{ 'navbar__expanded': navbarIsExpanded }">
       <div class="navbar__container">
           <div class="navbar__user-block">
               <div class="navbar___body">
@@ -43,7 +43,8 @@ export default Vue.extend({
       return userIsAuthorized();
     },
     ...mapGetters({
-      userData: 'getUserData'
+      userData: 'getUserData',
+      navbarIsExpanded: 'navbarIsExpanded'
     }),
     getUsername() {
       return `${this.userData.firstName} ${this.userData.lastName}`;
@@ -76,7 +77,8 @@ export default Vue.extend({
     margin: 0 auto;
   }
 }
+
 .navbar__expanded {
-  margin-left: 0;
+  margin-left: 0 !important;
 }
 </style>
