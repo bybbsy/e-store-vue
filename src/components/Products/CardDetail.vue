@@ -212,4 +212,59 @@ export default Vue.extend({
   font-weight: 300;
   line-height: 150%;
 }
+
+@media screen and (max-width: 680px) {
+  .product__card_expanded {
+    margin: 0 0;
+    max-width: 100%;
+    height: calc(100% - 50px);
+  }
+}
+
+@media screen and (max-width: 580px) {
+  .card__bottom_detail-card {
+    margin: 0 15px 0;
+  }
+
+  .comment__author {
+    font-size: 0.95em;
+  }
+
+  .comment__text {
+    font-size: 0.9em;
+  }
+
+  .comment__icon {
+    width: 50px;
+    height: 50px;
+    margin-right: 20px;
+
+  }
+}
+
+
+@media screen and (max-width: 380px) {
+  .card__bottom_detail-card {
+    margin: 0 10px 0;
+  }
+
+  .comment__author {
+    font-size: 0.8em;
+  }
+
+  .comment__date {
+    font-size: 0.75em;
+  }
+
+  .comment__text {
+    font-size: 0.85em;
+  }
+
+  .comment__icon {
+    width: 45px;
+    height: 45px;
+    margin-right: 15px;
+
+  }
+}
 </style>

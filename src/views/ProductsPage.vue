@@ -256,10 +256,53 @@ export default Vue.extend({
 }
 
 /* Medias */
+@media screen and (max-width: 1440px) {
+  .product-detail {
+    min-width: 350px;
+  }
+}
+
 
 @media screen and (max-width: 980px) {
   .products__list {
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  }
+}
+
+@media screen and (max-width: 850px) {
+
+  .product-detail {
+    min-width: 250px;
+  }
+}
+
+@media screen and (max-width: 580px) {
+  .products__wrapper {
+    padding: 0 5px;
+  }
+
+  .products__inner {
+    margin-top: 30px;
+  }
+
+  .products__list {
+    width: 100%;
+    grid-template-columns: repeat(2, minmax(150px, 1fr));
+    gap: 5px;
+  }
+}
+
+@media screen and (max-width: 680px) {
+  .product-detail {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    margin: 0;
+    padding: 0 5px;
+    height: 100%;
+    z-index: 10;
+    background-color: var(--main-dark);
   }
 }
 </style>

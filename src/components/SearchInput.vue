@@ -83,4 +83,53 @@ export default Vue.extend({
     object-fit: contain;
 }
 
+@media screen and (max-width: 1280px) {
+  .search__input {
+    width: 250px;
+    height: 50px;
+    padding: 12px 12px 12px 50px;
+    font-size: 1em;
+  }
+}
+
+@media screen and (max-width: 850px) {
+  .search__input {
+    width: 150px;
+    height: 40px;
+    padding: 8px 8px 8px 35px;
+    font-size: 0.9em;
+  }
+  .input__icon {
+    top: 11px;
+    left: 12px;
+    width: 20px;
+    height: 20px;
+  }
+
+  .search__input:focus {
+    border-width: 1px;
+    font-size: 1em;
+  }
+}
+/*
+@media screen and (max-width: 580px) {
+  .search__input {
+    width: 150px;
+    height: 40px;
+    padding: 8px 8px 8px 35px;
+    font-size: 0.9em;
+  }
+
+  .input__icon {
+    top: 11px;
+    left: 12px;
+    width: 20px;
+    height: 20px;
+  }
+
+  .search__input:focus {
+    border-width: 1px;
+    font-size: 1em;
+  }
+} */
 </style>

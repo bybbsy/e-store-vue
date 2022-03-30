@@ -2,12 +2,14 @@
     <div class="default-wrapper">
         <TheNavbar/>
         <router-view/>
+        <Snackbar />
     </div>
 </template>
 
 <script lang="ts">
 import Vue from 'vue';
 import TheNavbar from '../components/TheNavbar/TheNavbar.vue';
+import Snackbar from '../components/Snackbar.vue';
 import firebase from "firebase/compat/app";
 import { mapActions, mapGetters } from 'vuex';
 import { userIsAuthorized } from "@/helpers/auth";
@@ -16,7 +18,8 @@ import _ from 'lodash';
 export default Vue.extend({
     name: 'default-layout',
     components: {
-        TheNavbar
+      TheNavbar,
+      Snackbar
     },
     async mounted() {
       const userID = userIsAuthorized();
@@ -42,8 +45,14 @@ export default Vue.extend({
 </script>
 
 <style>
+body {
+  overflow: hidden;
+}
 .default-wrapper {
-    display: flex;
-    flex: 1 1 auto;
+  position: relative;
+  overflow: hidden;
+
+  display: flex;
+  flex: 1 1 auto;
 }
 </style>

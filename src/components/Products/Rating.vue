@@ -53,4 +53,16 @@ export default Vue.extend({
   height: 20px;
 }
 
+@media screen and (max-width: 580px) {
+  .block-rating {
+    margin-left: 0;
+  }
+
+  .block-rating span {
+    width: 12px;
+    height: 12px;
+    mask-size: 12px;
+  }
+}
+
 </style>

@@ -15,7 +15,7 @@
         <div class="price">${{ product.price }}</div>
 
         <Button v-if="!isInCart" button-text="Add to cart" :class="'card__button_add'" @click.stop.native="handleAddToCart"/>
-        <Button v-else button-text="Remove item" :class="'card__button_remove'" @click.stop.native="handleRemoveFromCart"/>
+        <Button v-else button-text="Remove" :class="'card__button_remove'" @click.stop.native="handleRemoveFromCart"/>
       </div>
     </div>
 </template>
@@ -220,6 +220,73 @@ export default Vue.extend({
 
   .card__bottom .price {
     font-size: 1.5em;
+  }
+
+  .card__content {
+    margin: 20px 20px 25px;
+  }
+
+  .card__bottom_default-card {
+    margin: auto 20px 0;
+  }
+
+  .card__bottom .price {
+    font-size: 1.25em;
+  }
+
+  .card__button {
+    min-width: 120px;
+    min-height: 35px;
+    padding: 5px 12px 5px 40px;
+  }
+
+  .card__button_add {
+    background-position: 10px 6px;
+    background-size: 22px 22px;
+  }
+
+  .card__button_remove {
+    background-size: 20px 20px;
+    background-position: 10px 50%;
+    padding-left: 35px;
+  }
+
+  .button__text {
+    font-size: 1em;
+  }
+}
+
+@media screen and (max-width: 580px) {
+  .product__card {
+    max-width: 100%;
+  }
+
+  .rate-block__value {
+    font-size: 0.8em;
+  }
+
+  .card__bottom_default-card {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .card__bottom_default-card .price {
+    font-size: 1.5em;
+    align-self: flex-start;
+  }
+
+  .card__bottom_default-card .card__button {
+    align-self: flex-end;
+  }
+}
+
+@media screen and (max-width: 380px) {
+  .card__content {
+    margin: 20px 10px 25px;
+  }
+
+  .card__bottom_default-card {
+    margin: auto 10px 0;
   }
 }
 </style>

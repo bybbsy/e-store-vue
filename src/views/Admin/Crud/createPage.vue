@@ -2,7 +2,7 @@
   <form class="pa-5">
     <v-card-title class="pa-0">Create a new item</v-card-title>
     <v-row>
-      <v-col cols="6">
+      <v-col :class="getResponsiveColsTop">
         <v-text-field
           v-model="name"
           :error-messages="nameErrors"
@@ -36,7 +36,7 @@
       </v-col>
 
 
-      <v-col cols="6">
+      <v-col :class="getResponsiveColsTop">
         <v-list-item-avatar
           tile
           size="120"
@@ -57,9 +57,8 @@
 
 
     <v-row>
-      <v-col cols="3" class="pt-0">
+      <v-col :class="getResponsiveColsBottom" class="pt-0">
         <v-text-field
-          class="mr-5"
           v-model="price"
           :error-messages="priceErrors"
           label="Price"
@@ -69,7 +68,7 @@
         ></v-text-field>
       </v-col>
 
-      <v-col cols="3" class="pt-0 orange--text" >
+      <v-col :class="getResponsiveColsBottom" class="pt-0 orange--text" >
         <v-select
           v-model="select"
           :hint="`${select.currency}`"
@@ -82,9 +81,9 @@
       </v-col>
     </v-row>
 
-    <v-row class="ma-0">
+    <v-row class="mx-0">
       <v-btn
-      class="mr-4"
+      class="mr-4 my-2"
       @click="submit"
       color="success"
       large
@@ -94,6 +93,7 @@
       <v-icon> mdi-plus-circle-outline </v-icon>
     </v-btn>
     <v-btn
+      class="my-2"
       @click="clear"
       color="primary"
       outlined
@@ -129,6 +129,7 @@
 import Vue from 'vue'
 import { required, maxLength, url, decimal, minValue } from 'vuelidate/lib/validators';
 import firebase from "firebase/compat";
+import vuetify from '@/plugins/vuetify';
 
 export default Vue.extend({
   data() {
@@ -159,6 +160,20 @@ export default Vue.extend({
     category: { required }
   },
   computed: {
+    getResponsiveColsBottom() {
+      let cols = 'col-';
+      if(this.$vuetify.breakpoint.mobile) {
+        return cols + 12
+      }
+      return cols + 3;
+    },
+    getResponsiveColsTop() {
+      let cols = 'col-';
+      if(this.$vuetify.breakpoint.mobile) {
+        return cols + 12
+      }
+      return cols + 6;
+    },
     selectErrors () {
       const errors: Array<string> = []
       if (!this.$v.select.$dirty) return errors
