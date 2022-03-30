@@ -10,7 +10,8 @@ export enum ActionTypes {
   setDetails = "setDetails",
   addToCart = "addToCart",
   removeFromCart = "removeFromCart",
-  setUserCart = "setUserCart"
+  setUserCart = "setUserCart",
+  setProducts = "setProducts"
 }
 
 export type Actions = {
@@ -20,5 +21,6 @@ export type Actions = {
   [ActionTypes.addToCart]({commit, state}: ActionCtx, payload: AnyProduct): void,
   [ActionTypes.removeFromCart]({commit, state}: ActionCtx, payload: CartProduct): void
   [ActionTypes.setUserCart]({commit}: ActionCtx, payload: Array<CartProduct>): void
+  [ActionTypes.setProducts]({commit}: ActionCtx, payload: Array<Product>): void
 }
 

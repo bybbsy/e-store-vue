@@ -89,5 +89,8 @@ export const actions: ActionTree<State, RootState> & Actions = {
   },
   [ActionTypes.setUserCart]({commit}, payload) {
     commit('SET_USER_CART', payload)
+  },
+  [ActionTypes.setProducts]({commit}, payload) {
+    commit('SET_PRODUCTS', payload);
   }
 }

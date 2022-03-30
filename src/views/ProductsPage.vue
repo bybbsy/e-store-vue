@@ -6,15 +6,15 @@
         <Header v-else/>
         <div class="products__inner">
           <div class="title category-name">{{ getCurrentCategory }}</div>
-          <div class="products__list" v-if="products.length && !loadingData" :class="{ 'products__list_stretch' : detailsExpanded}">
-            <Card v-for="(productItem, index) in products"
+          <div class="products__list" v-if="getProducts.length && !loadingData" :class="{ 'products__list_stretch' : detailsExpanded}">
+            <Card v-for="(productItem, index) in getProducts"
                   :key="index"
                   :product="productItem"
                   />
           </div>
           <LoadingSpinner v-else-if="loadingData"/>
           <div v-else class="products__list products__list_notification">
-            <p class="notification notification_message empty-content_title">Empty list</p>
+            <p class="notification notification_message empty-content_title">Nothing was found</p>
           </div>
         </div>
       </section>
@@ -76,7 +76,8 @@ export default Vue.extend({
   computed: {
     ...mapGetters({
       detailsExpanded: 'getDetailsExpanded',
-      getProductsCart: 'getProductsCart'
+      getProductsCart: 'getProductsCart',
+      getProducts: 'getProducts'
     }),
     mobileDevice() {
       return Vue.prototype.$isMobile;

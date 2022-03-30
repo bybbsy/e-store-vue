@@ -1,6 +1,6 @@
 <template>
   <div class="header__input">
-      <input type="text" name="search-input" placeholder="Search" class="search__input">
+      <input type="text" name="search-input" placeholder="Search by name" class="search__input" v-model="input">
       <div class="input__icon">
           <img src="~@/assets/img/base/Search.png" alt="Search...">
       </div>
@@ -8,9 +8,35 @@
 </template>
 
 <script lang="ts">
+import { findByField } from '@/helpers/useProducts'
+import _ from 'lodash'
 import Vue from 'vue'
+import { mapActions } from 'vuex'
 export default Vue.extend({
     name: 'header-input',
+    data() {
+      return {
+        input: ''
+      }
+    },
+    methods: {
+      ...mapActions([
+        'setProducts'
+      ])
+    },
+    watch: {
+      input: _.debounce(async function (this: any, value: string) {
+        let result = await findByField('name', value);
+
+        if(!result.length) {
+          result = await findByField('category', value);
+        }
+
+        this.setProducts(result);
+
+        console.log(result)
+      }, 500)
+    }
 })
 </script>
 
