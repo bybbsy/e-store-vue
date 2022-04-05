@@ -182,7 +182,7 @@ export default Vue.extend({
       }
 
       this.$load(async () => {
-        await this.$store.dispatch('REGISTER', formData);
+        await this.$store.dispatch('register', formData);
         await this.$router.push('/products')
       }, (error) => {
         this.authError = error.message;

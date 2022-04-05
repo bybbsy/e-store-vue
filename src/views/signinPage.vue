@@ -125,7 +125,7 @@ export default Vue.extend({
       }
 
       this.$load(async () => {
-        await this.$store.dispatch('LOGIN', formData);
+        await this.$store.dispatch('login', formData);
 
         const userID = userIsAuthorized();
 
