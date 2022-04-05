@@ -13,9 +13,8 @@
       </div>
       <div class="card__bottom card__bottom_default-card">
         <div class="price">${{ product.price }}</div>
-
-        <Button v-if="!isInCart" button-text="Add to cart" :class="'card__button_add'" @click.stop.native="handleAddToCart"/>
-        <Button v-else button-text="Remove" :class="'card__button_remove'" @click.stop.native="handleRemoveFromCart"/>
+        <Button v-if="!isInCart" button-text="Add to cart" :class="'card__button_add'" role="add-button" @click.stop.native="handleAddToCart"/>
+        <Button v-else button-text="Remove" :class="'card__button_remove'" role="remove-button" @click.stop.native="handleRemoveFromCart"/>
       </div>
     </div>
 </template>
@@ -85,7 +84,7 @@ export default Vue.extend({
       else if(details.productID !== this.product.productID) {
         await toggleDetails(false, this.product);
       }
-      // If dobule click on this product
+      // If dobule click on this productj
       else if(details.productID && detailsState) {
         await toggleDetails(true, emptyDetailProduct);
       }
