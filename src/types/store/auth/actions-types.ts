@@ -3,9 +3,9 @@ import { State, User, UserData, UserFull } from './state-types';
 import { RootState } from '@/store/index';
 
 export enum ActionTypes {
-  login = 'LOGIN',
-  logout = "LOGOUT",
-  register = "REGISTER",
+  login = 'login',
+  logout = "logout",
+  register = "register",
   setUserData = "setUserData"
 }
 
