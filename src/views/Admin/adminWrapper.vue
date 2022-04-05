@@ -34,7 +34,7 @@
                 <v-btn
                   icon
                   color="white"
-                  @click="logOut"
+                  @click="handleLogout"
                 >
                   <v-icon  size="25">mdi-exit-to-app</v-icon>
                 </v-btn>
@@ -74,7 +74,7 @@
             <v-btn
               icon
               color="white"
-              @click="logOut"
+              @click="handleLogout"
             >
               <v-icon  size="25">mdi-exit-to-app</v-icon>
             </v-btn>
@@ -161,16 +161,16 @@ export default Vue.extend({
     ...mapGetters({
       userData: 'getUserData'
     }),
-    userIsAllowed() {
+    userIsAllowed(): boolean {
       return allowedUsers.includes(this.userData.role) ?? false;
     },
-    getUsername() {
+    getUsername(): string {
       if(this.userData.firstName) {
         return `${this.userData.firstName} ${this.userData.lastName}`;
       }
       return 'Admin'
     },
-    getEmail() {
+    getEmail(): string {
       if(this.userData.email) {
         return this.userData.email;
       }
@@ -204,10 +204,11 @@ export default Vue.extend({
     ...mapActions([
       'setUserData',
       'setUserCart',
+      'logout'
     ]),
-    logOut() {
-      this.$store.dispatch('LOGOUT');
-      this.$router.go(0);
+    handleLogout() {
+      this.logout();
+      this.$router.push({ name: 'sign-in' });
     }
   }
 })
