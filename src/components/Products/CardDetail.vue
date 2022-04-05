@@ -2,19 +2,19 @@
   <div class="product__card product__card_expanded _hide-scroll" :class="getClass" v-if="productExists" >
     <div class="card-container _hide-scroll">
       <div class="card__image card__image_detail">
-      <!-- <img :src="require('@/assets/img/mock/' + productDetail.imgLink)" alt=""> -->
-      <img :src="productDetail.imgLink">
+      <!-- <img :src="require('@/assets/img/mock/' + getDetails.imgLink)" alt=""> -->
+      <img :src="getDetails.imgLink">
     </div>
     <div class="card__content">
-      <div class="title title__card_short">{{ productDetail.name }}</div>
-      <div class="description description__card">{{ productDetail.description }}</div>
+      <div class="title title__card_short">{{ getDetails.name }}</div>
+      <div class="description description__card">{{ getDetails.description }}</div>
       <div class="rate-block rate-block_detail">
-        <Rating :rate="productDetail.rate" />
-        <div class="rate-block__value">{{ productDetail.rate }}</div>
+        <Rating :rate="getDetails.rate" />
+        <div class="rate-block__value">{{ getDetails.rate }}</div>
       </div>
     </div>
     <div class="card__bottom card__bottom_detail-card">
-      <div class="price">${{ productDetail.price }}</div>
+      <div class="price">${{ getDetails.price }}</div>
       <Button v-if="!isInCart" button-text="Add to cart" :class="'card__button_add'" @click.stop.native="handleAddToCart" />
 
       <Button v-else button-text="Remove item" :class="'card__button_remove'" @click.stop.native="handleRemoveFromCart" />
@@ -28,8 +28,8 @@
 
     <div class="card__comments">
       <div class="title card__comments_title">Comments</div>
-      <ul class="comments__list" v-if="productDetail.comments.length >= 1">
-        <li class="comments__comment" v-for="(comment, index) in productDetail.comments" :key='index'>
+      <ul class="comments__list" v-if="getDetails.comments.length >= 1">
+        <li class="comments__comment" v-for="(comment, index) in getDetails.comments" :key='index'>
           <div class="comment__icon">
             <img :src="comment.userImage" alt="">
           </div>
@@ -63,18 +63,22 @@ import { productBackgroundColors } from '@/variables';
 export default Vue.extend({
   name: 'detail-card',
   computed: {
-    ...mapGetters({
-      getProductsCart: 'getProductsCart',
-      productDetail: 'getDetails'
-    }),
+    // ...mapGetters({
+    //   getProductsCart: 'getProductsCart',
+    //   getDetails: 'getDetails'
+    // }),
+    ...mapGetters([
+      'getProductsCart',
+      'getDetails'
+    ]),
     productExists(): boolean {
-      return this.productDetail.productID.length > 0;
+      return this.getDetails.productID.length > 0;
     },
     isInCart(): ProductOrNot {
-      return isProductInACart(this.getProductsCart, this.productDetail);
+      return isProductInACart(this.getProductsCart, this.getDetails);
     },
     getClass(): string {
-      return productBackgroundColors[this.productDetail.category as keyof CategoriesSchema];
+      return productBackgroundColors[this.getDetails.category as keyof CategoriesSchema];
     }
   },
   methods: {
@@ -84,10 +88,10 @@ export default Vue.extend({
       // 'setDetails'
     ]),
     handleAddToCart()  {
-      this.addToCart(this.productDetail);
+      this.addToCart(this.getDetails);
     },
     handleRemoveFromCart() {
-      this.removeFromCart(this.productDetail);
+      this.removeFromCart(this.getDetails);
     },
     dateWithMoment(date: Date) {
       date = new Date(2022)
