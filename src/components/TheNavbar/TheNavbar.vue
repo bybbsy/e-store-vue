@@ -46,14 +46,18 @@ export default Vue.extend({
       userData: 'getUserData',
       navbarIsExpanded: 'navbarIsExpanded'
     }),
-    getUsername() {
+    getUsername(): string {
       return `${this.userData.firstName} ${this.userData.lastName}`;
     }
   },
   methods: {
     ...mapActions({
-      logOut: 'LOGOUT'
-    })
+      logout :'logout'
+    }),
+    async logOut() {
+      await this.logout();
+      this.$router.push({ name: 'sign-in' });
+    }
   },
   components: {
     BlockFilter
