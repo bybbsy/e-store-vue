@@ -11,11 +11,16 @@
   "jest": {
     "testEnvironment": "jsdom",
     "moduleDirectories": [
-      "node_modules"
+      "node_modules",
+      "src"
     ],
+    "moduleNameMapper": {
+      "^@/(.*)$": "<rootDir>/src/$1"
+    },
     "resolver": "ts-jest-resolver",
     "moduleFileExtensions": [
       "js",
+      "ts",
       "json",
       "vue"
     ],
