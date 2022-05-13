@@ -3,6 +3,8 @@ node_modules
 # /dist
 
 firebase.config.ts
+package.json
+package-lock.json
 
 # local env files
 .env.local
