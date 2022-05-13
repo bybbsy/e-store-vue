@@ -64,6 +64,7 @@
   </div>
 </template>
 
+def
 <script lang="ts">
 import { User } from '@/types/store/auth/state-types';
 import { email, required, minLength, decimal } from 'vuelidate/lib/validators';

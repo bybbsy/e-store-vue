@@ -72,8 +72,8 @@
       </v-card>
     </div>
     <div class="cart-content empty d-flex flex-column align-center mt-10" v-else>
-       <v-toolbar-title class="white--text">Your cart is empty</v-toolbar-title>
-
+      <v-toolbar-title class="white--text">Your cart is empty</v-toolbar-title>
+      <v-img width="250" src="https://www.pngplay.com/wp-content/uploads/4/Shopping-Cart-PNG-Photo-Image.png"></v-img>
        <div class="">
          <v-toolbar-title class="white--text d-inline-flex mr-2 mt-5">Visit our</v-toolbar-title>
          <router-link :to="'/products'">Products page</router-link>

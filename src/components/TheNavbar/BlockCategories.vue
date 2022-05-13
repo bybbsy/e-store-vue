@@ -210,4 +210,55 @@ export default Vue.extend({
   background-color: var(--main-orange);
 }
 
+/* @media screen and (max-width: 950px) {
+  .filter-block {
+    font-size: 1.1em;
+  }
+
+  .filter-element__icon {
+    width: 30px;
+    height: 30px;
+    margin-right: 15px;
+  }
+
+  .filter-element__icon img {
+    max-width: 15px;
+    max-height: 15px;
+  }
+} */
+
+
+@media screen and (max-width: 1080px) {
+  .filter-block {
+    font-size: 1em;
+  }
+
+  .filter-element__icon {
+    width: 30px;
+    height: 30px;
+    margin-right: 15px;
+  }
+
+  .filter-element__icon img {
+    max-width: 15px;
+    max-height: 15px;
+  }
+}
+
+@media screen and (max-width: 450px) {
+  .filter-block {
+    font-size: 0.9em;
+  }
+
+  .filter-element__icon {
+    width: 30px;
+    height: 30px;
+    margin-right: 15px;
+  }
+
+  .filter-element__icon img {
+    max-width: 15px;
+    max-height: 15px;
+  }
+}
 </style>

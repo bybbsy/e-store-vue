@@ -46,7 +46,9 @@ interface State {
   products: Array<Product>
   currentProduct: DetailProduct,
   productDetails: boolean,
-  productsCart: Array<CartProduct>
+  productsCart: Array<CartProduct>,
+  productCategories: ProductCategory[],
+  currencyTypes: string[]
 }
 
 

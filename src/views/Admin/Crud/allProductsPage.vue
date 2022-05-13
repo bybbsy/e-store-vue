@@ -106,7 +106,7 @@
           <v-container>
             <v-row>
               <v-col
-                cols="12"
+              cols="12"
                 sm="6"
                 md="4"
               >
@@ -116,46 +116,76 @@
                   counter="100"
                 ></v-text-field>
               </v-col>
+
+              <v-col>
+                <v-select
+                  v-model="editedItem.category"
+                  :items="categories"
+                  item-text="category"
+                  label="Category"
+                  persistent-hint
+                  return-object
+                ></v-select>
+              </v-col>
+
               <v-col
                 cols="12"
                 sm="6"
-                md="4"
+                md="2">
+                <v-text-field
+                  v-model="editedItem.price"
+                  label="Price"
+                  required
+                  @input="$v.price.$touch()"
+                  @blur="$v.price.$touch()"
+                ></v-text-field>
+              </v-col>
+              <v-col
+                cols="12"
+                sm="6"
+                md="2"
+                >
+                <v-select
+                  v-model="editedItem.currency"
+                  :items="getCurrencyTypes"
+                  item-text="currency"
+                  label="Currency"
+                  persistent-hint
+                  return-object
+                ></v-select>
+              </v-col>
+            </v-row>
+            <v-row>
+              <v-col
+                cols="12"
+                sm="6"
+                md="6"
               >
                 <v-textarea
                   v-model="editedItem.description"
                   label="Description"
                   counter="1000"
+                  clearable
+                  height="100%"
                 ></v-textarea>
-              </v-col>
-              <v-col
-                cols="12"
-                sm="6"
-                md="4"
-              >
                 <v-text-field
-                  v-model="editedItem.fat"
-                  label="Fat (g)"
+                  v-model="editedItem.imgLink"
+                  label="Image link"
+                  required
+                  @input="$v.imgLink.$touch()"
+                  @blur="$v.imgLink.$touch()"
                 ></v-text-field>
               </v-col>
               <v-col
                 cols="12"
-                sm="6"
-                md="4"
-              >
-                <v-text-field
-                  v-model="editedItem.carbs"
-                  label="Carbs (g)"
-                ></v-text-field>
-              </v-col>
-              <v-col
-                cols="12"
-                sm="6"
-                md="4"
-              >
-                <v-text-field
-                  v-model="editedItem.protein"
-                  label="Protein (g)"
-                ></v-text-field>
+                md="6">
+                <v-list-item-avatar
+                  tile
+                  size="300"
+                  color="grey"
+                >
+                  <v-img v-if="editedItem.imgLink.length > 0" :src="editedItem.imgLink" alt="Product image" contain></v-img>
+                </v-list-item-avatar>
               </v-col>
             </v-row>
           </v-container>
@@ -215,6 +245,7 @@ import { Product, ProductCategory } from '@/types/store/products/state-types';
 import firebase from 'firebase/compat';
 import _ from 'lodash';
 import Vue from 'vue';
+import { mapGetters } from 'vuex';
 
 
 export default Vue.extend({
@@ -223,7 +254,7 @@ export default Vue.extend({
       categoriesColors: {
         toys: 'success',
         health: 'primary',
-        food: 'orange'
+        food: 'orange',
       } as ProductCategories,
       headers: [
           { text: 'productId', value: 'productID', sortable: false },
@@ -267,10 +298,15 @@ export default Vue.extend({
         price: 0,
         rate: 0
       } as Product,
-      editedIndex: -1
+      editedIndex: -1,
+      categories: [] as Array<ProductCategory>,
     }
   },
   computed: {
+    ...mapGetters([
+      'getProductsCategories',
+      'getCurrencyTypes'
+    ]),
     getResponviseColsMobile() {
       let cols = 'col-';
       switch(this.$vuetify.breakpoint.name) {
@@ -322,13 +358,22 @@ export default Vue.extend({
     },
     editItem(item: Product) {
       this.dialogEdit = true;
+
+      this.editedItem = item;
+      console.log(item)
       console.log(item)
     },
     closeEdit() {
       this.dialogEdit = false;
     },
-    saveEdit() {
-      console.log('save')
+    async saveEdit() {
+      console.log('save');
+
+      await firebase.firestore()
+                    .collection('products')
+                    .doc(this.editedItem.productID)
+                    .update(this.editedItem);
+
     }
   },
   watch: {
@@ -354,8 +399,12 @@ export default Vue.extend({
 
       this.loading = false
     }, 500)
+  },
+  mounted() {
+    this.categories = this.getProductsCategories;
   }
 })
+
 </script>
 
 <style>

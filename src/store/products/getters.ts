@@ -20,5 +20,11 @@ export const getters: GetterTree<State, RootState> & Getters = {
   },
   getProductsCart(state) {
     return state.productsCart;
+  },
+  getProductsCategories(state) {
+    return state.productCategories;
+  },
+  getCurrencyTypes(state) {
+    return state.currencyTypes;
   }
 }

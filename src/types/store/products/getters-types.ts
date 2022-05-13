@@ -1,4 +1,4 @@
-import { CartProduct, DetailProduct, Product, State } from "./state-types";
+import { CartProduct, DetailProduct, Product, ProductCategory, State } from "./state-types";
 
 
 export type Getters = {
@@ -6,5 +6,7 @@ export type Getters = {
   getDetailsExpanded(state: State): boolean,
   getDetails(state: State): DetailProduct,
   getProductsCartLength(state: State): number,
-  getProductsCart(state: State): Array<CartProduct>
+  getProductsCart(state: State): Array<CartProduct>,
+  getProductsCategories(state: State): Array<ProductCategory>,
+  getCurrencyTypes(state: State): string[]
 }

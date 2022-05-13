@@ -68,18 +68,18 @@ export default Vue.extend({
 <style>
 @media screen and (max-width: 1080px) {
 
-  .filter-block__main-filter,
+  /* .filter-block__main-filter,
   .filter-element__name {
     display: none;
-  }
+  } */
 
-  .filter-element {
+  /* .filter-element {
     justify-content: center;
-  }
+  } */
 
-  .filter-element__icon {
+  /* .filter-element__icon {
     margin: 0 auto;
-  }
+  } */
 }
 
 .navbar__expanded {

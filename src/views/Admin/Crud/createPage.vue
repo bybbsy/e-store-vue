@@ -72,7 +72,7 @@
         <v-select
           v-model="select"
           :hint="`${select.currency}`"
-          :items="currencyTypes"
+          :items="getCurrencyTypes"
           item-text="currency"
           label="Currency"
           persistent-hint
@@ -129,7 +129,7 @@
 import Vue from 'vue'
 import { required, maxLength, url, decimal, minValue } from 'vuelidate/lib/validators';
 import firebase from "firebase/compat";
-import vuetify from '@/plugins/vuetify';
+import { mapGetters } from 'vuex';
 
 export default Vue.extend({
   data() {
@@ -140,10 +140,7 @@ export default Vue.extend({
       },
       categories: ['food', 'toys', 'health'],
       category: 'food',
-      currencyTypes: [
-        { currency: '₽' },
-        { currency: '$' }
-      ],
+      // currencyTypes: ['$', '₽'],
       name: '',
       description: '',
       imgLink: '',
@@ -160,6 +157,7 @@ export default Vue.extend({
     category: { required }
   },
   computed: {
+    ...mapGetters(['getCurrencyTypes']),
     getResponsiveColsBottom() {
       let cols = 'col-';
       if(this.$vuetify.breakpoint.mobile) {

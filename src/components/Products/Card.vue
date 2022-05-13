@@ -12,7 +12,7 @@
         </div>
       </div>
       <div class="card__bottom card__bottom_default-card">
-        <div class="price">${{ product.price }}</div>
+        <div class="price">{{ product.currency }}{{ product.price }}</div>
         <Button v-if="!isInCart" button-text="Add to cart" :class="'card__button_add'" role="add-button" @click.stop.native="handleAddToCart"/>
         <Button v-else button-text="Remove" :class="'card__button_remove'" role="remove-button" @click.stop.native="handleRemoveFromCart"/>
       </div>

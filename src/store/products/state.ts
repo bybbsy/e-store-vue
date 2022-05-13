@@ -5,5 +5,7 @@ export const state: State = {
   products: [],
   currentProduct: emptyDetailProduct,
   productsCart: [],
-  productDetails: false
+  productDetails: false,
+  productCategories: ['food', 'toys', 'health'],
+  currencyTypes:  ['$', '₽']
 }

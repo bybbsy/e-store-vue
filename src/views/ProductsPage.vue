@@ -7,8 +7,8 @@
         <div class="products__inner">
           <div class="title category-name">{{ getCurrentCategory }}</div>
           <div class="products__list" v-if="getProducts.length && !loadingData" :class="{ 'products__list_stretch' : detailsExpanded}">
-            <Card v-for="(productItem, index) in getProducts"
-                  :key="index"
+            <Card v-for="productItem in displayedProducts"
+                  :key="productItem.productID"
                   :product="productItem"
                   />
           </div>
@@ -17,18 +17,39 @@
             <p class="notification notification_message empty-content_title">Nothing was found</p>
           </div>
         </div>
+        <Pagination v-if="pages.length > 1"
+          :pages="getPages"
+          :page="page"
+          @getPageNumber="togglePage"
+        />
+        <paginate
+          v-if="pages.length > 1"
+          :page-count="pages.length"
+          :page-range="7"
+          :margin-pages="1"
+          :prev-text="'<'"
+          :next-text="'>'"
+          :prev-link-class="'custom-pagination_prev'"
+          :next-link-class="'custom-pagination_next'"
+          :active-class="'custom-pagination__link_active'"
+          :page-class="'custom-pagination__link'"
+          :container-class="'custom-paginate'"
+          :click-handler="togglePage"
+          >
+        >
+        </paginate>
       </section>
-        <transition name="products-expand">
-          <aside class="product-detail" v-if="detailsExpanded">
-            <div class="product-detail__header">
-              <h2>Información del Juguete</h2>
-              <button type="button" class="button" @click="closeDetailsCard">
-                <img src="~@/assets/img/base/close.png" class="button__icon" alt="">
-              </button>
-            </div>
-            <CardDetail />
-          </aside>
-        </transition>
+      <transition name="products-expand">
+        <aside class="product-detail" v-if="detailsExpanded">
+          <div class="product-detail__header">
+            <h2>Información del Juguete</h2>
+            <button type="button" class="button" @click="closeDetailsCard">
+              <img src="~@/assets/img/base/close.png" class="button__icon" alt="">
+            </button>
+          </div>
+          <CardDetail />
+        </aside>
+      </transition>
     </div>
   </div>
 </template>
@@ -39,11 +60,15 @@ import Header from '@/components/Products/Header.vue';
 import HeaderMobile from '@/components/Products/HeaderMobile.vue';
 import Card from '@/components/Products/Card.vue';
 import CardDetail from '@/components/Products/CardDetail.vue';
+import Pagination from '@/components/Pagination.vue';
+
+import Paginate from 'vuejs-paginate';
 
 import { Product as ProductItem } from '@/types/store/products/state-types';
 import { mapGetters } from 'vuex';
 import { emptyDetailProduct } from '@/variables';
 import { toggleDetails } from '@/helpers/useProducts';
+import { Route } from 'vue-router';
 
 export default Vue.extend({
   name: 'products-page',
@@ -54,24 +79,54 @@ export default Vue.extend({
         default: 'All'
       },
       loadingData: false,
-      products: [] as Array<ProductItem>,
+      // products: [] as Array<ProductItem>,
+      page: 1,
+      perPage: 10,
+      pages: [] as Array<number>
     }
-  },
-  mounted() {
-    this.$load(async () => {
-      this.loadingData = true
-
-      const category = this.$route.params.category ?? '';
-      await this.$store.dispatch('fetchProducts', category);
-      this.products = this.$store.getters.getProducts;
-
-      this.loadingData = false
-    })
   },
   methods: {
     closeDetailsCard() {
       return toggleDetails(true, emptyDetailProduct);
     },
+    setPages() {
+      this.pages.length = 0;
+
+      let prodLength = this.getProducts.length;
+      let numPages = Math.ceil(prodLength / this.perPage);
+
+      for(let index = 1; index <= numPages; index++) {
+        this.pages.push(index);
+      }
+    },
+    paginate(products: Array<ProductItem>) {
+      let page = this.page;
+      let perPage = this.perPage;
+      let from = (page * perPage) - perPage;
+      let to = (page * perPage);
+      return products.slice(from, to);
+    },
+    togglePage(value: number | 'previous' | 'next') {
+      if(value === 'previous' && this.page > 1) {
+        this.page--;
+      } else if (value === 'next' && this.page < this.pages.length) {
+        this.page++;
+      } else {
+        this.page = value as number;
+      }
+    },
+    loadProducts(route: Route) {
+      this.$load(async () => {
+        this.loadingData = true
+        const category = route.params.category ?? '';
+        await this.$store.dispatch('fetchProducts', category);
+        // this.products = this.$store.getters.getProducts;
+
+        this.setPages();
+
+        this.loadingData = false
+      })
+    }
   },
   computed: {
     ...mapGetters({
@@ -85,30 +140,97 @@ export default Vue.extend({
     getCurrentCategory(): string {
       const category = this.$route.params.category ?? 'All'
       return category.toUpperCase();
+    },
+    getPages(): Array<number> {
+      return this.pages;
+    },
+    displayedProducts(): Array<ProductItem> {
+      return this.paginate(this.getProducts);
     }
   },
   components: {
-    Header, HeaderMobile, Card, CardDetail,
+    Header, HeaderMobile, Card, CardDetail, Pagination, Paginate,
     LoadingSpinner: () => import('@/components/LoadingSpinner.vue')
   },
   watch: {
     $route(to, from) {
-      this.$load(async () => {
-      this.loadingData = true
-      const category = to.params.category ?? '';
-      await this.$store.dispatch('fetchProducts', category);
-      this.products = this.$store.getters.getProducts;
+      this.page = 1;
 
-      this.loadingData = false
+      this.loadProducts(to);
+      // this.$load(async () => {
+      //   this.loadingData = true
+      //   const category = to.params.category ?? '';
+      //   await this.$store.dispatch('fetchProducts', category);
+      //   // this.products = this.$store.getters.getProducts;
 
+      //   this.setPages();
 
-    })
+      //   this.loadingData = false
+      // })
     }
-  }
+  },
+  mounted() {
+    this.loadProducts(this.$route)
+    // this.$load(async () => {
+    //   this.loadingData = true
+
+    //   const category = this.$route.params.category ?? '';
+    //   await this.$store.dispatch('fetchProducts', category);
+    //   // this.products = this.$store.getters.getProducts;
+
+    //   this.setPages();
+
+    //   this.loadingData = false
+    // })
+  },
 })
 </script>
 
 <style>
+
+.custom-paginate {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  padding-bottom: 20px;
+}
+
+.custom-pagination_next,
+.custom-pagination_prev {
+  font-size: 1.5em;
+  transition: 0.2s all ease-out;
+}
+
+.custom-pagination_prev:hover,
+.custom-pagination_next:hover {
+  color: var(--secondary-orange);
+}
+
+.custom-pagination__link {
+  margin: 0 4px;
+  position: relative;
+}
+
+.custom-pagination__link:hover {
+  color: var(--main-orange);
+}
+
+.custom-pagination__link_active {
+  color: var(--main-blue);
+}
+
+.custom-pagination__link_active::before {
+  display: block;
+  content: '';
+  position: absolute;
+  top: -5px;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background-color: var(--main-blue);
+}
+
 .products__wrapper {
   background-color: #1B1A1D;
   flex: 1 1 auto;
@@ -120,6 +242,7 @@ export default Vue.extend({
 .products__container {
   width: 100%;
   display: flex;
+  /* flex-direction: column; */
   /* border: 1px solid tomato; */
   height: 100%;
   overflow: hidden scroll;
@@ -139,7 +262,7 @@ export default Vue.extend({
 .products__inner {
   position: relative;
   margin-top: 70px;
-  height: 100%;
+  min-height: 100%;
 }
 
 .categories-block {

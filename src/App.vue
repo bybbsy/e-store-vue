@@ -54,14 +54,6 @@ export default Vue.extend({
         this.setUserCart(cart);
 
       }
-
-      if(!allowedUsers.includes(userRole)) {
-        this.$router.push({ name: 'products'})
-      } else if(allowedUsers.includes(userRole)) {
-        this.$router.push({ name: 'admin-main' })
-      } else {
-        this.$router.push({ name: 'sign-in' })
-      }
     })
   },
   mounted() {

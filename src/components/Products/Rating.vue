@@ -1,14 +1,23 @@
 <template>
   <div class="block-rating">
-    <span v-for="rate of maxRating"
+    <!-- <span>{{ setRating }}</span> -->
+    <!-- <span v-for="rate of maxRating"
           :key="rate"
           :style="{ background: getRating(rate) }"
-          ></span>
+          ></span> -->
+
+    <span v-for="(rate, index) in setRating"
+      :key="index"
+      :style="{ background: rate.style }"
+    >
+    </span>
   </div>
 </template>
 
 <script lang="ts">
 import Vue from 'vue'
+import _ from 'lodash';
+
 export default Vue.extend({
   props: ['rate'],
   data() {
@@ -17,23 +26,44 @@ export default Vue.extend({
       userRating: this.rate
     }
   },
-  methods: {
-    getRating(rate: number): string {
-      if(this.userRating - (rate-1) < 1 && this.userRating - (rate - 1) > 0) {
-        // Computed value
-        let value = (this.userRating - (rate - 1)) * 100;
+  computed: {
+    setRating(): any {
 
-        // Returns gradient
-        return `linear-gradient(to right, var(--main-orange) ${value}%, lightgrey ${value}%)`;
+      let res = _.range(1, this.maxRating + 1).map((rate) => {
+        if(this.userRating - (rate-1) < 1 && this.userRating - (rate - 1) > 0) {
+          // Computed value
+          let value = (this.userRating - (rate - 1)) * 100;
 
-      } else if (this.userRating - (rate - 1) >= 1) {
-        return 'var(--main-orange)';
-      }
-      else {
-        return 'lightgray';
-      }
+          // Returns gradient
+          return { style: `linear-gradient(to right, var(--main-orange) ${value}%, lightgrey ${value}%)` };
+
+        } else if (this.userRating - (rate - 1) >= 1) {
+          return { style: 'var(--main-orange)' };
+        }
+        else {
+          return { style: 'lightgray' };
+        }
+      })
+      return res;
     }
-  }
+  },
+  // methods: {
+  //   getRating(rate: number): string {
+  //     if(this.userRating - (rate-1) < 1 && this.userRating - (rate - 1) > 0) {
+  //       // Computed value
+  //       let value = (this.userRating - (rate - 1)) * 100;
+
+  //       // Returns gradient
+  //       return `linear-gradient(to right, var(--main-orange) ${value}%, lightgrey ${value}%)`;
+
+  //     } else if (this.userRating - (rate - 1) >= 1) {
+  //       return 'var(--main-orange)';
+  //     }
+  //     else {
+  //       return 'lightgray';
+  //     }
+  //   }
+  // }
 })
 </script>
 

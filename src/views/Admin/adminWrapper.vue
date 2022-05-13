@@ -141,6 +141,7 @@
 </template>
 
 <script lang="ts">
+import { userIsAuthorized } from '@/helpers/auth';
 import { allowedUsers, innerLinks, mainLinks } from '@/variables';
 import _ from 'lodash';
 import Vue from 'vue'
@@ -177,29 +178,6 @@ export default Vue.extend({
       return 'user@estore.admin.com';
     }
   },
-  // created() {
-  //   this.$load(async () => {
-
-  //       const userID = userIsAuthorized();
-
-  //       if(userID) {
-  //         let response = (await firebase.database().ref(`/users/${userID}/info`).get()).val();
-
-  //         let userData = _.omit(response, ['cart'])
-
-  //         let cart = JSON.parse(response.cart);
-
-  //         this.setUserData(userData);
-  //         this.setUserCart(cart);
-
-  //         if(allowedUsers.includes(userData.role)) {
-  //           // this.$router.push({ name: 'admin-main' })
-  //         } else {
-  //           // this.$router.push('/products')
-  //         }
-  //       }
-  //     })
-  // },
   methods: {
     ...mapActions([
       'setUserData',
