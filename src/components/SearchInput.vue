@@ -1,6 +1,6 @@
 <template>
   <div class="header__input">
-      <input type="text" name="search-input" placeholder="Search" class="search__input">
+      <input type="text" name="search-input" placeholder="Search by name" class="search__input" v-model="input">
       <div class="input__icon">
           <img src="~@/assets/img/base/Search.png" alt="Search...">
       </div>
@@ -8,9 +8,35 @@
 </template>
 
 <script lang="ts">
+import { findByField } from '@/helpers/useProducts'
+import _ from 'lodash'
 import Vue from 'vue'
+import { mapActions } from 'vuex'
 export default Vue.extend({
     name: 'header-input',
+    data() {
+      return {
+        input: ''
+      }
+    },
+    methods: {
+      ...mapActions([
+        'setProducts'
+      ])
+    },
+    watch: {
+      input: _.debounce(async function (this: any, value: string) {
+        let result = await findByField('name', value);
+
+        if(!result.length) {
+          result = await findByField('category', value);
+        }
+
+        this.setProducts(result);
+
+        console.log(result)
+      }, 500)
+    }
 })
 </script>
 
@@ -25,21 +51,21 @@ export default Vue.extend({
     height: 60px;
     background-color: transparent;
     border-radius: 50px;
-    border: 2px solid #323036;
+    border: 2px solid var(--main-purple);
     padding: 16px 16px 16px 70px;
     font-size: 1.125em;
     font-weight: 500;
-    color: #fff;
+    color: var(--main-white);
     transition: all 0.2s ease-in-out;
 }
 
 .search__input:hover,
 .search__input:focus {
-    background-color: #323036;
+    background-color: var(--main-purple);
 }
 
 .search__input:focus {
-    border: 2px solid #FFA049;
+    border: 2px solid var(--main-orange);
     font-size: 1.3em;
 }
 
@@ -57,4 +83,53 @@ export default Vue.extend({
     object-fit: contain;
 }
 
+@media screen and (max-width: 1280px) {
+  .search__input {
+    width: 250px;
+    height: 50px;
+    padding: 12px 12px 12px 50px;
+    font-size: 1em;
+  }
+}
+
+@media screen and (max-width: 850px) {
+  .search__input {
+    width: 150px;
+    height: 40px;
+    padding: 8px 8px 8px 35px;
+    font-size: 0.9em;
+  }
+  .input__icon {
+    top: 11px;
+    left: 12px;
+    width: 20px;
+    height: 20px;
+  }
+
+  .search__input:focus {
+    border-width: 1px;
+    font-size: 1em;
+  }
+}
+/*
+@media screen and (max-width: 580px) {
+  .search__input {
+    width: 150px;
+    height: 40px;
+    padding: 8px 8px 8px 35px;
+    font-size: 0.9em;
+  }
+
+  .input__icon {
+    top: 11px;
+    left: 12px;
+    width: 20px;
+    height: 20px;
+  }
+
+  .search__input:focus {
+    border-width: 1px;
+    font-size: 1em;
+  }
+} */
 </style>

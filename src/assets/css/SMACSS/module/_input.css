@@ -1,0 +1,21 @@
+.form-input {
+  display: flex;
+  height: 30px;
+  font-size: 1em;
+  border-bottom: 1px solid transparent;
+  transition: 0.1s all ease;
+  color: var(--main-white)
+}
+
+.form-input:disabled {
+  border: unset;
+  color: var(--main-white);
+}
+
+.form-input:not(:disabled):focus {
+  outline: 1px solid var(--secondary-orange);
+}
+
+.input-orange {
+  border-color: var(--main-orange)
+}

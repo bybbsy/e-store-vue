@@ -1,0 +1,6 @@
+.item-image {
+  display: flex;
+  margin: auto;
+  width: 80px;
+  object-fit: contain;
+}

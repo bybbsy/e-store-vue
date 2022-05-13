@@ -1,0 +1,15 @@
+.borderRight {
+  border-right: 2px;
+}
+
+.borderBottom {
+  border-bottom: 2px;
+}
+
+.borderDashed {
+  border-style: dashed;
+}
+
+.borderLightGray {
+  border-color: var(--darker-blue);
+}

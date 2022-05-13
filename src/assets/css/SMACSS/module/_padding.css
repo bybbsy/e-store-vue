@@ -1,0 +1,60 @@
+.pr-2 {
+  margin-right: 2px;
+}
+
+.pl-2 {
+  margin-left: 2px;
+}
+
+.pt-2 {
+  margin-top: 2px;
+}
+
+.pb-2 {
+  margin-bottom: 2px;
+}
+
+.py-2 {
+  margin-top: 2px;
+  margin-bottom: 2px;
+}
+
+.px-2 {
+  margin-left: 2px;
+  margin-right: 2px;
+}
+
+.pa-2 {
+  padding: 2px;
+}
+
+
+.pr-5 {
+  margin-right: 5px;
+}
+
+.pl-5 {
+  margin-left: 5px;
+}
+
+.pt-5 {
+  margin-top: 5px;
+}
+
+.pb-5 {
+  margin-bottom: 5px;
+}
+
+.py-5 {
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+.px-5 {
+  margin-left: 5px;
+  margin-right: 5px;
+}
+
+.pa-5 {
+  padding: 5px;
+}

@@ -2,6 +2,9 @@ import Vue from 'vue'
 import VueRouter, { RouteConfig } from 'vue-router'
 import Home from '../views/Home.vue'
 import { Route, NavigationGuardNext } from 'vue-router';
+import { userIsAuthorized } from '@/helpers/auth';
+import store from '@/store/index';
+import { UserData } from '@/types/store/auth/state-types';
 
 Vue.use(VueRouter)
 
@@ -10,7 +13,7 @@ const routes: Array<RouteConfig> = [
     path: '/',
     name: 'Home',
     meta: { layout: 'default' },
-    component: Home
+    redirect: to => 'products'
   },
   {
     path: '/about',
@@ -34,23 +37,75 @@ const routes: Array<RouteConfig> = [
     component: () => import('../views/signinPage.vue')
   },
   {
-    path: '/coupons',
-    name: 'Coupons',
+    path: '/personal',
+    name: 'personal',
     meta: { layout: 'default', authRequired: true },
-    component: () => import('../views/CouponsPage.vue'),
-    beforeEnter: checkForAuth
+    component: () => import('../views/PersonalPage.vue'),
+    beforeEnter: checkForAuth,
+    children: [
+      {
+        path: '/',
+        name: 'personal-settings',
+        meta: { layout: 'default', authRequired: true},
+        component: () => import('../views/SettingsPage.vue'),
+        beforeEnter: checkForAuth,
+      },
+      {
+        path: 'coupons',
+        name: 'coupons',
+        meta: { layout: 'default', authRequired: true},
+        component: () => import('../views/CouponsPage.vue'),
+        beforeEnter: checkForAuth,
+      },
+      {
+        path: 'cart',
+        name: 'cart',
+        meta: { layout: 'default', authRequired: true },
+        component: () => import('../views/CartPage.vue'),
+        beforeEnter: checkForAuth,
+      }
+    ]
   },
   {
-    path: '/products',
-    name: 'Products',
+    path: '/products/:category?',
+    name: 'products',
     meta: { layout: 'default' },
-    component: () => import('../views/ProductsPage.vue'),
+    component: () => import('../views/ProductsPage.vue')
   },
   {
     path: '*',
-    name: 'Error',
+    name: 'error',
     meta: { layout: 'empty' },
-    component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
+    component: () => import(/* webpackChunkName: "about" */ '../views/ErrorPage.vue')
+  },
+  {
+    path: '/admin',
+    component: () => import('../views/Admin/adminWrapper.vue'),
+    children: [
+      {
+        path: 'dashboard',
+        name: 'admin-main',
+        component: () => import('../views/Admin/mainPage.vue'),
+      },
+      {
+        path: 'crud',
+        name: 'admin-crud',
+        component: () => import('../views/Admin/crudPage.vue'),
+        redirect: { name: 'crud-create'},
+        children: [
+          {
+            path: 'create',
+            name: 'crud-create',
+            component: () => import('../views/Admin/Crud/createPage.vue')
+          },
+          {
+            path: 'all',
+            name: 'crud-all',
+            component: () => import('../views/Admin/Crud/allProductsPage.vue')
+          }
+        ]
+      }
+    ]
   }
 ]
 
@@ -61,8 +116,11 @@ const router = new VueRouter({
 })
 
 function checkForAuth(to: Route, from: Route, next: NavigationGuardNext<Vue>): void {
-  if(to.meta?.authRequired) {
+  if(to.meta?.authRequired && !userIsAuthorized()) {
     next({ name: 'sign-up'})
+  } else {
+    next()
   }
 }
+
 export default router

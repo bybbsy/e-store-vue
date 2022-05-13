@@ -1,61 +1,105 @@
 <template>
-    <div class="product__card product__card_health" @click="cardClick">
+    <div class="product__card" :class="getClass" @click="cardClick">
       <div class="card__image">
-        <img src="~@/assets/img/mock/Item1.png" alt="">
+        <!-- <img :src="require('@/assets/img/mock/' + product.imgLink)" alt=""> -->
+        <img :src="product.imgLink">
       </div>
       <div class="card__content">
-        <div class="title title__card_short">El Batipato de Batman {{ cardMobile }}</div>
+        <div class="title title__card_short">{{ product.name }}</div>
         <div class="rate-block">
-          <Rating/>
-          <div class="rate-block__value">3.5</div>
+          <Rating :rate="product.rate"/>
+          <div class="rate-block__value">{{ product.rate }}</div>
         </div>
       </div>
       <div class="card__bottom card__bottom_default-card">
-        <div class="price">$14.81</div>
-        <div class="card__button card__button_add" @click.stop="addToCart">
-          <div class="button__text">Add to cart</div>
-        </div>
+        <div class="price">{{ product.currency }}{{ product.price }}</div>
+        <Button v-if="!isInCart" button-text="Add to cart" :class="'card__button_add'" role="add-button" @click.stop.native="handleAddToCart"/>
+        <Button v-else button-text="Remove" :class="'card__button_remove'" role="remove-button" @click.stop.native="handleRemoveFromCart"/>
       </div>
     </div>
 </template>
 
 <script lang="ts">
-import Vue from 'vue';
+import Vue, { PropType } from 'vue';
 import Rating from './Rating.vue';
+import { Product, ProductCategory } from '@/types/store/products/state-types';
+import { mapActions, mapGetters } from 'vuex';
+import { toggleDetails, isProductInACart, sendCartToFirebase } from '@/helpers/useProducts';
+import { CategoriesSchema, ProductOrNot } from '@/types/products';
+import { emptyDetailProduct, productBackgroundColors } from '@/variables';
+import _ from 'lodash';
 
+import Button from '@/components/Button.vue';
 
 export default Vue.extend({
   name: 'default-card',
   props: {
-    detailsExpanded: {
-      type: Boolean,
-      required: true
-    }
+    product: Object as PropType<Product>,
   },
-  data() {
-    return {
-      toggledDetails: this.detailsExpanded,
-      cardMobile: ''
+  computed: {
+    ...mapGetters([
+      'getProductsCart',
+      'getDetails',
+      'getDetailsExpanded'
+    ]),
+    isInCart(): ProductOrNot {
+      return isProductInACart(this.getProductsCart, this.product);
+    },
+    getClass(): string {
+      return productBackgroundColors[this.product.category as keyof CategoriesSchema];
     }
-  },
-  mounted() {
-    let check = false;
-    // this.cardMobile = (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent));
-    // console.log((/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)))
-    // console.log(check);
-    return check;
   },
   methods: {
-      cardClick() {
-        this.toggledDetails = !this.toggledDetails;
-        this.$emit('toggle-details', this.toggledDetails);
-      },
-      addToCart() {
-        console.log("Added to cart")
+    ...mapActions([
+      'setDetails',
+      'addToCart',
+      'removeFromCart'
+    ]),
+    // async clickWrapper() {
+    //   const details = this.getDetails;
+
+    //   // If first click
+    //   if(!details.productID) {
+    //     await toggleDetails(true, this.product);
+    //   }
+    //   // If click on another card
+    //   else if(details.productID !== this.product.productID) {
+    //     await toggleDetails(false, this.product);
+    //   }
+    //   // If double click
+    //   else {
+    //     await toggleDetails(true, emptyDetailProduct);
+    //   }
+    // },
+    cardClick: _.debounce(async function(this: any) {
+      const details = this.getDetails;
+      const detailsState = this.getDetailsExpanded;
+
+      console.log(detailsState)
+      // If first click or if menu state is false, but the content is loaded;
+      if(!details.productID || (details.productID && !detailsState)) {
+        await toggleDetails(true, this.product);
       }
+      // If click on another card
+      else if(details.productID !== this.product.productID) {
+        await toggleDetails(false, this.product);
+      }
+      // If dobule click on this productj
+      else if(details.productID && detailsState) {
+        await toggleDetails(true, emptyDetailProduct);
+      }
+    }, 200),
+    handleAddToCart() {
+      this.addToCart(this.product);
+      sendCartToFirebase(this.getProductsCart);
     },
+    handleRemoveFromCart() {
+      this.removeFromCart(this.product);
+      sendCartToFirebase(this.getProductsCart);
+    }
+  },
   components: {
-    Rating
+    Rating, Button
   }
 })
 </script>
@@ -69,7 +113,7 @@ export default Vue.extend({
   max-width: 450px;
   padding-bottom: 30px;
   border-radius: 15px;
-  background-color: #28272B;
+  background-color: var(--secondary-dark);
   cursor: pointer;
   z-index: 10;
   overflow: hidden;
@@ -98,27 +142,27 @@ export default Vue.extend({
 }
 
 .product__card_toys .card__image{
-  background-color: #5DBF79;
+  background-color: var(--main-success);
 }
 
 .product__card_toys:hover::before  {
-  border-color: #5DBF79;
+  border-color: var(--main-success);
 }
 
 .product__card_food .card__image {
-  background-color: #FFA049;
+  background-color: var(--main-orange);
 }
 
 .product__card_food:hover::before  {
-  border-color: #FFA049;
+  border-color: var(--main-orange);
 }
 
 .product__card_health .card__image {
-  background-color: #485fe2;
+  background-color: var(--main-blue);
 }
 
 .product__card_health:hover::before  {
-  border-color: #485fe2;
+  border-color: var(--secondary-blue);
 }
 
 .card__image {
@@ -150,7 +194,7 @@ export default Vue.extend({
   font-weight: 400;
   line-height: 150%;
   margin-left: 8px;
-  color: rgba(255, 255, 255, 0.4);
+  color: var(--text-gray);
 }
 
 .card__bottom {
@@ -163,38 +207,6 @@ export default Vue.extend({
   margin: auto 25px 0;
 }
 
-.card__button {
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  min-width: 180px;
-  min-height: 50px;
-  border-radius: 25px;
-  padding: 10px 18px 10px 50px;
-}
-
-.card__button_add {
-  background-color: #FFA049;
-  background-image: url('~@/assets/img/base/PlusCircle.png');
-  background-size: 30px 30px;
-  background-repeat: no-repeat;
-  background-position: 18px 10px;
-  color: #fff;
-  transition: 0.2s all ease;
-}
-
-.card__button_add:hover {
-  background-color: #ffbf49;
-}
-
-.button__text {
-  width: 100%;
-  text-align: right;
-  font-size: 1.125em;
-  font-weight: 500;
-  line-height: 150%;
-}
 
 @media screen and (max-width: 980px) {
   .card__image {
@@ -209,16 +221,71 @@ export default Vue.extend({
     font-size: 1.5em;
   }
 
+  .card__content {
+    margin: 20px 20px 25px;
+  }
+
+  .card__bottom_default-card {
+    margin: auto 20px 0;
+  }
+
+  .card__bottom .price {
+    font-size: 1.25em;
+  }
+
   .card__button {
-    min-width: 150px;
-    min-height: 40px;
-    padding: 7px 15px 7px 45px;
+    min-width: 120px;
+    min-height: 35px;
+    padding: 5px 12px 5px 40px;
   }
 
   .card__button_add {
-    background-position: 15px 7px;
-    background-size: 25px 25px;
+    background-position: 10px 6px;
+    background-size: 22px 22px;
   }
 
+  .card__button_remove {
+    background-size: 20px 20px;
+    background-position: 10px 50%;
+    padding-left: 35px;
+  }
+
+  .button__text {
+    font-size: 1em;
+  }
+}
+
+@media screen and (max-width: 580px) {
+  .product__card {
+    max-width: 100%;
+  }
+
+  .rate-block__value {
+    font-size: 0.8em;
+  }
+
+  .card__bottom_default-card {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .card__bottom_default-card .price {
+    font-size: 1.5em;
+    align-self: flex-start;
+  }
+
+  .card__bottom_default-card .card__button {
+    align-self: flex-end;
+  }
+}
+
+@media screen and (max-width: 380px) {
+  .card__content {
+    margin: 20px 10px 25px;
+  }
+
+  .card__bottom_default-card {
+    margin: auto 10px 0;
+  }
 }
 </style>

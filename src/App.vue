@@ -12,12 +12,49 @@ import DefaultLayout from './layouts/DefaultLayout.vue'
 import EmptyLayout from './layouts/EmptyLayout.vue'
 
 import {isMobile} from "@/helpers/useDetectDevice";
+import { userIsAuthorized } from './helpers/auth';
+import firebase from 'firebase/compat';
+import { mapActions } from 'vuex';
+import { allowedUsers } from './variables';
+import _ from 'lodash';
 export default Vue.extend({
   name: 'App',
+  data() {
+    return {
+      userID: '' as (string | null)
+    }
+  },
   computed: {
     layout() {
       return (this.$route.meta?.layout ?? 'empty') + '-layout'
     }
+  },
+  methods: {
+    ...mapActions([
+      'setUserData',
+      'setUserCart'
+    ])
+  },
+  created() {
+    this.$load(async () => {
+
+      this.userID = userIsAuthorized();
+      let userRole;
+
+      if(this.userID) {
+        let response = (await firebase.database().ref(`/users/${this.userID}/info`).get()).val();
+
+        let userData = _.omit(response, ['cart'])
+
+        userRole = userData.role;
+
+        let cart = JSON.parse(response.cart);
+
+        this.setUserData(userData);
+        this.setUserCart(cart);
+
+      }
+    })
   },
   mounted() {
     Vue.prototype.$isMobile = isMobile();
@@ -29,96 +66,7 @@ export default Vue.extend({
 </script>
 
 <style>
-* {
-  padding: 0;
-  margin: 0;
-  border: 0;
-
-}
-*,
-*:before,
-*:after {
-  -moz-box-sizing: border-box;
-  -webkit-box-sizing: border-box;
-  box-sizing: border-box;
-}
-:focus,
-:active {
-  outline: none;
-}
-a:focus,
-a:active {
-  outline: none;
-}
-
-nav,
-footer,
-header,
-aside {
-  display: block;
-}
-
-html,
-body {
-  height: 100%;
-  width: 100%;
-  font-size: 100%;
-  line-height: 1;
-  font-size: 16px;
-  font-family: 'Poppins', serif;
-  -ms-text-size-adjust: 100%;
-  -moz-text-size-adjust: 100%;
-  -webkit-text-size-adjust: 100%;
-
-
-}
-nav,
-input,
-button,
-textarea {
-  font-family: inherit;
-}
-
-input::-ms-clear {
-  display: none;
-}
-button {
-  cursor: pointer;
-}
-button::-moz-focus-inner {
-  padding: 0;
-  border: 0;
-}
-a,
-a:visited {
-  text-decoration: none;
-}
-a:hover {
-  text-decoration: none;
-}
-ul li {
-  list-style: none;
-}
-img {
-  vertical-align: top;
-}
-
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  font-size: inherit;
-  font-weight: 400;
-}
-
-:root {
-  --main-dark: #1B1A1D;
-  --secondary-dark: #28272B;
-  --secondary-gray: rgba(255, 255, 255, 0.15);
-  --main-orange: #FFA049;
-}
+@import '~@/assets/css/BEM/index.css';
 
 #app {
   display: flex;
@@ -128,13 +76,13 @@ h6 {
 
 .title {
   font-size: 1.5em;
-  color: #fff;
+  color: var(--main-white);
   font-weight: 600;
   line-height: 150%;
 }
 
 .price {
-  color: #fff;
+  color: var(--main-white);
   font-weight: 500;
   font-size: 1.875em;
   line-height: 150%;
@@ -142,5 +90,37 @@ h6 {
 
 .card__bottom {
   display: flex;
+}
+
+._hide-scroll {
+  scrollbar-width: none;
+}
+
+._hide-scroll::-webkit-scrollbar {
+  display: none;
+}
+
+.wrapper--cover {
+  flex: 1 1 auto;
+  height: 100vh;
+  overflow: scroll;
+}
+
+.wrapper--dark {
+  background-color: var(--main-dark);
+}
+
+.text-center {
+  text-align: center;
+}
+
+.button {
+  display: inline-block;
+  background: transparent;
+}
+
+.input-block__error {
+  line-height: 150%;
+  color: var(--main-error);
 }
 </style>

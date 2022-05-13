@@ -2,7 +2,7 @@
   <header class="products-header products-header_mobile">
     <div class="menu-toggler">
       <button type="button" class="btn btn__bars" @click="toggleMenu">
-        {{ menuState }}
+        <!-- {{ menuState }} -->
         <font-awesome-icon icon="fa-solid fa-bars" class="toggle-menu__icon"/>
       </button>
     </div>
@@ -19,6 +19,7 @@
 
 <script lang="ts">
 import Vue from 'vue';
+import { mapActions } from 'vuex';
 import Input from '../SearchInput.vue';
 
 export default Vue.extend({
@@ -27,10 +28,11 @@ export default Vue.extend({
     Input
   },
   methods: {
+    ...mapActions(['toggleNavbar']),
     toggleMenu() {
-      console.log('fuck')
+      this.toggleNavbar();
     }
-  }
+  },
 })
 </script>
 
@@ -46,7 +48,7 @@ export default Vue.extend({
 .btn__bars {
   width: 100%;
   height: 100%;
-  color: #fff;
+  color: var(--main-white);
   background-color: transparent;
   font-size: 1.5em;
 }

@@ -1,0 +1,13 @@
+.navbar__container {
+  width: 215px;
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
+  min-height: 100%;
+}
+
+@media screen and (max-width: 1080px) {
+  .navbar__container {
+    width: 135px;
+  }
+}

@@ -1,23 +1,29 @@
 <template>
     <!--#TODO navbar navbar_collapsed if navbar is collapsed-->
-  <aside class="navbar" :class="{ 'navbar__expanded': isMenuExpanded }">
+  <aside class="navbar" :class="{ 'navbar__expanded': navbarIsExpanded }">
       <div class="navbar__container">
           <div class="navbar__user-block">
-              <div class="user-block__body">
-                  <div class="user-block__icon">
-                      <img src="~@/assets/img/mock/Avatar.jpg" alt="Avatar">
+              <div class="navbar___body">
+                  <div class="navbar__avatar">
+                      <img :src="userData.imgLink" alt="Avatar">
                   </div>
-                  <div class="user-block__username">
-                      <p>¡Hola, Jeff! {{ isMenuExpanded }}</p>
+                  <div class="navbar__username">
+                      <p>{{ getUsername }}</p>
+                  </div>
+
+                  <div class="navbar__email">
+                    <p>{{ userData.email }} </p>
                   </div>
               </div>
           </div>
           <BlockFilter/>
           <div class="navbar__auth-block">
-              <div class="auth-block__buttons">
-                  <router-link :to="{ name: 'sign-up'}" class="auth-block__button auth-block__button_sign-up">Sign up</router-link>
-                  <router-link :to="{ name: 'sign-in'}" class="auth-block__button auth-block__button_sign-in">Sign in</router-link>
-                  <!-- <a href="" class="auth-block__button auth-block__button_sign-out">Sign out</a> -->
+              <div class="navbar__buttons-group" v-if="uid">
+                  <a href="" class="navbar__button navbar__button_sign-out" @click="logOut">Sign out</a>
+              </div>
+              <div class="navbar__buttons-group" v-else>
+                  <router-link :to="{ name: 'sign-up'}" class="navbar__button navbar__button_sign-up">Sign up</router-link>
+                  <router-link :to="{ name: 'sign-in'}" class="navbar__button navbar__button_sign-in">Sign in</router-link>
               </div>
           </div>
       </div>
@@ -26,165 +32,57 @@
 
 <script lang="ts">
 import Vue from 'vue';
-import BlockFilter from './BlockFilter.vue';
+import { mapGetters, mapActions } from 'vuex';
+import BlockFilter from './BlockCategories.vue';
+import { userIsAuthorized } from '@/helpers/auth';
 
 export default Vue.extend({
   name: 'the-navbar',
-  data() {
-    return {
-      menuState: this.$menuExpanded
+  computed: {
+    uid() {
+      return userIsAuthorized();
+    },
+    ...mapGetters({
+      userData: 'getUserData',
+      navbarIsExpanded: 'navbarIsExpanded'
+    }),
+    getUsername(): string {
+      return `${this.userData.firstName} ${this.userData.lastName}`;
+    }
+  },
+  methods: {
+    ...mapActions({
+      logout :'logout'
+    }),
+    async logOut() {
+      await this.logout();
+      this.$router.push({ name: 'sign-in' });
     }
   },
   components: {
     BlockFilter
   },
-  computed: {
-    isMenuExpanded(): boolean {
-      console.log("MENU STATE:", this.$menuExpanded)
-      return this.$menuExpanded;
-    }
-  },
-  watch: {
-    [Vue.prototype.$menuExpanded]() {
-      console.log("MENU STATE:", this.$menuExpanded)
-      return this.$menuExpanded;
-    }
-  }
 })
 </script>
 
 <style>
-.navbar {
-  min-width: 300px;
-  background-color: #28272B;
-  padding: 50px 0;
-  overflow: hidden scroll;
-  height: 100vh;
-  scrollbar-width: none;
-}
-
-.navbar::-webkit-scrollbar {
-  display: none;
-}
-
-.navbar__container {
-  width: 215px;
-  display: flex;
-  flex-direction: column;
-  margin: 0 auto;
-  min-height: 100%;
-}
-
-.navbar__user-block {
-  margin: 0 0 45px;
-}
-
-.user-block__username {
-  line-height: 150%;
-  text-align: center;
-  font-weight: 600;
-  color: #fff;
-  font-size: 1.5em;
-}
-
-.user-block__icon {
-  position: relative;
-  margin: 0 auto 25px;
-  width: 96px;
-  height: 96px;
-  border-radius: 50%;
-  cursor: pointer;
-}
-
-.user-block__icon img {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  border-radius: inherit;
-}
-
-.navbar__auth-block {
-  display: flex;
-  flex: 1 1;
-}
-.auth-block__buttons {
-  display: flex;
-  flex-direction: column;
-  margin: auto 0 0;
-  width: 100%;
-  height: 100%;
-}
-
-.auth-block__button:not(:last-child) {
-  margin: 0 0 5px;
-}
-
-.auth-block__button {
-  width: 100%;
-  border-radius: 25px;
-  min-height: 50px;
-  color: #fff;
-  line-height: 27px;
-  padding: 10px 18px;
-  font-size: 1.125em;
-  text-align: center;
-  transition: 0.2s all ease;
-}
-
-.auth-block__button:hover {
-  box-shadow: 0px 0px 2px 1px #fff;
-}
-
-.auth-block__button_sign-up {
-  background-color: #FFA049;
-}
-
-.auth-block__button_sign-in {
-  background-color: #5DBF79;
-}
-
-.auth-block__button_sign-out {
-  background-color: #D7263D;
-}
-
 @media screen and (max-width: 1080px) {
-  .navbar {
-    min-width: 150px;
-  }
 
-  .navbar__container {
-    width: 135px;
-  }
-
-  .user-block__icon {
-    width: 60px;
-    height: 60px;
-  }
-
-  .filter-block__main-filter,
+  /* .filter-block__main-filter,
   .filter-element__name {
     display: none;
-  }
+  } */
 
-  .filter-element {
+  /* .filter-element {
     justify-content: center;
-  }
+  } */
 
-  .filter-element__icon {
+  /* .filter-element__icon {
     margin: 0 auto;
-  }
+  } */
 }
+
 .navbar__expanded {
-  margin-left: 0;
-}
-@media screen and (max-width: 980px) {
-  .navbar {
-    min-width: 300px;
-    margin-left: -300px;
-  }
-
-
+  margin-left: 0 !important;
 }
 </style>

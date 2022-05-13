@@ -1,0 +1,10 @@
+.header {
+  display: block;
+  height: 45px;
+  align-items: center;
+}
+
+.header--title {
+  font-size: 1.2em;
+  color: var(--main-white);
+}

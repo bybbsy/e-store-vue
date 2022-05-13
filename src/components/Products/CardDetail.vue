@@ -1,96 +1,137 @@
 <template>
-  <div class="product__card product__card_health product__card_expanded _hide-scroll">
+  <div class="product__card product__card_expanded _hide-scroll" :class="getClass" v-if="productExists" >
+    <div class="card-container _hide-scroll">
       <div class="card__image card__image_detail">
-        <img src="~@/assets/img/mock/Item1.png" alt="">
-      </div>
-      <div class="card__content">
-        <div class="title title__card_short">El Batipato de Batman</div>
-        <div class="description description__card">Patito de hule que usa batman para acompañar
-sus seciones de baño.</div>
-        <div class="rate-block rate-block_detail">
-          <Rating/>
-          <div class="rate-block__value">3.5</div>
-        </div>
-      </div>
-      <div class="card__bottom card__bottom_detail-card">
-        <div class="price">$14.81</div>
-        <div class="card__button card__button_add" @click.stop="addToCart">
-          <div class="button__text">Add to cart</div>
-        </div>
-      </div>
-
-      <div class="card__comments">
-        <div class="title card__comments_title">Algunas opiniones sobre este juguete</div>
-        <ul class="comments__list">
-          <li class="comments__comment">
-            <div class="comment__icon">
-              <img src="~@/assets/img/mock/Avatar.jpg" alt="">
-            </div>
-            <div class="comment__content">
-              <div class="comment__author">Author John Doe</div>
-              <div class="comment__text">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Accusamus ullam in nam, illum sapiente tempore quasi. Accusantium placeat labore, recusandae saepe tenetur incidunt, corporis, dicta inventore quaerat tempora optio voluptate!</div>
-            </div>
-          </li>
-          <li class="comments__comment">
-            <div class="comment__icon">
-              <img src="~@/assets/img/mock/Avatar.jpg" alt="">
-            </div>
-            <div class="comment__content">
-              <div class="comment__author">Author John Doe</div>
-              <div class="comment__text">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Accusamus ullam in nam, illum sapiente tempore quasi. Accusantium placeat labore, recusandae saepe tenetur incidunt, corporis, dicta inventore quaerat tempora optio voluptate!</div>
-            </div>
-          </li>
-          <li class="comments__comment">
-            <div class="comment__icon">
-              <img src="~@/assets/img/mock/Avatar.jpg" alt="">
-            </div>
-            <div class="comment__content">
-              <div class="comment__author">Author John Doe</div>
-              <div class="comment__text">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Accusamus ullam in nam, illum sapiente tempore quasi. Accusantium placeat labore, recusandae saepe tenetur incidunt, corporis, dicta inventore quaerat tempora optio voluptate!</div>
-            </div>
-          </li>
-        </ul>
+      <!-- <img :src="require('@/assets/img/mock/' + getDetails.imgLink)" alt=""> -->
+      <img :src="getDetails.imgLink">
+    </div>
+    <div class="card__content">
+      <div class="title title__card_short">{{ getDetails.name }}</div>
+      <div class="description description__card">{{ getDetails.description }}</div>
+      <div class="rate-block rate-block_detail">
+        <Rating :rate="getDetails.rate" />
+        <div class="rate-block__value">{{ getDetails.rate }}</div>
       </div>
     </div>
+    <div class="card__bottom card__bottom_detail-card">
+      <div class="price">${{ getDetails.price }}</div>
+      <Button v-if="!isInCart" button-text="Add to cart" :class="'card__button_add'" @click.stop.native="handleAddToCart" />
+
+      <Button v-else button-text="Remove item" :class="'card__button_remove'" @click.stop.native="handleRemoveFromCart" />
+      <!-- <div class="card__button card__button_add" v-if="!isInCart" @click.stop="handleAddToCart">
+        <div class="button__text">Add to cart</div>
+      </div>
+      <div class="card__button card__button_remove" v-else @click.stop="handleRemoveFromCart">
+        <div class="button__text">Remove from cart</div>
+      </div> -->
+    </div>
+
+    <div class="card__comments">
+      <div class="title card__comments_title">Comments</div>
+      <ul class="comments__list" v-if="getDetails.comments.length >= 1">
+        <li class="comments__comment" v-for="(comment, index) in getDetails.comments" :key='index'>
+          <div class="comment__icon">
+            <img :src="comment.userImage" alt="">
+          </div>
+          <div class="comment__content">
+            <div class="comment__top">
+              <div class="comment__author">{{ comment.username }}</div>
+              <div class="comment__date">{{ dateWithFns(comment.commentDate) }}</div>
+            </div>
+            <div class="comment__text">{{ comment.commentContent  }}</div>
+          </div>
+        </li>
+      </ul>
+      <div class="title empty-content_title text-center" v-else>No comments</div>
+    </div>
+    </div>
+  </div>
 </template>
 
 <script lang="ts">
 import Vue from 'vue'
 import Rating from './Rating.vue';
+import moment from 'moment';
+import { formatDistance, subDays } from 'date-fns';
+import { mapActions, mapGetters, ActionMethod } from 'vuex';
+import { ProductOrNot, CategoriesSchema } from '@/types/products';
+import { isProductInACart } from '@/helpers/useProducts';
+import Button from '@/components/Button.vue';
+import { productBackgroundColors } from '@/variables';
+
 
 export default Vue.extend({
+  name: 'detail-card',
+  computed: {
+    // ...mapGetters({
+    //   getProductsCart: 'getProductsCart',
+    //   getDetails: 'getDetails'
+    // }),
+    ...mapGetters([
+      'getProductsCart',
+      'getDetails'
+    ]),
+    productExists(): boolean {
+      return this.getDetails.productID.length > 0;
+    },
+    isInCart(): ProductOrNot {
+      return isProductInACart(this.getProductsCart, this.getDetails);
+    },
+    getClass(): string {
+      return productBackgroundColors[this.getDetails.category as keyof CategoriesSchema];
+    }
+  },
+  methods: {
+    ...mapActions([
+      'addToCart',
+      'removeFromCart',
+      // 'setDetails'
+    ]),
+    handleAddToCart()  {
+      this.addToCart(this.getDetails);
+    },
+    handleRemoveFromCart() {
+      this.removeFromCart(this.getDetails);
+    },
+    dateWithMoment(date: Date) {
+      date = new Date(2022)
+    },
+    dateWithFns(date: string) {
+      let correctDate = Date.parse(date)
+      return formatDistance(subDays(correctDate, 3), new Date(), { addSuffix: true })
+    },
+  },
   components: {
-    Rating
+    Rating, Button
   }
 })
 </script>
 
 <style>
+.card-container {
+  min-height: 100%;
+  overflow: scroll;
+  border-radius: inherit;
+}
 
 .product__card_expanded {
   width: 100%;
+  max-width: 550px;
   height: 100%;
   overflow-y: scroll;
   cursor: initial;
+  padding-bottom: 10px;
 }
 
 .card__image_detail {
   height: 390px;
 }
 
-
-.card__image_detail img {
-  display: flex;
-  margin: auto;
-  width: unset;
-  height: unset;
-}
-
 .description {
   font-size: 16px;
   line-height: 150%;
   font-weight: 400;
-  color: #FFFFFF;
+  color: var(--main-white);
 }
 
 .card__bottom_detail-card {
@@ -128,6 +169,11 @@ export default Vue.extend({
   margin-top: 25px;
 }
 
+.empty-content_title {
+  color: var(--text-gray);
+  font-size: 1em;
+}
+
 .comment__icon {
   flex: 0 0 auto;
   width: 60px;
@@ -140,22 +186,89 @@ export default Vue.extend({
 .comment__icon img {
   width: 100%;
   height: 100%;
-  object-fit: contain;
+  object-fit: cover;
+}
+
+.comment__top {
+  display: flex;
+  align-items: baseline;
 }
 
 .comment__author {
-  color: #fff;
+  color: var(--main-white);
   font-size: 1.125em;
   text-align: left;
   font-weight: 500;
 }
 
+
+.comment__date {
+  color: var(--main-white);
+  font-size: 0.8em;
+  margin-left: 15px;
+}
+
 .comment__text {
   margin-top: 5px;
-  color:#FFFFFF66;
+  color: var(--text-gray);
   font-size: 1em;
   text-align: justify;
   font-weight: 300;
   line-height: 150%;
+}
+
+@media screen and (max-width: 680px) {
+  .product__card_expanded {
+    margin: 0 0;
+    max-width: 100%;
+    height: calc(100% - 50px);
+  }
+}
+
+@media screen and (max-width: 580px) {
+  .card__bottom_detail-card {
+    margin: 0 15px 0;
+  }
+
+  .comment__author {
+    font-size: 0.95em;
+  }
+
+  .comment__text {
+    font-size: 0.9em;
+  }
+
+  .comment__icon {
+    width: 50px;
+    height: 50px;
+    margin-right: 20px;
+
+  }
+}
+
+
+@media screen and (max-width: 380px) {
+  .card__bottom_detail-card {
+    margin: 0 10px 0;
+  }
+
+  .comment__author {
+    font-size: 0.8em;
+  }
+
+  .comment__date {
+    font-size: 0.75em;
+  }
+
+  .comment__text {
+    font-size: 0.85em;
+  }
+
+  .comment__icon {
+    width: 45px;
+    height: 45px;
+    margin-right: 15px;
+
+  }
 }
 </style>

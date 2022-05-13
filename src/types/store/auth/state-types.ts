@@ -1,16 +1,38 @@
-interface User {
-  email: string,
+
+interface Email {
+  email: string
+}
+
+interface Password {
   password: string
 }
 
-interface UserFull extends User {
+interface UserName {
   firstName: string,
   lastName: string
 }
 
-interface State {
-  user: User,
-  userFull: UserFull
+interface UserAvatar {
+  imgLink: string
 }
 
-export { User, UserFull, State }
+interface UserRole {
+  role: string
+}
+
+interface User extends Email, Password {}
+
+interface UserFull extends User, UserName {}
+
+interface UserData extends UserName, Email, UserAvatar, UserRole {
+  coupons: [],
+  cart: []
+}
+
+interface State {
+  user: User,
+  userFull: UserFull,
+  userData: UserData
+}
+
+export { User, UserFull, UserData, State }

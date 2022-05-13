@@ -1,0 +1,38 @@
+.posHorizontal {
+  grid-template-columns: 1fr 2fr;
+}
+
+.posVertical {
+  grid-template-rows: 2fr 1fr;
+}
+
+.posHorizontal::before,
+.posHorizontal::after,
+.posVertical::before,
+.posVertical::after {
+  display: block;
+}
+
+.posHorizontal::before {
+  top: 50%;
+  left: 0;
+  transform: translate(-50%, -50%);
+}
+
+.posHorizontal::after {
+  top: 50%;
+  right: 0;
+  transform: translate(50%, -50%);
+}
+
+.posVertical::before {
+  top: 67%;
+  left: 0;
+  transform: translate(-50%, -67%);
+}
+
+.posVertical::after {
+  top: 67%;
+  right: 0;
+  transform: translate(50%, -67%);
+}
