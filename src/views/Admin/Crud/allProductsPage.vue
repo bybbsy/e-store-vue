@@ -3,13 +3,13 @@
     <v-row class="ma-0 align-center">
       <v-col>
         <v-app-bar-title>
-          <h6>Remove the product you find</h6>
+          <h6>{{ $t('admin_mi_nav_manage') }}</h6>
         </v-app-bar-title>
       </v-col>
       <v-col :class="getResponviseColsMobile">
         <v-text-field
           v-model.trim="searchById"
-          label="Find item by id"
+          :label="$t('admin_mi_manage_search_id')"
           color="teal"
           filled
           dense
@@ -21,7 +21,7 @@
       <v-col :class="getResponviseColsMobile">
         <v-text-field
           v-model.trim="searchByCategory"
-          label="Find item by category"
+          :label="$t('admin_mi_manage_search_category')"
           color="teal"
           filled
           dense
@@ -33,7 +33,7 @@
       <v-col :class="getResponviseColsMobile">
         <v-text-field
           v-model.trim="searchByName"
-          label="Find item by name"
+          :label="$t('admin_mi_manage_search_name')"
           color="teal"
           filled
           dense
@@ -49,6 +49,7 @@
         :items="items"
         :items-per-page="10"
         :loading="loading"
+
         loader-height="100"
         mobile-breakpoint="1000"
         no-data-text="Ниче не нашел"
