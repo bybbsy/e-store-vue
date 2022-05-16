@@ -79,7 +79,6 @@ export default Vue.extend({
         default: 'All'
       },
       loadingData: false,
-      // products: [] as Array<ProductItem>,
       page: 1,
       perPage: 10,
       pages: [] as Array<number>
@@ -99,7 +98,6 @@ export default Vue.extend({
       for(let index = 1; index <= numPages; index++) {
         this.pages.push(index);
       }
-      console.log(this.pages)
     },
     paginate() {
       let page = this.page;
@@ -122,7 +120,6 @@ export default Vue.extend({
         this.loadingData = true
         const category = route.params.category ?? '';
         await this.$store.dispatch('fetchProducts', category);
-        // this.products = this.$store.getters.getProducts;
 
         this.setPages();
 
@@ -159,31 +156,10 @@ export default Vue.extend({
       this.page = 1;
 
       this.loadProducts(to);
-      // this.$load(async () => {
-      //   this.loadingData = true
-      //   const category = to.params.category ?? '';
-      //   await this.$store.dispatch('fetchProducts', category);
-      //   // this.products = this.$store.getters.getProducts;
-
-      //   this.setPages();
-
-      //   this.loadingData = false
-      // })
     }
   },
   mounted() {
     this.loadProducts(this.$route)
-    // this.$load(async () => {
-    //   this.loadingData = true
-
-    //   const category = this.$route.params.category ?? '';
-    //   await this.$store.dispatch('fetchProducts', category);
-    //   // this.products = this.$store.getters.getProducts;
-
-    //   this.setPages();
-
-    //   this.loadingData = false
-    // })
   },
 })
 </script>
