@@ -44,7 +44,6 @@ export default Vue.extend({
 }
 
 .error-content {
-  /* background: white; */
   position: absolute;
   top: 0;
   left: 50%;
