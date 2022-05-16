@@ -141,7 +141,6 @@
 </template>
 
 <script lang="ts">
-import { userIsAuthorized } from '@/helpers/auth';
 import { allowedUsers, innerLinks, mainLinks } from '@/variables';
 import _ from 'lodash';
 import Vue from 'vue'
