@@ -106,11 +106,9 @@ export default Vue.extend({
   computed: {
     emailIsInvalid(): InputError {
       return this.emailValid;
-      // return validateEmail(this.$v, signinFormOptions);
     },
     passwordIsInvalid(): InputError {
       return this.passwordValid;
-      // return validatePassword(this.$v, signinFormOptions);
     }
   },
   methods: {
