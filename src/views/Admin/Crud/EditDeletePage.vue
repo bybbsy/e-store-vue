@@ -276,7 +276,6 @@ export default Vue.extend({
       searchByName: '',
       searchByCategory: '',
       searchById: '',
-      // dialog: true,
       dialogEdit: false,
       dialogDelete: false,
       editedItem: {

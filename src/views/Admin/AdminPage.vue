@@ -106,29 +106,6 @@
                 </v-list-item-icon>
               </v-list-item>
           </v-list-group>
-
-
-
-          <!-- <v-list-item v-for="(mainLink, mainIndex) in links" :key="mainIndex" :to="{ name: mainLink.link }">
-            <v-list-item-icon>
-              <v-icon>mdi-home</v-icon>
-            </v-list-item-icon>
-            <v-list-item-title>
-              {{ mainLink.name }}
-            </v-list-item-title>
-
-            <v-list-item-group
-          >
-            <template v-slot:activator>
-              <v-list-item-content>
-                <v-list-item-title>Admin</v-list-item-title>
-              </v-list-item-content>
-            </template>
-            <v-list-item v-for="(link, index) in links" :key="index" :to="{ name: link.link }">
-              <v-list-item-title>{{ link.name }}</v-list-item-title>
-            </v-list-item>
-          </v-list-item-group>
-          </v-list-item> -->
       </v-list>
     </v-navigation-drawer >
     <v-main class="orange lighten-2">
@@ -153,7 +130,6 @@ export default Vue.extend({
       { name: 'Dashboard', link: '', icon: 'mdi-view-dashboard-outline', children: innerLinks.dashboard },
       { name: 'Manage items', link: 'admin-crud', icon: 'mdi-barcode-scan', children: innerLinks.manageItems },
       { name: 'E-store', link: '', icon: 'mdi-store-outline', children: innerLinks.estore },
-      // { name: 'Users', link: 'q', beta: true, betaContent: 'Soon'},
     ],
     generalLinks: mainLinks
   }),

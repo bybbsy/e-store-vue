@@ -125,7 +125,6 @@ export default Vue.extend({
       },
       categories: ["food", "toys", "health"],
       category: "food",
-      // currencyTypes: ['$', '₽'],
       name: "",
       description: "",
       imgLink: "",
