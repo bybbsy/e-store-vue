@@ -6,13 +6,13 @@
 
     <main class="main">
       <section class="settings-content">
-        <form action="" @submit.prevent="submitForm" class="form">
+        <form action="" class="form">
           <div class="form--row my-5">
             <h5 class="form--title">Personal information</h5>
             <div class="form--group l-four-rows">
               <div class="input-block">
                 <label class="input-label mr-2" for="input-firstname">First name:</label>
-                <input type="tel" class="form-input input-orange mr-2" id="input-firstname" name="inputFirstname"/>
+                <input type="tel" class="form-input input-orange mr-2" id="input-firstname"/>
                 <button class="button button-change">
                   <font-awesome-icon icon="fa-solid fa-pencil" class="orange-pencil"/>
                 </button>
@@ -88,23 +88,6 @@ import Vue from 'vue'
 import { mask } from 'vue-the-mask';
 
 export default Vue.extend({
-  data() {
-    return {
-      form: {
-        inputFirstname: ''
-      }
-    }
-  },
-  methods: {
-    submitForm(event: any) {
-      console.log(event.target.elements.inputFirstname)
-    }
-  },
-  watch: {
-    inputTel(event) {
-      console.log(event.target.elements)
-    }
-  },
   directives: {
     mask
   }
