@@ -1,7 +1,6 @@
 <template>
     <div class="product__card" :class="getClass" @click="cardClick">
       <div class="card__image">
-        <!-- <img :src="require('@/assets/img/mock/' + product.imgLink)" alt=""> -->
         <img :src="product.imgLink">
       </div>
       <div class="card__content">
@@ -55,22 +54,6 @@ export default Vue.extend({
       'addToCart',
       'removeFromCart'
     ]),
-    // async clickWrapper() {
-    //   const details = this.getDetails;
-
-    //   // If first click
-    //   if(!details.productID) {
-    //     await toggleDetails(true, this.product);
-    //   }
-    //   // If click on another card
-    //   else if(details.productID !== this.product.productID) {
-    //     await toggleDetails(false, this.product);
-    //   }
-    //   // If double click
-    //   else {
-    //     await toggleDetails(true, emptyDetailProduct);
-    //   }
-    // },
     cardClick: _.debounce(async function(this: any) {
       const details = this.getDetails;
       const detailsState = this.getDetailsExpanded;

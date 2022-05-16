@@ -1,11 +1,5 @@
 <template>
   <div class="block-rating">
-    <!-- <span>{{ setRating }}</span> -->
-    <!-- <span v-for="rate of maxRating"
-          :key="rate"
-          :style="{ background: getRating(rate) }"
-          ></span> -->
-
     <span v-for="(rate, index) in setRating"
       :key="index"
       :style="{ background: rate.style }"
@@ -47,23 +41,6 @@ export default Vue.extend({
       return res;
     }
   },
-  // methods: {
-  //   getRating(rate: number): string {
-  //     if(this.userRating - (rate-1) < 1 && this.userRating - (rate - 1) > 0) {
-  //       // Computed value
-  //       let value = (this.userRating - (rate - 1)) * 100;
-
-  //       // Returns gradient
-  //       return `linear-gradient(to right, var(--main-orange) ${value}%, lightgrey ${value}%)`;
-
-  //     } else if (this.userRating - (rate - 1) >= 1) {
-  //       return 'var(--main-orange)';
-  //     }
-  //     else {
-  //       return 'lightgray';
-  //     }
-  //   }
-  // }
 })
 </script>
 

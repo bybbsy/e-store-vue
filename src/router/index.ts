@@ -5,6 +5,7 @@ import { Route, NavigationGuardNext } from 'vue-router';
 import { userIsAuthorized } from '@/helpers/auth';
 import store from '@/store/index';
 import { UserData } from '@/types/store/auth/state-types';
+import { allowedUsers } from '@/variables';
 
 Vue.use(VueRouter)
 
@@ -28,13 +29,13 @@ const routes: Array<RouteConfig> = [
     path: '/sign-up',
     name: 'sign-up',
     meta: { layout: 'empty' },
-    component: () => import('../views/signupPage.vue')
+    component: () => import('../views/SignupPage.vue')
   },
   {
     path: '/sign-in',
     name: 'sign-in',
     meta: { layout: 'empty' },
-    component: () => import('../views/signinPage.vue')
+    component: () => import('../views/SigninPage.vue')
   },
   {
     path: '/personal',
@@ -80,28 +81,28 @@ const routes: Array<RouteConfig> = [
   },
   {
     path: '/admin',
-    component: () => import('../views/Admin/adminWrapper.vue'),
+    component: () => import('../views/Admin/AdminPage.vue'),
     children: [
       {
         path: 'dashboard',
         name: 'admin-main',
-        component: () => import('../views/Admin/mainPage.vue'),
+        component: () => import('../views/Admin/AdminMainPage.vue'),
       },
       {
         path: 'crud',
         name: 'admin-crud',
-        component: () => import('../views/Admin/crudPage.vue'),
+        component: () => import('../views/Admin/AdminCrudPage.vue'),
         redirect: { name: 'crud-create'},
         children: [
           {
             path: 'create',
             name: 'crud-create',
-            component: () => import('../views/Admin/Crud/createPage.vue')
+            component: () => import('../views/Admin/Crud/CreateItemsPage.vue')
           },
           {
             path: 'all',
             name: 'crud-all',
-            component: () => import('../views/Admin/Crud/allProductsPage.vue')
+            component: () => import('../views/Admin/Crud/EditDeletePage.vue')
           }
         ]
       }

@@ -2,7 +2,6 @@
   <div class="product__card product__card_expanded _hide-scroll" :class="getClass" v-if="productExists" >
     <div class="card-container _hide-scroll">
       <div class="card__image card__image_detail">
-      <!-- <img :src="require('@/assets/img/mock/' + getDetails.imgLink)" alt=""> -->
       <img :src="getDetails.imgLink">
     </div>
     <div class="card__content">
@@ -18,12 +17,6 @@
       <Button v-if="!isInCart" button-text="Add to cart" :class="'card__button_add'" @click.stop.native="handleAddToCart" />
 
       <Button v-else button-text="Remove item" :class="'card__button_remove'" @click.stop.native="handleRemoveFromCart" />
-      <!-- <div class="card__button card__button_add" v-if="!isInCart" @click.stop="handleAddToCart">
-        <div class="button__text">Add to cart</div>
-      </div>
-      <div class="card__button card__button_remove" v-else @click.stop="handleRemoveFromCart">
-        <div class="button__text">Remove from cart</div>
-      </div> -->
     </div>
 
     <div class="card__comments">
@@ -63,10 +56,6 @@ import { productBackgroundColors } from '@/variables';
 export default Vue.extend({
   name: 'detail-card',
   computed: {
-    // ...mapGetters({
-    //   getProductsCart: 'getProductsCart',
-    //   getDetails: 'getDetails'
-    // }),
     ...mapGetters([
       'getProductsCart',
       'getDetails'

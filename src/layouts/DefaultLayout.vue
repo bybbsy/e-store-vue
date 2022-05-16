@@ -1,9 +1,9 @@
 <template>
-    <div class="default-wrapper">
-        <TheNavbar/>
-        <router-view/>
-        <Snackbar />
-    </div>
+  <div class="default-wrapper">
+    <TheNavbar/>
+      <router-view/>
+    <Snackbar />
+  </div>
 </template>
 
 <script lang="ts">

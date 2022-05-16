@@ -17,66 +17,6 @@
             </ul>
             </div>
         </div>
-
-        <!-- <div class="filter-block">
-            <div class="filter-block__body">
-                <div class="filter-block__main-filter">
-                    <span class="main-filter__name">#Tienda</span>
-                </div>
-                <ul class="filters-list">
-                    <div class="filter-element">
-                        <div class="filter-element__icon">
-                            <img src="~@/assets/base/Light-bulb.png" alt="">
-                        </div>
-                        <div class="filter-element__name">
-                            <span>Juguetes</span>
-                        </div>
-                    </div>
-                    <div class="filter-element">
-                        <div class="filter-element__icon">
-                            <img src="~@/assets/base/Heart.png" alt="">
-                        </div>
-                        <div class="filter-element__name">
-                            <span>Salud</span>
-                        </div>
-                    </div>
-                    <div class="filter-element">
-                        <div class="filter-element__icon">
-                            <img src="~@/assets/base/Apple.png" alt="">
-                        </div>
-                        <div class="filter-element__name">
-                            <span>Salud</span>
-                        </div>
-                    </div>
-                </ul>
-            </div>
-        </div> -->
-
-        <!-- <div class="filter-block">
-            <div class="filter-block__body">
-                <div class="filter-block__main-filter">
-                    <span class="main-filter__name">#Personal</span>
-                </div>
-                <ul class="filters-list">
-                    <div class="filter-element">
-                        <div class="filter-element__icon">
-                            <img src="~@/assets/base/Cart.png" alt="">
-                        </div>
-                        <div class="filter-element__name">
-                            <span>Mi Carrito</span>
-                        </div>
-                    </div>
-                    <div class="filter-element">
-                        <div class="filter-element__icon">
-                            <img src="~@/assets/base/Coupon.png" alt="">
-                        </div>
-                        <div class="filter-element__name">
-                            <span>Cupones</span>
-                        </div>
-                    </div>
-                </ul>
-            </div>
-        </div> -->
     </div>
 </template>
 

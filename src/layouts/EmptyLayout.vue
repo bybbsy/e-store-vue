@@ -1,12 +1,13 @@
 <template>
-    <div class="empty__wrapper">
-        <router-view class="wrapper__container"/>
-    </div>
+  <div class="empty__wrapper">
+    <router-view class="wrapper__container"/>
+  </div>
 </template>
+
 <script lang="ts">
 import Vue from 'vue'
 export default Vue.extend({
-    name: 'empty-layout'
+  name: 'empty-layout'
 })
 </script>
 
