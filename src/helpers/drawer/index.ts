@@ -12,9 +12,24 @@ const mouse: mouseCoords = {
   y: undefined
 }
 
+
+function reDrawAll(ctxSettings: CanvasSettings, starSettings: ObjectSettings<Star>, planetSettings: ObjectSettings<Planet>) {
+  ctxSettings.ctx.clearRect(0, 0, ctxSettings.canvas.offsetWidth, ctxSettings.canvas.offsetHeight);
+
+  reDrawObjectsParcticles(starSettings.objectParticles, ctxSettings);
+
+  reDrawObjectsParcticles(planetSettings.objectParticles, ctxSettings);
+
+  requestAnimationFrame(() => reDrawAll(ctxSettings, starSettings, planetSettings));
+
+}
+
 function reDrawObjectsParcticles<T extends CanvasBase>(objectParticles: Array<T>, canvasSettings: CanvasSettings) {
+
   for(const i in objectParticles) {
+    canvasSettings.ctx.save();
     objectParticles[i].reDraw(canvasSettings.ctx);
+    canvasSettings.ctx.restore();
   }
 }
 
@@ -24,6 +39,7 @@ function drawObjects<T>(ctxSettings: CanvasSettings, objectSettings: ObjectSetti
     const objInstance = new objectSettings.objectClass(ctxSettings.canvas);
 
     objectSettings.objectParticles.push(objInstance)
+
   }
 
   objectSettings.loopObjects(ctxSettings, objectSettings);
@@ -67,7 +83,7 @@ function init(canvas: HTMLCanvasElement) {
 
     drawObjects(ctxSettings, starsSettings);
     drawObjects(ctxSettings, planetsSettings);
-
+    reDrawAll(ctxSettings, starsSettings, planetsSettings);
     canvas.addEventListener('mousemove', (e) => {
       mouse.x = e.x;
       mouse.y = e.y;
