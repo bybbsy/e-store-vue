@@ -54,7 +54,6 @@
         mobile-breakpoint="1000"
         no-data-text="Ниче не нашел"
         loading-text="Loading data"
-        height
         class="elevation-1"
       >
         <template v-slot:item.imgLink="{ item }">
@@ -246,7 +245,7 @@ import { Product, ProductCategory } from '@/types/store/products/state-types';
 import firebase from 'firebase/compat';
 import _ from 'lodash';
 import Vue from 'vue';
-import { mapGetters } from 'vuex';
+import { mapActions, mapGetters } from 'vuex';
 
 
 export default Vue.extend({
@@ -305,7 +304,8 @@ export default Vue.extend({
   computed: {
     ...mapGetters([
       'getProductsCategories',
-      'getCurrencyTypes'
+      'getCurrencyTypes',
+      'getProducts'
     ]),
     getResponviseColsMobile() {
       let cols = 'col-';
@@ -325,6 +325,9 @@ export default Vue.extend({
     }
   },
   methods: {
+    ...mapActions([
+      'fetchProducts'
+    ]),
     getColorRate(rate: number) {
       if(rate < 3) return 'warning'
       else if(rate >= 3 && rate < 4) return 'orange'
@@ -400,8 +403,15 @@ export default Vue.extend({
       this.loading = false
     }, 500)
   },
-  mounted() {
+  async mounted() {
+    this.loading = true;
     this.categories = this.getProductsCategories;
+
+    await this.fetchProducts();
+
+    this.items = this.getProducts;
+
+    this.loading = false;
   }
 })
 

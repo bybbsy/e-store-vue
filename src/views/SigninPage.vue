@@ -53,7 +53,7 @@
                    :value="$t('sign_in_button')"
                    class="form__input form__input_sign-in"
                    >
-            <p class="input-block__error" v-if="authError">{{ authError }}</p>
+            <p class="input-block__error" role="auth-error" v-if="authError">{{ authError }}</p>
           </div>
           <div class="auth__hint">
             <p class="hint__message">{{ $t('dont_have_an_accound') }}<router-link class="hint__link" :to="{name: 'sign-up'}">{{ $t('sign_up_title') }}</router-link></p>
@@ -64,7 +64,6 @@
   </div>
 </template>
 
-def
 <script lang="ts">
 import { User } from '@/types/store/auth/state-types';
 import { email, required, minLength, decimal } from 'vuelidate/lib/validators';

@@ -11,6 +11,6 @@ test('renders badge component', () => {
 
   // const b = screen.queryByText('asdasdsa');
   // expect(screen.queryByText(props.value)).toBeTruthy();
-  screen.debug();
+  // screen.debug();
 })
 

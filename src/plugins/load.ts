@@ -3,7 +3,7 @@ import { Action, ErrorHandler } from '@/types/plugins/index';
 
 declare module 'vue/types/vue' {
   interface Vue {
-    $load: (action: Action, errorHandler?: ErrorHandler) => void
+    $load: (action: Action, errorHandler?: ErrorHandler) => void,
   }
 }
 

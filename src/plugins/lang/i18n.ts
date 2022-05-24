@@ -9,11 +9,11 @@ import VueI18n from 'vue-i18n';
 Vue.use(VueI18n);
 
 export default new VueI18n({
-  locale: 'ru',
+  locale: localStorage.getItem('lang') ?? 'English',
   messages: {
-    en,
-    de,
-    es,
-    ru
+    'English': en,
+    'German': de,
+    'Spanish': es,
+    'Russian': ru
   }
 })

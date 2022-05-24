@@ -1,9 +1,20 @@
 import firebase from "firebase/compat";
 import { ValidationProp } from "@/types/auth";
 import { SignupFormOptions, SigninFormOptions, SignupFormFields } from '@/types/auth';
+import store from "@/store";
+import { allowedUsers } from "@/variables";
 
 function userIsAuthorized(): (string | null) {
   return firebase.auth().currentUser?.uid ?? null;
+}
+
+function userIsAllowed(): boolean {
+  if(userIsAuthorized()) {
+    const role = store.getters.getUserData.role;
+    return allowedUsers.includes(role)
+  }
+
+  return false
 }
 
 function validateEmail($v: ValidationProp, authFormOptions: SignupFormOptions | SigninFormOptions) {
@@ -122,6 +133,7 @@ function checkPasswords($v: ValidationProp, authFormOptions: SignupFormOptions, 
 
 export {
   userIsAuthorized,
+  userIsAllowed,
   validateEmail,
   validatePassword,
   validateName,

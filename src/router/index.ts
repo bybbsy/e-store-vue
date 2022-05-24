@@ -2,7 +2,7 @@ import Vue from 'vue'
 import VueRouter, { RouteConfig } from 'vue-router'
 import Home from '../views/Home.vue'
 import { Route, NavigationGuardNext } from 'vue-router';
-import { userIsAuthorized } from '@/helpers/auth';
+import { userIsAllowed, userIsAuthorized } from '@/helpers/auth';
 import store from '@/store/index';
 import { UserData } from '@/types/store/auth/state-types';
 import { allowedUsers } from '@/variables';
@@ -39,7 +39,7 @@ const routes: Array<RouteConfig> = [
   },
   {
     path: '/personal',
-    name: 'personal',
+    // name: 'personal',
     meta: { layout: 'default', authRequired: true },
     component: () => import('../views/PersonalPage.vue'),
     beforeEnter: checkForAuth,
@@ -82,6 +82,7 @@ const routes: Array<RouteConfig> = [
   {
     path: '/admin',
     component: () => import('../views/Admin/AdminPage.vue'),
+    redirect: { name: 'admin-main'},
     children: [
       {
         path: 'dashboard',
@@ -124,4 +125,12 @@ function checkForAuth(to: Route, from: Route, next: NavigationGuardNext<Vue>): v
   }
 }
 
+
+function checkIfAllowed(to: Route, from: Route, next: NavigationGuardNext<Vue>) {
+  if(userIsAllowed()) {
+    next();
+  } else {
+    next({ name: 'products'})
+  }
+}
 export default router

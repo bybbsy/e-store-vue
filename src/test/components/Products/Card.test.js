@@ -1,7 +1,7 @@
 import Vue from "vue";
 import Vuex from 'vuex';
 
-import { getByText, render, screen, fireEvent } from "@testing-library/vue";
+import { render, screen, fireEvent, cleanup, findByTestId, findByText } from "@testing-library/vue";
 
 import Card from '../../../components/Products/Card.vue'
 import { getters } from '../../../store/products/getters'
@@ -9,66 +9,14 @@ import { actions } from '../../../store/products/actions'
 import { mutations } from "../../../store/products/mutations";
 
 import { productBackgroundColors } from '../../../variables';
-
-const mockProduct = {
-  productID: '1',
-  name: 'Mock product',
-  imgLink: 'link',
-  category: 'food',
-  subcategory: 'bars',
-  currency: '$',
-  price: 10,
-  rate: 1,
-  description: 'Description',
-}
-
-const emptyDetailProduct = {
-  productID: '',
-  name: 'no-name',
-  imgLink: '',
-  category: '',
-  rate: 0,
-  price: 0,
-  comments: []
-}
-
+import { mockProduct, emptyDetailProduct, addBtnRole, rmBtnRole, cardImageRole, createStore  } from "../../variables";
 
 Vue.use(Vuex);
 
-const store = new Vuex.Store({
-  modules: {
-    moduleProducts: {
-      state: {
-        products: [],
-        currentProduct: emptyDetailProduct,
-        productsCart: [ ],
-        productDetails: false
-      },
-      getters: {
-        getProductsCart: getters.getProductsCart,
-        getDetails: getters.getDetails,
-        getDetailsExpanded: getters.getDetailsExpanded,
-        getProductsCartLength: getters.getProductsCartLength
-      },
-      actions: {
-        setDetails: actions.setDetails,
-        addToCart: actions.addToCart,
-        removeFromCart: actions.removeFromCart,
-      },
-      mutations: {
-        ADD_TO_CART: mutations.ADD_TO_CART,
-        DELETE_FROM_CART: mutations.DELETE_FROM_CART,
-        SET_DETAILS: mutations.SET_DETAILS,
-        CHANGE_PRODUCT_AMOUNT: mutations.CHANGE_PRODUCT_AMOUNT
-      }
-    }
-  }
-})
-
-const addBtnRole = 'add-button';
-const rmBtnRole = 'remove-button';
-
+// OK
 test('Can add and remove item from cart', async () => {
+
+  const store = createStore();
 
   const { getByRole } = render(Card, {
     store,
@@ -81,22 +29,17 @@ test('Can add and remove item from cart', async () => {
   const cartSize = () => store.getters.getProductsCartLength;
 
   const addButton = getByRole(addBtnRole);
-
-  expect(addButton).toBeTruthy();
-
   await fireEvent.click(addButton);
-
   expect(cartSize()).toBe(1);
 
 
 
   const removeButton = getByRole(rmBtnRole);
-
-  expect(removeButton).toBeTruthy();
-
   await fireEvent.click(removeButton);
 
   expect(cartSize()).toBe(0);
+
+  cleanup();
 
   // Will fail because cartSize is 0
   // expect(cartSize()).toBe(1);
@@ -104,24 +47,78 @@ test('Can add and remove item from cart', async () => {
   // screen.debug();
 })
 
+// OK
 test('Cant add a product twice', async () => {
+  const store = createStore();
+
   const { getByRole } = render(Card, {
     store,
     props: {
       product: mockProduct
     }
   })
+
+  const prevCart = store.getters.getProductsCartLength;
 
   const addButton = getByRole(addBtnRole);
 
   expect(addButton).toBeTruthy();
 
   await fireEvent.click(addButton);
+  await fireEvent.click(addButton);
 
-  expect(addButton).toBeTruthy();
+  const updatedCart = store.getters.getProductsCartLength;
+
+  expect(prevCart === updatedCart);
+
+  cleanup();
 })
 
-test('Cant remove a product if add button wasnt clicked', async () => {
+// OK
+test('Add button is not displayed after it was clicked', async () => {
+  const store = createStore();
+
+  const { getByRole, queryByRole } = render(Card, {
+    store,
+    props: {
+      product: mockProduct
+    }
+  })
+
+  let addButton = getByRole(addBtnRole);
+
+  await fireEvent.click(addButton);
+
+  addButton = queryByRole(addBtnRole)
+
+  expect(addButton).toBeFalsy();
+})
+
+// OK
+test('Remove button is displayed after add button was clicked', async () => {
+  const store = createStore();
+
+  const { getByRole, container } = render(Card, {
+    store,
+    props: {
+      product: mockProduct
+    }
+  })
+
+  const addButton = getByRole(addBtnRole)
+
+  await fireEvent.click(addButton)
+
+  const removeButton = getByRole(rmBtnRole);
+
+  expect(removeButton).toBeTruthy();
+  cleanup();
+})
+
+// OK
+test('Image is displayed', async () => {
+  const store = createStore();
+
   const { getByRole } = render(Card, {
     store,
     props: {
@@ -129,84 +126,89 @@ test('Cant remove a product if add button wasnt clicked', async () => {
     }
   })
 
-  const removeButton = getByRole(rmBtnRole);
+  const image = getByRole(cardImageRole);
 
-  expect(removeButton).toBeTruthy();
+  // screen.debug(image);
 
-  await fireEvent.click(removeButton);
-
-  expect(removeButton).toBeTruthy();
+  expect(image).toBeTruthy();
 })
 
-test('getClass returns class for food category', () => {
-  const { container } = render(Card, {
-    store,
-    props: {
-      product: mockProduct
-    }
-  })
+// test('getClass returns class for food category', () => {
+//   const store = createStore();
 
-  const cardClassList = container.firstChild.className.split(' ');
+//   const { container } = render(Card, {
+//     store,
+//     props: {
+//       product: mockProduct
+//     }
+//   })
 
-  // console.log(cardClassList.includes(productBackgroundColors['food']))
-  expect(cardClassList.includes(productBackgroundColors['food'])).toBeTruthy();
+//   console.warn(container.firstChild.className)
+//   const cardClassList = container.firstChild.className.split(' ');
 
-  // screen.debug()
-})
+//   expect(cardClassList.includes(productBackgroundColors['food'])).toBeTruthy();
+// })
 
-test('getClass returns class for health category', () => {
-  const { container } = render(Card, {
-    store,
-    props: {
-      product: (() => {
-        mockProduct.category = 'health'
-        return mockProduct;
-      })()
-    }
-  })
+// test('getClass returns class for health category', () => {
+//   const store = createStore();
 
-  const cardClassList = container.firstChild.className.split(' ');
+//   const { container } = render(Card, {
+//     store,
+//     props: {
+//       product: (() => {
+//         mockProduct.category = 'health'
+//         return mockProduct;
+//       })()
+//     }
+//   })
 
-  // console.log(cardClassList.includes(productBackgroundColors['food']))
-  expect(cardClassList.includes(productBackgroundColors['health'])).toBeTruthy();
+//   const cardClassList = container.firstChild.className.split(' ');
 
-  // screen.debug()
-})
+//   // console.log(cardClassList.includes(productBackgroundColors['food']))
+//   expect(cardClassList.includes(productBackgroundColors['health'])).toBeTruthy();
 
-test('getClass returns class for toys category', () => {
-  const { container } = render(Card, {
-    store,
-    props: {
-      product: (() => {
-        mockProduct.category = 'toys'
-        return mockProduct;
-      })()
-    }
-  })
+//   // screen.debug()
+// })
 
-  const cardClassList = container.firstChild.className.split(' ');
+// test('getClass returns class for toys category', () => {
 
-  // console.log(cardClassList.includes(productBackgroundColors['food']))
-  expect(cardClassList.includes(productBackgroundColors['toys'])).toBeTruthy();
+//   const store = createStore();
 
-  // screen.debug()
-})
+//   const { container } = render(Card, {
+//     store,
+//     props: {
+//       product: (() => {
+//         mockProduct.category = 'toys'
+//         return mockProduct;
+//       })()
+//     }
+//   })
 
-test('getClass doesnt return class for other category', () => {
-  const { container } = render(Card, {
-    store,
-    props: {
-      product: (() => {
-        mockProduct.category = 'new category'
-        return mockProduct;
-      })()
-    }
-  })
+//   const cardClassList = container.firstChild.className.split(' ');
 
-  const cardClassList = container.firstChild.className.split(' ');
+//   // console.log(cardClassList.includes(productBackgroundColors['food']))
+//   expect(cardClassList.includes(productBackgroundColors['toys'])).toBeTruthy();
 
-  // console.log(cardClassList.includes(productBackgroundColors['food']))
-  expect(cardClassList.includes(productBackgroundColors['new category'])).not.toBeTruthy();
+//   // screen.debug()
+// })
 
-  // screen.debug()
-})
+// test('getClass doesnt return class for other category', () => {
+//   const store = createStore();
+
+//   const { container } = render(Card, {
+//     store,
+//     props: {
+//       product: (() => {
+//         mockProduct.category = 'new category'
+//         return mockProduct;
+//       })()
+//     }
+//   })
+
+//   const cardClassList = container.firstChild.className.split(' ');
+
+//   // console.log(cardClassList.includes(productBackgroundColors['food']))
+//   expect(cardClassList.includes(productBackgroundColors['new category'])).toBeFalsy();
+
+//   // screen.debug()
+// })

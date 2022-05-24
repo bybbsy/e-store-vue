@@ -18,7 +18,7 @@
                   <v-icon v-text="action.icon"></v-icon>
                 </v-list-item-icon>
               <v-list-item-content>
-                <v-list-item-title v-text="action.name"></v-list-item-title>
+                <v-list-item-title v-text="$t(action.name)"></v-list-item-title>
               </v-list-item-content>
             </v-list-item>
           </v-list-item-group>
@@ -44,8 +44,8 @@ export default Vue.extend({
     return {
       selectedItem: null,
       actions: [
-        { name: 'Create', link: 'crud-create', icon: 'mdi-hamburger-plus' },
-        { name: 'Manage', link: 'crud-all', icon: 'mdi-food' }
+        { name: 'admin_mi_nav_create', link: 'crud-create', icon: 'mdi-hamburger-plus' },
+        { name: 'admin_mi_nav_manage', link: 'crud-all', icon: 'mdi-food' }
       ]
     }
   },

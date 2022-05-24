@@ -7,7 +7,7 @@ import router from '@/router';
 
 import { render, screen, fireEvent, getByDisplayValue, getByTestId } from "@testing-library/vue";
 
-import signinPage from '@/views/signinPage.vue';
+import SigninPage from '@/views/SigninPage.vue';
 import AuthWelcome from '@/components/Auth/AuthWelcome.vue';
 import { getters } from '@/store/products/getters'
 import { actions } from '@/store/products/actions'
@@ -39,7 +39,7 @@ function getSigningPageOptions() {
 }
 
 test('Invalid when e-mail field is not email type and password length < 6', async () => {
-  const { getByLabelText, getByText, debug } = render(signinPage, getSigningPageOptions());
+  const { getByLabelText, getByText, debug } = render(SigninPage, getSigningPageOptions());
 
   const emailInput = getByLabelText('E-mail');
   const passwordInput = getByLabelText('Password');
@@ -65,7 +65,7 @@ test('Invalid when e-mail field is not email type and password length < 6', asyn
 })
 
 test('Invalid when e-mail field is not email type and password length is 6 (Sign in button disabled)', async () => {
-  const { getByLabelText, getByText, debug, container } = render(signinPage, getSigningPageOptions());
+  const { getByLabelText, getByText, debug, container } = render(SigninPage, getSigningPageOptions());
 
   const emailInput = getByLabelText('E-mail');
   const passwordInput = getByLabelText('Password');

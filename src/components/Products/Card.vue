@@ -1,7 +1,7 @@
 <template>
     <div class="product__card" :class="getClass" @click="cardClick">
       <div class="card__image">
-        <img :src="product.imgLink">
+        <img role="card-image" :src="product.imgLink">
       </div>
       <div class="card__content">
         <div class="title title__card_short">{{ product.name }}</div>

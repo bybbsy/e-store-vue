@@ -1,8 +1,7 @@
 interface CanvasBase {
   x: number,
   y: number,
-
-  reDraw: (ctx: CanvasRenderingContext2D) => void,
+  reDraw: (ctx: CanvasRenderingContext2D) => void
 }
 
 interface CanvasColorChangeable extends CanvasBase {
@@ -20,8 +19,7 @@ type ObjectSettings<T> = {
   objectAmount: number,
   objectParticles: Array<T>,
   // Allows to create class instance according to type
-  objectClass: Constr<T>,
-  loopObjects: (canvasSettings: CanvasSettings, objectSettings: ObjectSettings<T>) => void,
+  objectClass: Constr<T>
 }
 
 export {

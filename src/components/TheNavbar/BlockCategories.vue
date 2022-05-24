@@ -23,7 +23,7 @@
 <script lang="ts">
 import Vue from 'vue';
 import { filterBlock } from '@/types/filter/index';
-import { userIsAuthorized } from '@/helpers/auth'
+import { userIsAuthorized, userIsAllowed } from '@/helpers/auth'
 import BlockCategory from './BlockCategory.vue';
 
 export default Vue.extend({
@@ -67,6 +67,23 @@ export default Vue.extend({
                 name: 'Coupons',
                 icon: 'Coupon.png',
                 link: 'coupons'
+            },
+          ]
+        },
+        {
+          mainCategory: 'admin',
+          baseUrl: 'admin',
+          authRequired: true,
+          filterItems: [
+            {
+              name: 'dashboard',
+              icon: 'Cart.png',
+              link: 'dashboard'
+            },
+            {
+              name: 'Manage items',
+              icon: 'Cart.png',
+              link: 'crud'
             }
           ]
         }
@@ -76,6 +93,9 @@ export default Vue.extend({
   computed: {
     uid() {
       return userIsAuthorized();
+    },
+    allowed() {
+      return userIsAllowed();
     }
   },
   components: {

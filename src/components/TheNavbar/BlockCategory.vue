@@ -29,7 +29,7 @@ export default Vue.extend({
   computed: {
     ...mapGetters(['getProductsCartLength']),
     len() {
-      return this.getProductsCartLength;
+      return +this.getProductsCartLength <= 99 ? this.getProductsCartLength : '99+';
     }
   },
   components: {

@@ -12,7 +12,7 @@
       </div>
       <div class="error-content__text">
         <p class="error-text__title">oops!</p>
-        <p class="error-text__description">Page no found</p>
+        <p class="error-text__description">Page not found</p>
       </div>
       <div class="error-content__links">
         <router-link :to="{name: 'products'}" class="error-link">Go home</router-link>

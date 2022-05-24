@@ -1,6 +1,6 @@
 import { CanvasBase, ObjectSettings, CanvasSettings } from "@/types/drawer";
-import { loopPlanets, Planet } from "./planet";
-import { loopStars, Star } from "./star";
+import { Planet } from "./planet";
+import { Star } from "./star";
 
 interface mouseCoords {
   x: undefined | number,
@@ -28,7 +28,9 @@ function reDrawObjectsParcticles<T extends CanvasBase>(objectParticles: Array<T>
 
   for(const i in objectParticles) {
     canvasSettings.ctx.save();
+
     objectParticles[i].reDraw(canvasSettings.ctx);
+
     canvasSettings.ctx.restore();
   }
 }
@@ -37,12 +39,8 @@ function drawObjects<T>(ctxSettings: CanvasSettings, objectSettings: ObjectSetti
   for(let i = 0; i < objectSettings.objectAmount; i++) {
 
     const objInstance = new objectSettings.objectClass(ctxSettings.canvas);
-
     objectSettings.objectParticles.push(objInstance)
-
   }
-
-  objectSettings.loopObjects(ctxSettings, objectSettings);
 }
 
 function setSize(ctx: CanvasRenderingContext2D) {
@@ -52,10 +50,10 @@ function setSize(ctx: CanvasRenderingContext2D) {
 
 
 function init(canvas: HTMLCanvasElement) {
-  const starsAmount = 500;
+  const starsAmount = 50;
   const starParticles: Array<Star> = [];
 
-  const planetsAmount = 5;
+  const planetsAmount = 10;
   const planetsParticles: Array<Planet> = [];
 
   const ctx = canvas.getContext('2d')!;
@@ -66,24 +64,23 @@ function init(canvas: HTMLCanvasElement) {
   const starsSettings: ObjectSettings<Star> = {
     objectAmount: starsAmount,
     objectParticles: starParticles,
-    objectClass: Star,
-    loopObjects: () => loopStars(ctxSettings, starsSettings)
+    objectClass: Star
   }
 
   const planetsSettings: ObjectSettings<Planet> = {
     objectAmount: planetsAmount,
     objectParticles: planetsParticles,
-    objectClass: Planet,
-    loopObjects: () => loopPlanets(ctxSettings, planetsSettings)
+    objectClass: Planet
   }
 
   if(ctx) {
-    ctx.globalCompositeOperation ='source-over';
     setSize(ctx);
 
     drawObjects(ctxSettings, starsSettings);
     drawObjects(ctxSettings, planetsSettings);
+
     reDrawAll(ctxSettings, starsSettings, planetsSettings);
+
     canvas.addEventListener('mousemove', (e) => {
       mouse.x = e.x;
       mouse.y = e.y;

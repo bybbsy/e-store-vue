@@ -21,6 +21,21 @@
 
         <v-spacer></v-spacer>
 
+        <v-menu v-model="langMenu">
+          <template v-slot:activator="{ on, attrs }">
+            <v-btn class="text-capitalize mr-2" color="orange lighten-5" v-bind="attrs" v-on="on" text>
+              <v-icon left>mdi-translate</v-icon>
+              {{ currentLang }}
+              <v-icon small right>mdi-menu-down</v-icon>
+            </v-btn>
+          </template>
+          <v-list dense>
+                <v-list-item v-for="(lang, index) in langs" :key="index" @click="handleMenuItemClick(index)">
+                  <v-list-item-title>{{ index }}</v-list-item-title>
+                </v-list-item>
+              </v-list>
+        </v-menu>
+
         <v-responsive max-width="260">
           <v-row class="ma-0">
             <v-list-item-avatar color="grey" size="32" rounded="50%">
@@ -107,6 +122,20 @@
               </v-list-item>
           </v-list-group>
       </v-list>
+      <v-menu v-model="langMenu">
+        <template v-slot:activator="{ on, attrs }">
+          <v-btn class="text-capitalize" v-bind="attrs" v-on="on" text>
+            <v-icon left>mdi-translate</v-icon>
+            {{ currentLang }}
+            <v-icon small right>mdi-menu-down</v-icon>
+          </v-btn>
+        </template>
+        <v-list dense>
+              <v-list-item v-for="(lang, index) in langs" :key="index" @click="handleMenuItemClick(index)">
+                <v-list-item-title>{{ index }}</v-list-item-title>
+              </v-list-item>
+            </v-list>
+      </v-menu>
     </v-navigation-drawer >
     <v-main class="orange lighten-2">
       <v-container>
@@ -118,9 +147,12 @@
 </template>
 
 <script lang="ts">
+import { setLanguage } from '@/helpers/lang';
 import { allowedUsers, innerLinks, mainLinks } from '@/variables';
 import _ from 'lodash';
+import { locale } from 'moment';
 import Vue from 'vue'
+import { I18nOptions } from 'vue-i18n';
 import { mapActions, mapGetters } from 'vuex';
 
 export default Vue.extend({
@@ -131,7 +163,9 @@ export default Vue.extend({
       { name: 'Manage items', link: 'admin-crud', icon: 'mdi-barcode-scan', children: innerLinks.manageItems },
       { name: 'E-store', link: '', icon: 'mdi-store-outline', children: innerLinks.estore },
     ],
-    generalLinks: mainLinks
+    generalLinks: mainLinks,
+    langMenu: false,
+    langs: {}
   }),
   computed: {
     ...mapGetters({
@@ -151,6 +185,9 @@ export default Vue.extend({
         return this.userData.email;
       }
       return 'user@estore.admin.com';
+    },
+    currentLang(): string {
+      return this.$i18n.locale;
     }
   },
   methods: {
@@ -162,7 +199,13 @@ export default Vue.extend({
     handleLogout() {
       this.logout();
       this.$router.push({ name: 'sign-in' });
+    },
+    handleMenuItemClick(lang: string) {
+      setLanguage(this.$i18n, lang);
     }
+  },
+  mounted() {
+    this.langs = this.$i18n.messages;
   }
 })
 </script>>

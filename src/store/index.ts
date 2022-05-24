@@ -8,6 +8,7 @@ import { State as NavbarState } from '@/types/store/navbar/state-types';
 import { moduleAuth } from './auth';
 import { moduleProducts } from './products'
 import { moduleNavbar } from './navbar';
+
 export type RootState = {
   auth: AuthState,
   products: ProductsState,
