@@ -3,25 +3,54 @@ import Vue from "vue";
 import Vuelidate from "vuelidate";
 import i18n from '../../plugins/lang/i18n';
 import router from '../../router/index';
-
+import _ from 'lodash';
+import firebase from 'firebase/compat/app';
 import { emptyEmail, emptyPassword } from "../../variables";
-
 import { errorHandlerPlugin } from '../../plugins/load'
-
 import SigninPage from '../../views/SigninPage.vue';
-import { authRole, createStore } from "../variables";
-
+import { createStore } from "../variables";
 import { required, decimal, email, minLength } from 'vuelidate/lib/validators'
-
-import firebase from '../fb-mock';
 
 Vue.use(errorHandlerPlugin)
 Vue.use(Vuelidate);
 
 
-import _ from 'lodash';
+const registeredUsers = [
+  { email: 'jeff@mail.ru', password: '111111'},
+  { email: 'admin@estore.com', password: 'adminestore'}
+]
 
-describe('Signing in with different credentials', () => {
+const signInWithEmailAndPassword = jest.fn((email, password) => {
+  const useIsRegistered = registeredUsers.some(user => user.email === email && user.password === password)
+
+  if(!useIsRegistered) {
+    throw new Error("There's no such user");
+  }
+})
+
+const onAuthStateChanged = jest.fn()
+
+const initializeFirebase = jest
+  .spyOn(firebase, 'initializeApp')
+  .mockImplementation(() => {
+    return {
+      auth: () => {
+        return {
+          signInWithEmailAndPassword
+        }
+      }
+    }
+  })
+
+jest.spyOn(firebase, 'auth').mockImplementation(() => {
+  return {
+    onAuthStateChanged,
+    signInWithEmailAndPassword
+  }
+})
+
+
+describe.only('Signing in with different credentials', () => {
   // OK
   test('Login button disabled witn no data ', async () => {
 
@@ -126,52 +155,90 @@ describe('Signing in with different credentials', () => {
 
     const loginButton = queryByDisplayValue('Sign in');
     expect(loginButton.disabled).toBeTruthy();
-
-    screen.debug(container)
   })
 
-  // test.only('Signing up with wrong credentials throws an error', async () => {
-  //   const store = createStore();
+  // OK
+  test('Signing up with wrong credentials throws an error', async () => {
+    initializeFirebase();
 
-  //   const { getByLabelText, queryByDisplayValue, findByRole, findByText,queryByRole, container } = render(SigninPage, {
-  //     router,
-  //     store,
-  //     i18n,
-  //     data: function() {
-  //       return {
-  //         userEmail: '',
-  //         userPassword: '',
-  //         number: '',
-  //         emailValid: emptyEmail,
-  //         passwordValid: emptyPassword,
-  //         authError: ''
-  //       }
-  //     }
-  //   })
-
-
-  //   // Need to comment debounce part
-  //   const inputEmail = getByLabelText('E-mail');
-  //   const inputPassword = getByLabelText('Password');
-
-  //   await fireEvent.touch(inputEmail);
-  //   await fireEvent.update(inputEmail, 'asaaqaszxzxc111dadas@mail.ru')
-
-  //   await fireEvent.touch(inputPassword);
-  //   await fireEvent.update(inputPassword, 'z1231as');
-
-  //   const button = queryByDisplayValue('Sign in');
-
-  //   await waitFor(() => expect(button.disabled).toBeFalsy())
-  //   await fireEvent.click(button);
-
-  //   const error = await findByRole('auth-error');
+    const store = createStore();
+    const { getByLabelText, queryByDisplayValue, findByRole, findByText,queryByRole, container } = render(SigninPage, {
+      router,
+      store,
+      i18n,
+      data: function() {
+        return {
+          userEmail: '',
+          userPassword: '',
+          number: '',
+          emailValid: emptyEmail,
+          passwordValid: emptyPassword,
+          authError: ''
+        }
+      }
+    })
 
 
-  //   screen.debug(error)
-  //   expect(error).toBeTruthy();
-  // })
+    // Need to comment debounce part
+    const inputEmail = getByLabelText('E-mail');
+    const inputPassword = getByLabelText('Password');
 
+    await fireEvent.touch(inputEmail);
+    await fireEvent.update(inputEmail, 'asaaqaszxzxc111dadas@mail.ru')
+
+    await fireEvent.touch(inputPassword);
+    await fireEvent.update(inputPassword, 'z1231as');
+
+    const button = queryByDisplayValue('Sign in');
+
+    await waitFor(() => expect(button.disabled).toBeFalsy())
+    await fireEvent.click(button);
+
+    const error = await findByRole('auth-error');
+
+    expect(error).toBeTruthy();
+  })
+
+  // OK
+  test('Signing up with right credentials wont show any error', async () => {
+    initializeFirebase();
+
+    const store = createStore();
+    const { getByLabelText, queryByDisplayValue, findByRole, findByText,queryByRole, container } = render(SigninPage, {
+      router,
+      store,
+      i18n,
+      data: function() {
+        return {
+          userEmail: '',
+          userPassword: '',
+          number: '',
+          emailValid: emptyEmail,
+          passwordValid: emptyPassword,
+          authError: ''
+        }
+      }
+    })
+
+
+    // Need to comment debounce part
+    const inputEmail = getByLabelText('E-mail');
+    const inputPassword = getByLabelText('Password');
+
+    // await fireEvent.touch(inputEmail);
+    await fireEvent.update(inputEmail, 'admin@estore.com')
+
+    // await fireEvent.touch(inputPassword);
+    await fireEvent.update(inputPassword, 'adminestore');
+
+    const button = queryByDisplayValue('Sign in');
+
+    await waitFor(() => expect(button.disabled).toBeFalsy())
+    await fireEvent.click(button);
+
+    await waitFor(() => expect(queryByRole('auth-error')).toBeFalsy())
+
+  })
 })
 
 
