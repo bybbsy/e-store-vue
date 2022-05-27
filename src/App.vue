@@ -42,11 +42,16 @@ export default Vue.extend({
       let userRole;
 
       if(this.userID) {
+
         let response = (await firebase.database().ref(`/users/${this.userID}/info`).get()).val();
 
         let userData = _.omit(response, ['cart'])
 
         userRole = userData.role;
+
+        let categories = await firebase.firestore().collection('/categories/main').get();
+
+        console.log(categories)
 
         let cart = JSON.parse(response.cart);
 
