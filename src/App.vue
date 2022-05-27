@@ -60,7 +60,7 @@ export default Vue.extend({
     Vue.prototype.$isMobile = isMobile();
   },
   components: {
-    DefaultLayout, EmptyLayout
+    DefaultLayout, EmptyLayout,
   }
 })
 </script>

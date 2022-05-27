@@ -1,5 +1,5 @@
 <template>
-  <div class="error-canvas" >
+  <div class="error-canvas" ref="canvasWrapper">
     <canvas class="canvas-block" ref="canvasBlock"></canvas>
     <div class="error-content">
       <div class="error-content__animations">
@@ -30,7 +30,8 @@ export default Vue.extend({
 
   mounted() {
     const canvas = this.$refs.canvasBlock as HTMLCanvasElement;
-    init(canvas);
+    const canvasWrapper = this.$refs.canvasWrapper as HTMLDivElement;
+    init(canvas, canvasWrapper);
   },
 })
 </script>

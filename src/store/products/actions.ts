@@ -10,6 +10,8 @@ export const actions: ActionTree<State, RootState> & Actions = {
   async [ActionTypes.fetchProducts]({commit}, category) {
     const collectionRef = firebase.firestore().collection('products');
 
+
+    console.log('qweq: ', collectionRef.get)
     let snapshot;
 
     if(category) {
@@ -17,7 +19,7 @@ export const actions: ActionTree<State, RootState> & Actions = {
     } else {
       snapshot = await collectionRef.get();
     }
-
+    console.log(snapshot)
 
     const receivedProducts = snapshot.docs.map(doc => {
       return {

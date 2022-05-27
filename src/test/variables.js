@@ -46,7 +46,9 @@ const addBtnRole = 'add-button';
 const rmBtnRole = 'remove-button';
 const cardImageRole = 'card-image';
 const detailsCloseBtnRole = 'close-details';
-const authRole = 'auth-error';
+const authError = 'auth-error';
+const emailErrorRole = 'email-error';
+const passwordErrorRole = 'password-error';
 
 function createStore(detailProduct = emptyDetailProduct) {
   return new Vuex.Store({
@@ -121,7 +123,9 @@ export {
   addBtnRole,
   rmBtnRole,
   cardImageRole,
-  authRole,
+  authError,
   createStore,
-  mockDetails
+  mockDetails,
+  emailErrorRole,
+  passwordErrorRole
 }

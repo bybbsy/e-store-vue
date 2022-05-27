@@ -42,7 +42,7 @@
       <transition name="products-expand">
         <aside class="product-detail" v-if="detailsExpanded">
           <div class="product-detail__header">
-            <h2>Información del Juguete</h2>
+            <h2>{{ $t('card_information_title') }}</h2>
             <button type="button" class="button" @click="closeDetailsCard">
               <img src="~@/assets/img/base/close.png" class="button__icon" alt="">
             </button>
@@ -210,7 +210,7 @@ export default Vue.extend({
 }
 
 .products__wrapper {
-  background-color: #1B1A1D;
+  background-color: var(--main-dark);
   flex: 1 1 auto;
   padding: 0 20px;
   height: 100vh;

@@ -8,9 +8,7 @@ import firebase from 'firebase/compat/app';
 import { emptyEmail, emptyPassword } from "../../variables";
 import { errorHandlerPlugin } from '../../plugins/load'
 import SigninPage from '../../views/SigninPage.vue';
-import { createStore } from "../variables";
-import { required, decimal, email, minLength } from 'vuelidate/lib/validators'
-
+import { createStore, authError, emailErrorRole, passwordErrorRole } from "../variables";
 Vue.use(errorHandlerPlugin)
 Vue.use(Vuelidate);
 
@@ -50,7 +48,7 @@ jest.spyOn(firebase, 'auth').mockImplementation(() => {
 })
 
 
-describe.only('Signing in with different credentials', () => {
+describe('Signing in with different credentials', () => {
   // OK
   test('Login button disabled witn no data ', async () => {
 
@@ -75,8 +73,6 @@ describe.only('Signing in with different credentials', () => {
 
     const signinButton = getByDisplayValue('Sign in');
 
-    await fireEvent.click(signinButton);
-
     expect(signinButton.disabled).toBeTruthy();
   })
 
@@ -84,7 +80,7 @@ describe.only('Signing in with different credentials', () => {
   test('Login button enabled with correct data', async () => {
     const store = createStore();
 
-    const { getByLabelText, queryByDisplayValue, findByDisplayValue } = render(SigninPage, {
+    const { getByLabelText, queryByDisplayValue, findByDisplayValue, container } = render(SigninPage, {
       router,
       store,
       i18n,
@@ -97,21 +93,7 @@ describe.only('Signing in with different credentials', () => {
           passwordValid: emptyPassword,
           authError: ''
         }
-      },
-      // validations: {
-      //   number: {
-      //     decimal
-      //   },
-      //   userEmail: {
-      //     required,
-      //     email,
-      //     minLength: minLength(6)
-      //   },
-      //   userPassword: {
-      //     required,
-      //     minLength: minLength(6)
-      //   }
-      // },
+      }
     })
 
     const inputEmail = getByLabelText('E-mail');
@@ -119,14 +101,13 @@ describe.only('Signing in with different credentials', () => {
 
 
     await fireEvent.update(inputEmail, 'jeffery@mail.ru');
+
     await fireEvent.update(inputPassword, '111111');
 
     const loginButton = queryByDisplayValue('Sign in');
-    // await fireEvent.click(loginButton);
 
-    await waitFor(() => {
-      expect(loginButton.disabled).toBeFalsy();
-    })
+    await waitFor(() => expect(loginButton.disabled).toBeFalsy())
+
   })
 
   // OK
@@ -151,10 +132,12 @@ describe.only('Signing in with different credentials', () => {
 
     const inputEmail = getByLabelText('E-mail');
 
+
     await fireEvent.update(inputEmail, 'jeffery@mail.ru');
 
     const loginButton = queryByDisplayValue('Sign in');
-    expect(loginButton.disabled).toBeTruthy();
+    await waitFor(() => expect(loginButton.disabled).toBeTruthy())
+
   })
 
   // OK
@@ -179,14 +162,12 @@ describe.only('Signing in with different credentials', () => {
     })
 
 
-    // Need to comment debounce part
+
     const inputEmail = getByLabelText('E-mail');
     const inputPassword = getByLabelText('Password');
 
-    await fireEvent.touch(inputEmail);
     await fireEvent.update(inputEmail, 'asaaqaszxzxc111dadas@mail.ru')
 
-    await fireEvent.touch(inputPassword);
     await fireEvent.update(inputPassword, 'z1231as');
 
     const button = queryByDisplayValue('Sign in');
@@ -194,9 +175,14 @@ describe.only('Signing in with different credentials', () => {
     await waitFor(() => expect(button.disabled).toBeFalsy())
     await fireEvent.click(button);
 
-    const error = await findByRole('auth-error');
+    // 1st
+    const error = await findByRole(authError);
 
-    expect(error).toBeTruthy();
+    expect(error).toBeTruthy()
+
+    // 2nd
+    // same as above
+    // await waitFor(() => expect(findByRole(authError)).toBeTruthy())
   })
 
   // OK
@@ -204,7 +190,7 @@ describe.only('Signing in with different credentials', () => {
     initializeFirebase();
 
     const store = createStore();
-    const { getByLabelText, queryByDisplayValue, findByRole, findByText,queryByRole, container } = render(SigninPage, {
+    const { getByLabelText, queryByDisplayValue, findByRole, queryByRole } = render(SigninPage, {
       router,
       store,
       i18n,
@@ -225,10 +211,8 @@ describe.only('Signing in with different credentials', () => {
     const inputEmail = getByLabelText('E-mail');
     const inputPassword = getByLabelText('Password');
 
-    // await fireEvent.touch(inputEmail);
     await fireEvent.update(inputEmail, 'admin@estore.com')
 
-    // await fireEvent.touch(inputPassword);
     await fireEvent.update(inputPassword, 'adminestore');
 
     const button = queryByDisplayValue('Sign in');
@@ -236,21 +220,30 @@ describe.only('Signing in with different credentials', () => {
     await waitFor(() => expect(button.disabled).toBeFalsy())
     await fireEvent.click(button);
 
-    await waitFor(() => expect(queryByRole('auth-error')).toBeFalsy())
+    // 1st
+    await waitFor(() => expect(queryByRole(authError)).toBeFalsy())
 
+    // 2nd
+    /**
+     * not the same because it can't find element by role
+     * and thus it throws an error every time
+     **/
+    // const e = await findByRole(authError);
+
+    // expect(e).toBeFalsy();
   })
 })
 
 
-describe('Testing inputs', () => {
+describe('Testing inputs (with localization)', () => {
   // OK
-  test('If e-mail length < 6 symbols then shows an error', async () => {
+  test('If e-mail input length < 6 symbols then shows an error', async () => {
     const store = createStore();
 
-    const { getByLabelText, findByText } = render(SigninPage, {
+    const { getByLabelText, findByText, findByRole } = render(SigninPage, {
+      i18n,
       router,
       store,
-      i18n,
       data: function() {
         return {
           userEmail: '',
@@ -261,29 +254,68 @@ describe('Testing inputs', () => {
           authError: ''
         }
       },
-      validations: {
-        number: {
-          decimal
-        },
-        userEmail: {
-          required,
-          email,
-          minLength: minLength(6)
-        },
-        userPassword: {
-          required,
-          minLength: minLength(6)
+    })
+
+    const inputEmail = getByLabelText(i18n.t('email'));
+
+    await fireEvent.update(inputEmail, 'asaaq')
+
+    const e = await findByRole('email-error');
+
+    expect(e.innerHTML).toEqual(i18n.t('warn_min_length', { minLength: 6}))
+  })
+
+  test('If e-mail input is not of email type then shows an error', async () => {
+    const store = createStore();
+
+    const { getByLabelText, findByText, findByRole } = render(SigninPage, {
+      i18n,
+      router,
+      store,
+      data: function() {
+        return {
+          userEmail: '',
+          userPassword: '',
+          number: '',
+          emailValid: emptyEmail,
+          passwordValid: emptyPassword,
+          authError: ''
         }
       },
     })
 
-    const inputEmail = getByLabelText('E-mail');
+    const inputEmail = getByLabelText(i18n.t('email'));
 
-    await fireEvent.touch(inputEmail);
-    await fireEvent.update(inputEmail, 'asaaq',)
+    await fireEvent.update(inputEmail, 'notemailtype')
 
-    const e = await findByText('Min length: 6.');
+    const e = await findByRole('email-error');
 
-    expect(e).toBeTruthy();
+    expect(e.innerHTML).toEqual(i18n.t('warn_email_type'))
+  })
+
+  test('If e-mail input length > 6 symbols and the email type then wont show any error ', async () => {
+    const store = createStore();
+
+    const { getByLabelText, queryByRole } = render(SigninPage, {
+      i18n,
+      router,
+      store,
+      data: function() {
+        return {
+          userEmail: '',
+          userPassword: '',
+          number: '',
+          emailValid: emptyEmail,
+          passwordValid: emptyPassword,
+          authError: ''
+        }
+      },
+    })
+
+    const inputEmail = getByLabelText(i18n.t('email'));
+
+    await fireEvent.update(inputEmail, 'emailtyperu@mail.ru');
+
+    await waitFor(() => expect(queryByRole(emailErrorRole)).toBeFalsy())
   })
 })

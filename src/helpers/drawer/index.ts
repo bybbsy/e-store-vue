@@ -49,8 +49,8 @@ function setSize(ctx: CanvasRenderingContext2D) {
 }
 
 
-function init(canvas: HTMLCanvasElement) {
-  const starsAmount = 50;
+function init(canvas: HTMLCanvasElement, canvasWrapper: HTMLDivElement) {
+  const starsAmount = 500;
   const starParticles: Array<Star> = [];
 
   const planetsAmount = 10;
@@ -81,7 +81,7 @@ function init(canvas: HTMLCanvasElement) {
 
     reDrawAll(ctxSettings, starsSettings, planetsSettings);
 
-    canvas.addEventListener('mousemove', (e) => {
+    canvasWrapper.addEventListener('mousemove', (e) => {
       mouse.x = e.x;
       mouse.y = e.y;
     })

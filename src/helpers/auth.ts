@@ -24,25 +24,20 @@ function validateEmail($v: ValidationProp, authFormOptions: SignupFormOptions | 
   const objError = {
     invalid: $v.userEmail.$invalid,
     errorMessage: '',
-    params: {
-      minLength: minLength.toString()
-    }
+    params: {}
   }
-  if(!length) {
-    objError.invalid = true;
-    return objError;
-  }
+
   if ($v.userEmail.$dirty && !length) {
     objError.errorMessage = 'warn_empty_field';
-    return objError;
   }
   if ($v.userEmail.$dirty && length < minLength) {
     objError.errorMessage = 'warn_min_length';
-    return objError;
+    objError.params = {
+      minLength: minLength.toString()
+    }
   }
   if ($v.userEmail.$dirty && length >= minLength && !$v.userEmail.email) {
     objError.errorMessage = 'warn_email_type';
-    return objError;
   }
 
   return objError;
@@ -55,23 +50,21 @@ function validatePassword($v: ValidationProp, authFormOptions: SignupFormOptions
   const objError = {
     invalid: $v.userPassword.$invalid,
     errorMessage: '',
-    params: {
-      minLength: minLength.toString()
-    }
+    params: {}
   }
+
   if(!length) {
     objError.invalid = true;
-    return objError;
   }
   if ($v.userPassword.$dirty && !length) {
     objError.errorMessage = 'warn_empty_field';
-    return objError;
   }
   if ($v.userPassword.$dirty && length < minLength) {
     objError.errorMessage = 'warn_min_length';
-    return objError;
+    objError.params = {
+      minLength: minLength.toString()
+    }
   }
-
   return objError;
 }
 

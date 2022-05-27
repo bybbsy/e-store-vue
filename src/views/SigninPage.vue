@@ -22,11 +22,12 @@
                          id="sign-in-email"
                          placeholder="John"
                          @focus="$v.userEmail.$touch()"
+                         @input="$v.userEmail.$touch()"
                          v-model.trim="userEmail"
                          >
                   <img src="~@/assets/img/form/form-email.png" alt="" class="input-img">
                 </div>
-                <span class="input-block__error" v-if="emailIsInvalid.invalid">{{ $t(emailIsInvalid.errorMessage, { minLength: emailIsInvalid.params.minLength }) }}</span>
+                <span class="input-block__error" role="email-error" v-if="emailIsInvalid.errorMessage">{{ $t(emailIsInvalid.errorMessage, { minLength: emailIsInvalid.params.minLength }) }}</span>
               </div>
             </div>
             <div class="auth__row">
@@ -43,7 +44,7 @@
                          >
                   <img src="~@/assets/img/form/form-password.png" alt="" class="input-img">
                 </div>
-                <span class="input-block__error" v-if="passwordIsInvalid.invalid">{{ $t(passwordIsInvalid.errorMessage, { minLength: passwordIsInvalid.params.minLength }) }}</span>
+                <span class="input-block__error" role="password-error" v-if="passwordIsInvalid.errorMessage">{{ $t(passwordIsInvalid.errorMessage, { minLength: passwordIsInvalid.params.minLength }) }}</span>
               </div>
             </div>
           </div>
@@ -56,7 +57,7 @@
             <p class="input-block__error" role="auth-error" v-if="authError">{{ authError }}</p>
           </div>
           <div class="auth__hint">
-            <p class="hint__message">{{ $t('dont_have_an_accound') }}<router-link class="hint__link" :to="{name: 'sign-up'}">{{ $t('sign_up_title') }}</router-link></p>
+            <p class="hint__message">{{ $t('dont_have_an_account') }}<router-link class="hint__link" :to="{name: 'sign-up'}">{{ $t('sign_up_title') }}</router-link></p>
           </div>
         </form>
       </div>
@@ -155,7 +156,6 @@ export default Vue.extend({
     }, inputDelay),
     userPassword: _.debounce(function(this: any) {
       this.passwordValid = validatePassword(this.$v, signinFormOptions);
-      console.log(this.userPassword)
     }, inputDelay)
   },
   components: {

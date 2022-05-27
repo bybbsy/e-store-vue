@@ -5,7 +5,7 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint",
+    "lint": "vue-cli-service lint --fix",
     "test": "jest --watch"
   },
   "jest": {
@@ -41,6 +41,8 @@
     "core-js": "^3.6.5",
     "date-fns": "^2.28.0",
     "firebase": "^9.6.6",
+    "jest-environment-jsdom": "^27.5.1",
+    "jest-environment-node": "^27.5.1",
     "lodash": "^4.17.21",
     "moment": "^2.29.1",
     "ts-jest-resolver": "^2.0.0",
@@ -55,6 +57,7 @@
     "vuex-simple": "^2.2.0"
   },
   "devDependencies": {
+    "@firebase/rules-unit-testing": "^2.0.2",
     "@testing-library/vue": "^5.8.2",
     "@types/jest": "^27.4.1",
     "@types/lodash": "^4.14.182",
@@ -68,7 +71,7 @@
     "@vue/cli-plugin-vuex": "~4.5.0",
     "@vue/cli-service": "~4.5.0",
     "@vue/eslint-config-typescript": "^7.0.0",
-    "@vue/vue2-jest": "^27.0.0-alpha.4",
+    "@vue/vue2-jest": "^27.0.0",
     "eslint": "^6.7.2",
     "eslint-plugin-vue": "^6.2.2",
     "jest": "^27.5.1",

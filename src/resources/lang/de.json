@@ -8,7 +8,7 @@
   "sign_up_button": "Anmelden",
   "sign_in_button": "Einloggen",
   "already_have_an_account": "Sie haben bereits ein Konto?",
-  "dont_have_an_accound": "Sie haben kein Konto?",
+  "dont_have_an_account": "Sie haben kein Konto?",
   "warn_empty_field": "Dieses Feld wird benötigt",
   "warn_min_length": "Die Mindestlänge beträgt {minLength}.",
   "warn_email_type": "Dieses Feld sollte der E-Mail-Typ seine",

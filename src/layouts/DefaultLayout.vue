@@ -3,6 +3,7 @@
     <TheNavbar/>
       <router-view/>
     <Snackbar />
+    <alert type="success"/>
   </div>
 </template>
 
@@ -19,7 +20,8 @@ export default Vue.extend({
     name: 'default-layout',
     components: {
       TheNavbar,
-      Snackbar
+      Snackbar,
+      alert: () => import('../components/Alert.vue')
     },
     async mounted() {
       const userID = userIsAuthorized();

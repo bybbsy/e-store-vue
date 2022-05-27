@@ -14,13 +14,13 @@
     </div>
     <div class="card__bottom card__bottom_detail-card">
       <div class="price">${{ getDetails.price }}</div>
-      <Button v-if="!isInCart" button-text="Add to cart" :class="'card__button_add'" @click.stop.native="handleAddToCart" />
+      <Button v-if="!isInCart" :button-text="$t('card_button_add')" :class="'card__button_add'" @click.stop.native="handleAddToCart" />
 
-      <Button v-else button-text="Remove item" :class="'card__button_remove'" @click.stop.native="handleRemoveFromCart" />
+      <Button v-else :button-text="$t('card_button_remove')" :class="'card__button_remove'" @click.stop.native="handleRemoveFromCart" />
     </div>
 
     <div class="card__comments">
-      <div class="title card__comments_title">Comments</div>
+      <div class="title card__comments_title">{{ $t('card_comments_title') }}</div>
       <ul class="comments__list" v-if="getDetails.comments.length >= 1">
         <li class="comments__comment" v-for="(comment, index) in getDetails.comments" :key='index'>
           <div class="comment__icon">
@@ -35,7 +35,7 @@
           </div>
         </li>
       </ul>
-      <div class="title empty-content_title text-center" v-else>No comments</div>
+      <div class="title empty-content_title text-center" v-else>{{ $t('card_comments_no_data') }}</div>
     </div>
     </div>
   </div>
